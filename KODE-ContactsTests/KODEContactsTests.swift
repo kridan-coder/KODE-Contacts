@@ -1,5 +1,5 @@
 //
-//  KODE_ContactsTests.swift
+//  KODEContactsTests.swift
 //  KODE-ContactsTests
 //
 //  Created by Developer on 11.10.2021.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import KODE_Contacts
 
-class KODE_ContactsTests: XCTestCase {
+class KODEContactsTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
