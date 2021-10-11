@@ -6,7 +6,7 @@ This project is done following the rules of test task by KODE for iOS-developers
 For being able to build the project please ensure that you installed pods using 'pod install' command (Podfile already exists and contains all pods needed).
 
 ## About
-Project is done with non-reactive MVVM-C implementation. There are 2å Scenes: 
+Project is done with non-reactive MVVM-C implementation. There are 2 Scenes: 
 - Contacts List
 - Contact Details
 
