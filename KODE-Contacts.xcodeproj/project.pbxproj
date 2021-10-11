@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		444A5E24271436B100893C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E23271436B100893C26 /* AppDelegate.swift */; };
 		444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E25271436B100893C26 /* SceneDelegate.swift */; };
-		444A5E28271436B100893C26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E27271436B100893C26 /* ViewController.swift */; };
-		444A5E2B271436B100893C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E29271436B100893C26 /* Main.storyboard */; };
 		444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */; };
 		444A5E30271436B300893C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E2F271436B300893C26 /* Assets.xcassets */; };
 		444A5E33271436B300893C26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E31271436B300893C26 /* LaunchScreen.storyboard */; };
@@ -39,8 +37,6 @@
 		444A5E20271436B100893C26 /* KODE-Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODE-Contacts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		444A5E23271436B100893C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		444A5E25271436B100893C26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		444A5E27271436B100893C26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		444A5E2A271436B100893C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		444A5E2D271436B100893C26 /* KODE_Contacts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KODE_Contacts.xcdatamodel; sourceTree = "<group>"; };
 		444A5E2F271436B300893C26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		444A5E32271436B300893C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +77,7 @@
 		444A5E17271436B100893C26 = {
 			isa = PBXGroup;
 			children = (
+				444A5E5627143AA300893C26 /* Resources */,
 				444A5E22271436B100893C26 /* KODE-Contacts */,
 				444A5E3C271436B400893C26 /* KODE-ContactsTests */,
 				444A5E47271436B400893C26 /* KODE-ContactsUITests */,
@@ -101,14 +98,11 @@
 		444A5E22271436B100893C26 /* KODE-Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				444A5E5727143AF600893C26 /* Support */,
+				444A5E31271436B300893C26 /* LaunchScreen.storyboard */,
 				444A5E23271436B100893C26 /* AppDelegate.swift */,
 				444A5E25271436B100893C26 /* SceneDelegate.swift */,
-				444A5E27271436B100893C26 /* ViewController.swift */,
-				444A5E29271436B100893C26 /* Main.storyboard */,
-				444A5E2F271436B300893C26 /* Assets.xcassets */,
-				444A5E31271436B300893C26 /* LaunchScreen.storyboard */,
 				444A5E34271436B300893C26 /* Info.plist */,
-				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
 			);
 			path = "KODE-Contacts";
 			sourceTree = "<group>";
@@ -129,6 +123,30 @@
 				444A5E4A271436B400893C26 /* Info.plist */,
 			);
 			path = "KODE-ContactsUITests";
+			sourceTree = "<group>";
+		};
+		444A5E5627143AA300893C26 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E2F271436B300893C26 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		444A5E5727143AF600893C26 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E5827143C0000893C26 /* CoreData */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		444A5E5827143C0000893C26 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +254,6 @@
 			files = (
 				444A5E33271436B300893C26 /* LaunchScreen.storyboard in Resources */,
 				444A5E30271436B300893C26 /* Assets.xcassets in Resources */,
-				444A5E2B271436B100893C26 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				444A5E28271436B100893C26 /* ViewController.swift in Sources */,
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
 				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
@@ -300,14 +316,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		444A5E29271436B100893C26 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				444A5E2A271436B100893C26 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		444A5E31271436B300893C26 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -443,6 +451,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73S8J9N7ZU;
 				INFOPLIST_FILE = "KODE-Contacts/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,6 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 73S8J9N7ZU;
 				INFOPLIST_FILE = "KODE-Contacts/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
