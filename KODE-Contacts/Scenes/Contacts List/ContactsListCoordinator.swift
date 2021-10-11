@@ -31,9 +31,9 @@ final class ContactsListCoordinator: Coordinator {
     
     // MARK: Public Methods
     func start() {
-        //        let worldMapViewModel = WorldMapViewModel(dependencies: dependencies)
-        //        worldMapViewModel.delegate = self
-        let contactsListViewController = ContactsListViewController()
+        let contactsListViewModel = ContactsListViewModel(dependencies: dependencies)
+        
+        let contactsListViewController = ContactsListViewController(viewModel: contactsListViewModel)
         contactsListViewController.title = R.string.localizable.contacts()
         
         rootNavigationController.setViewControllers([contactsListViewController], animated: false)

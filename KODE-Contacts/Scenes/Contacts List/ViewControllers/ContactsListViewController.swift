@@ -7,23 +7,36 @@
 
 import UIKit
 
-class ContactsListViewController: UIViewController {
-
+class ContactsListViewController: UIViewController, UISearchBarDelegate {
+    // MARK: - Properties
+    private let viewModel: ContactsListViewModel
+    
+    private let searchController: UISearchController
+    
+    // MARK: - Init
+    init(viewModel: ContactsListViewModel) {
+        self.viewModel = viewModel
+        
+        searchController = UISearchController()
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+        setupSearchController()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: Private Methods
+    private func setupSearchController() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
     }
-    */
-
+    
 }
