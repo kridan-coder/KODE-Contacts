@@ -15,6 +15,13 @@
 		444A5E3E271436B400893C26 /* KODEContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E3D271436B400893C26 /* KODEContactsTests.swift */; };
 		444A5E49271436B400893C26 /* KODEContactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E48271436B400893C26 /* KODEContactsUITests.swift */; };
 		444A5E5C2714421F00893C26 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E5B2714421F00893C26 /* R.generated.swift */; };
+		444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E5E27144D7100893C26 /* Coordinator.swift */; };
+		444A5E6127144DE800893C26 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6027144DE800893C26 /* AppCoordinator.swift */; };
+		444A5E6327144E0200893C26 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6227144E0100893C26 /* Dependencies.swift */; };
+		444A5E6527144E4300893C26 /* CoreDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6427144E4300893C26 /* CoreDataClient.swift */; };
+		444A5E6827144FDE00893C26 /* ContactsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6727144FDE00893C26 /* ContactsListCoordinator.swift */; };
+		444A5E6E2714531C00893C26 /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6D2714531C00893C26 /* ContactsListViewController.swift */; };
+		444A5E712714548E00893C26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E702714548E00893C26 /* Localizable.strings */; };
 		774B8B1A312399324A8F68DC /* Pods_KODE_Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30E049690EA00A0D7036787 /* Pods_KODE_Contacts.framework */; };
 		8B1B62A93F584131891FBEBC /* Pods_KODE_ContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B638084B75F7EF3A5E3C5CA8 /* Pods_KODE_ContactsTests.framework */; };
 		F4D6CBACFEE0CA77A7223C85 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB49A5CB61CE6BF62E624A8 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework */; };
@@ -54,6 +61,13 @@
 		444A5E48271436B400893C26 /* KODEContactsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KODEContactsUITests.swift; sourceTree = "<group>"; };
 		444A5E4A271436B400893C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		444A5E5B2714421F00893C26 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		444A5E5E27144D7100893C26 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		444A5E6027144DE800893C26 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		444A5E6227144E0100893C26 /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		444A5E6427144E4300893C26 /* CoreDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClient.swift; sourceTree = "<group>"; };
+		444A5E6727144FDE00893C26 /* ContactsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListCoordinator.swift; sourceTree = "<group>"; };
+		444A5E6D2714531C00893C26 /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
+		444A5E702714548E00893C26 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		73260373B9C06759E7A3E8AD /* Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig"; path = "Target Support Files/Pods-KODE-Contacts-KODE-ContactsUITests/Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A30E049690EA00A0D7036787 /* Pods_KODE_Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KODE_Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFB49A5CB61CE6BF62E624A8 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KODE_Contacts_KODE_ContactsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,8 +141,9 @@
 		444A5E22271436B100893C26 /* KODE-Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				444A5E5D2714488400893C26 /* Scenes */,
 				444A5E5727143AF600893C26 /* Support */,
-				444A5E31271436B300893C26 /* LaunchScreen.storyboard */,
+				444A5E6F2714544C00893C26 /* Constants */,
 				444A5E23271436B100893C26 /* AppDelegate.swift */,
 				444A5E25271436B100893C26 /* SceneDelegate.swift */,
 				444A5E34271436B300893C26 /* Info.plist */,
@@ -166,17 +181,79 @@
 		444A5E5727143AF600893C26 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				444A5E5827143C0000893C26 /* CoreData */,
+				444A5E6227144E0100893C26 /* Dependencies.swift */,
+				444A5E5E27144D7100893C26 /* Coordinator.swift */,
+				444A5E5827143C0000893C26 /* CoreDataClient */,
 			);
 			path = Support;
 			sourceTree = "<group>";
 		};
-		444A5E5827143C0000893C26 /* CoreData */ = {
+		444A5E5827143C0000893C26 /* CoreDataClient */ = {
 			isa = PBXGroup;
 			children = (
 				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
+				444A5E6427144E4300893C26 /* CoreDataClient.swift */,
 			);
-			path = CoreData;
+			path = CoreDataClient;
+			sourceTree = "<group>";
+		};
+		444A5E5D2714488400893C26 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E31271436B300893C26 /* LaunchScreen.storyboard */,
+				444A5E6027144DE800893C26 /* AppCoordinator.swift */,
+				444A5E6627144F9200893C26 /* Contacts List */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		444A5E6627144F9200893C26 /* Contacts List */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E6727144FDE00893C26 /* ContactsListCoordinator.swift */,
+				444A5E6C271452FB00893C26 /* Views */,
+				444A5E6B271452F100893C26 /* ViewControllers */,
+				444A5E6A271452EA00893C26 /* ViewModels */,
+				444A5E69271452E200893C26 /* Models */,
+			);
+			path = "Contacts List";
+			sourceTree = "<group>";
+		};
+		444A5E69271452E200893C26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		444A5E6A271452EA00893C26 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		444A5E6B271452F100893C26 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E6D2714531C00893C26 /* ContactsListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		444A5E6C271452FB00893C26 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		444A5E6F2714544C00893C26 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E702714548E00893C26 /* Localizable.strings */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		63C0780E279B30B7C9790CCD /* Pods */ = {
@@ -199,8 +276,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 444A5E4D271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-Contacts" */;
 			buildPhases = (
-				D8AF6D6B885FE254B7D77BAF /* [CP] Check Pods Manifest.lock */,
 				444A5E5927143DB800893C26 /* SwiftLint */,
+				D8AF6D6B885FE254B7D77BAF /* [CP] Check Pods Manifest.lock */,
 				444A5E5A27143E0800893C26 /* R.Swift */,
 				444A5E1C271436B100893C26 /* Sources */,
 				444A5E1D271436B100893C26 /* Frameworks */,
@@ -303,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				444A5E33271436B300893C26 /* LaunchScreen.storyboard in Resources */,
+				444A5E712714548E00893C26 /* Localizable.strings in Resources */,
 				444A5E30271436B300893C26 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,8 +547,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				444A5E6327144E0200893C26 /* Dependencies.swift in Sources */,
+				444A5E6527144E4300893C26 /* CoreDataClient.swift in Sources */,
+				444A5E6127144DE800893C26 /* AppCoordinator.swift in Sources */,
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
+				444A5E6E2714531C00893C26 /* ContactsListViewController.swift in Sources */,
+				444A5E6827144FDE00893C26 /* ContactsListCoordinator.swift in Sources */,
 				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
+				444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */,
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
 				444A5E5C2714421F00893C26 /* R.generated.swift in Sources */,
 			);
