@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		444A5E24271436B100893C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E23271436B100893C26 /* AppDelegate.swift */; };
+		444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E25271436B100893C26 /* SceneDelegate.swift */; };
+		444A5E28271436B100893C26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E27271436B100893C26 /* ViewController.swift */; };
+		444A5E2B271436B100893C26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E29271436B100893C26 /* Main.storyboard */; };
+		444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */; };
+		444A5E30271436B300893C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E2F271436B300893C26 /* Assets.xcassets */; };
+		444A5E33271436B300893C26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E31271436B300893C26 /* LaunchScreen.storyboard */; };
+		444A5E3E271436B400893C26 /* KODE_ContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E3D271436B400893C26 /* KODE_ContactsTests.swift */; };
+		444A5E49271436B400893C26 /* KODE_ContactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E48271436B400893C26 /* KODE_ContactsUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		444A5E3A271436B400893C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 444A5E18271436B100893C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 444A5E1F271436B100893C26;
+			remoteInfo = "KODE-Contacts";
+		};
+		444A5E45271436B400893C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 444A5E18271436B100893C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 444A5E1F271436B100893C26;
+			remoteInfo = "KODE-Contacts";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		444A5E20271436B100893C26 /* KODE-Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODE-Contacts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		444A5E23271436B100893C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		444A5E25271436B100893C26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		444A5E27271436B100893C26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		444A5E2A271436B100893C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		444A5E2D271436B100893C26 /* KODE_Contacts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KODE_Contacts.xcdatamodel; sourceTree = "<group>"; };
+		444A5E2F271436B300893C26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		444A5E32271436B300893C26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		444A5E34271436B300893C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		444A5E39271436B400893C26 /* KODE-ContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KODE-ContactsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		444A5E3D271436B400893C26 /* KODE_ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KODE_ContactsTests.swift; sourceTree = "<group>"; };
+		444A5E3F271436B400893C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		444A5E44271436B400893C26 /* KODE-ContactsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KODE-ContactsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		444A5E48271436B400893C26 /* KODE_ContactsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KODE_ContactsUITests.swift; sourceTree = "<group>"; };
+		444A5E4A271436B400893C26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		444A5E1D271436B100893C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E36271436B400893C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E41271436B400893C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		444A5E17271436B100893C26 = {
+			isa = PBXGroup;
+			children = (
+				444A5E22271436B100893C26 /* KODE-Contacts */,
+				444A5E3C271436B400893C26 /* KODE-ContactsTests */,
+				444A5E47271436B400893C26 /* KODE-ContactsUITests */,
+				444A5E21271436B100893C26 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		444A5E21271436B100893C26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E20271436B100893C26 /* KODE-Contacts.app */,
+				444A5E39271436B400893C26 /* KODE-ContactsTests.xctest */,
+				444A5E44271436B400893C26 /* KODE-ContactsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		444A5E22271436B100893C26 /* KODE-Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E23271436B100893C26 /* AppDelegate.swift */,
+				444A5E25271436B100893C26 /* SceneDelegate.swift */,
+				444A5E27271436B100893C26 /* ViewController.swift */,
+				444A5E29271436B100893C26 /* Main.storyboard */,
+				444A5E2F271436B300893C26 /* Assets.xcassets */,
+				444A5E31271436B300893C26 /* LaunchScreen.storyboard */,
+				444A5E34271436B300893C26 /* Info.plist */,
+				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
+			);
+			path = "KODE-Contacts";
+			sourceTree = "<group>";
+		};
+		444A5E3C271436B400893C26 /* KODE-ContactsTests */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E3D271436B400893C26 /* KODE_ContactsTests.swift */,
+				444A5E3F271436B400893C26 /* Info.plist */,
+			);
+			path = "KODE-ContactsTests";
+			sourceTree = "<group>";
+		};
+		444A5E47271436B400893C26 /* KODE-ContactsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				444A5E48271436B400893C26 /* KODE_ContactsUITests.swift */,
+				444A5E4A271436B400893C26 /* Info.plist */,
+			);
+			path = "KODE-ContactsUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		444A5E1F271436B100893C26 /* KODE-Contacts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 444A5E4D271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-Contacts" */;
+			buildPhases = (
+				444A5E1C271436B100893C26 /* Sources */,
+				444A5E1D271436B100893C26 /* Frameworks */,
+				444A5E1E271436B100893C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "KODE-Contacts";
+			productName = "KODE-Contacts";
+			productReference = 444A5E20271436B100893C26 /* KODE-Contacts.app */;
+			productType = "com.apple.product-type.application";
+		};
+		444A5E38271436B400893C26 /* KODE-ContactsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 444A5E50271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-ContactsTests" */;
+			buildPhases = (
+				444A5E35271436B400893C26 /* Sources */,
+				444A5E36271436B400893C26 /* Frameworks */,
+				444A5E37271436B400893C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				444A5E3B271436B400893C26 /* PBXTargetDependency */,
+			);
+			name = "KODE-ContactsTests";
+			productName = "KODE-ContactsTests";
+			productReference = 444A5E39271436B400893C26 /* KODE-ContactsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		444A5E43271436B400893C26 /* KODE-ContactsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 444A5E53271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-ContactsUITests" */;
+			buildPhases = (
+				444A5E40271436B400893C26 /* Sources */,
+				444A5E41271436B400893C26 /* Frameworks */,
+				444A5E42271436B400893C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				444A5E46271436B400893C26 /* PBXTargetDependency */,
+			);
+			name = "KODE-ContactsUITests";
+			productName = "KODE-ContactsUITests";
+			productReference = 444A5E44271436B400893C26 /* KODE-ContactsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		444A5E18271436B100893C26 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					444A5E1F271436B100893C26 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					444A5E38271436B400893C26 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 444A5E1F271436B100893C26;
+					};
+					444A5E43271436B400893C26 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 444A5E1F271436B100893C26;
+					};
+				};
+			};
+			buildConfigurationList = 444A5E1B271436B100893C26 /* Build configuration list for PBXProject "KODE-Contacts" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 444A5E17271436B100893C26;
+			productRefGroup = 444A5E21271436B100893C26 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				444A5E1F271436B100893C26 /* KODE-Contacts */,
+				444A5E38271436B400893C26 /* KODE-ContactsTests */,
+				444A5E43271436B400893C26 /* KODE-ContactsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		444A5E1E271436B100893C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				444A5E33271436B300893C26 /* LaunchScreen.storyboard in Resources */,
+				444A5E30271436B300893C26 /* Assets.xcassets in Resources */,
+				444A5E2B271436B100893C26 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E37271436B400893C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E42271436B400893C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		444A5E1C271436B100893C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				444A5E28271436B100893C26 /* ViewController.swift in Sources */,
+				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
+				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
+				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E35271436B400893C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				444A5E3E271436B400893C26 /* KODE_ContactsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		444A5E40271436B400893C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				444A5E49271436B400893C26 /* KODE_ContactsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		444A5E3B271436B400893C26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 444A5E1F271436B100893C26 /* KODE-Contacts */;
+			targetProxy = 444A5E3A271436B400893C26 /* PBXContainerItemProxy */;
+		};
+		444A5E46271436B400893C26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 444A5E1F271436B100893C26 /* KODE-Contacts */;
+			targetProxy = 444A5E45271436B400893C26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		444A5E29271436B100893C26 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444A5E2A271436B100893C26 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		444A5E31271436B300893C26 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				444A5E32271436B300893C26 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		444A5E4B271436B400893C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		444A5E4C271436B400893C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		444A5E4E271436B400893C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-Contacts/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-Contacts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		444A5E4F271436B400893C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-Contacts/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-Contacts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		444A5E51271436B400893C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-ContactsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-ContactsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KODE-Contacts.app/KODE-Contacts";
+			};
+			name = Debug;
+		};
+		444A5E52271436B400893C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-ContactsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-ContactsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KODE-Contacts.app/KODE-Contacts";
+			};
+			name = Release;
+		};
+		444A5E54271436B400893C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-ContactsUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-ContactsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "KODE-Contacts";
+			};
+			name = Debug;
+		};
+		444A5E55271436B400893C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 73S8J9N7ZU;
+				INFOPLIST_FILE = "KODE-ContactsUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KriDan.KODE-ContactsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "KODE-Contacts";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		444A5E1B271436B100893C26 /* Build configuration list for PBXProject "KODE-Contacts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				444A5E4B271436B400893C26 /* Debug */,
+				444A5E4C271436B400893C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		444A5E4D271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-Contacts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				444A5E4E271436B400893C26 /* Debug */,
+				444A5E4F271436B400893C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		444A5E50271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-ContactsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				444A5E51271436B400893C26 /* Debug */,
+				444A5E52271436B400893C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		444A5E53271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-ContactsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				444A5E54271436B400893C26 /* Debug */,
+				444A5E55271436B400893C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				444A5E2D271436B100893C26 /* KODE_Contacts.xcdatamodel */,
+			);
+			currentVersion = 444A5E2D271436B100893C26 /* KODE_Contacts.xcdatamodel */;
+			path = KODE_Contacts.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 444A5E18271436B100893C26 /* Project object */;
+}
