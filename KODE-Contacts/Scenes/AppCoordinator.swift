@@ -11,27 +11,25 @@ final class AppCoordinator: Coordinator {
     // MARK: - Properties
     let dependencies: AppDependencies
     
+    weak var delegate: Coordinator?
+    
     var childCoordinators: [Coordinator]
     
-    var rootNavigationController: UINavigationController
+    var rootNavigationController: UINavigationController = .transparentNavigationController
     
     private let window: UIWindow
     
     // MARK: - Init
     init(window: UIWindow) {
         self.window = window
-        
         dependencies = AppDependencies(coreDataClient: CoreDataClient())
         childCoordinators = []
-        
-        rootNavigationController = UINavigationController()
     }
     
     // MARK: - Public Methods
     func start() {
         window.rootViewController = rootNavigationController
         window.makeKeyAndVisible()
-        
         showContactsListScene()
     }
     
