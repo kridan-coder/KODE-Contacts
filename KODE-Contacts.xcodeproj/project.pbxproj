@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440CAC822718079900E6E51F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC812718079900E6E51F /* Constants.swift */; };
+		440CAC8427180CB100E6E51F /* UIImage+AppImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC8327180CB100E6E51F /* UIImage+AppImages.swift */; };
+		440CAC86271822D400E6E51F /* ContactCreateRedactPartView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC85271822D400E6E51F /* ContactCreateRedactPartView2.swift */; };
+		440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */; };
+		440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC892718451500E6E51F /* DefaultCellView.swift */; };
+		440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */; };
 		444A5E24271436B100893C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E23271436B100893C26 /* AppDelegate.swift */; };
 		444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E25271436B100893C26 /* SceneDelegate.swift */; };
 		444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */; };
@@ -59,6 +65,12 @@
 /* Begin PBXFileReference section */
 		182F0236B712339EB45E71E4 /* Pods-KODE-Contacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KODE-Contacts.debug.xcconfig"; path = "Target Support Files/Pods-KODE-Contacts/Pods-KODE-Contacts.debug.xcconfig"; sourceTree = "<group>"; };
 		3D39221AC8E58FF2C800B06B /* Pods-KODE-Contacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KODE-Contacts.release.xcconfig"; path = "Target Support Files/Pods-KODE-Contacts/Pods-KODE-Contacts.release.xcconfig"; sourceTree = "<group>"; };
+		440CAC812718079900E6E51F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		440CAC8327180CB100E6E51F /* UIImage+AppImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+AppImages.swift"; sourceTree = "<group>"; };
+		440CAC85271822D400E6E51F /* ContactCreateRedactPartView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactPartView2.swift; sourceTree = "<group>"; };
+		440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
+		440CAC892718451500E6E51F /* DefaultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCellView.swift; sourceTree = "<group>"; };
+		440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactPartView3.swift; sourceTree = "<group>"; };
 		444A5E20271436B100893C26 /* KODE-Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODE-Contacts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		444A5E23271436B100893C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		444A5E25271436B100893C26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +219,7 @@
 			children = (
 				444A5E6227144E0100893C26 /* Dependencies.swift */,
 				444A5E5E27144D7100893C26 /* Coordinator.swift */,
+				440CAC892718451500E6E51F /* DefaultCellView.swift */,
 				44791E0B271563A100E6FC6C /* Extensions */,
 				444A5E5827143C0000893C26 /* CoreDataClient */,
 			);
@@ -280,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				444A5E702714548E00893C26 /* Localizable.strings */,
+				440CAC812718079900E6E51F /* Constants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -289,6 +303,8 @@
 			children = (
 				44791E262715B35D00E6FC6C /* Addons */,
 				44791E0C271563B700E6FC6C /* UIColor+AppColors.swift */,
+				440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */,
+				440CAC8327180CB100E6E51F /* UIImage+AppImages.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -342,6 +358,8 @@
 			children = (
 				44791E292715B92400E6FC6C /* ContactTableViewHeader.swift */,
 				44791E2B2715BAFF00E6FC6C /* ContactCreateRedactPartView1.swift */,
+				440CAC85271822D400E6E51F /* ContactCreateRedactPartView2.swift */,
+				440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -376,8 +394,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 444A5E4D271436B400893C26 /* Build configuration list for PBXNativeTarget "KODE-Contacts" */;
 			buildPhases = (
-				444A5E5927143DB800893C26 /* SwiftLint */,
 				D8AF6D6B885FE254B7D77BAF /* [CP] Check Pods Manifest.lock */,
+				444A5E5927143DB800893C26 /* SwiftLint */,
 				444A5E5A27143E0800893C26 /* R.Swift */,
 				444A5E1C271436B100893C26 /* Sources */,
 				444A5E1D271436B100893C26 /* Frameworks */,
@@ -653,6 +671,7 @@
 				44791E322715BCD200E6FC6C /* UITextField.swift in Sources */,
 				444A5E6327144E0200893C26 /* Dependencies.swift in Sources */,
 				444A5E6527144E4300893C26 /* CoreDataClient.swift in Sources */,
+				440CAC822718079900E6E51F /* Constants.swift in Sources */,
 				444A5E6127144DE800893C26 /* AppCoordinator.swift in Sources */,
 				44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */,
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
@@ -663,10 +682,15 @@
 				44791E2C2715BAFF00E6FC6C /* ContactCreateRedactPartView1.swift in Sources */,
 				444A5E7327145DD900893C26 /* ContactsListViewModel.swift in Sources */,
 				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
+				440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */,
+				440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */,
 				44791E2127158E3900E6FC6C /* ContactCreateRedactViewModel.swift in Sources */,
 				444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */,
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
 				44791E282715B37100E6FC6C /* UINavigationController.swift in Sources */,
+				440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */,
+				440CAC86271822D400E6E51F /* ContactCreateRedactPartView2.swift in Sources */,
+				440CAC8427180CB100E6E51F /* UIImage+AppImages.swift in Sources */,
 				44791E1B27158CC500E6FC6C /* ContactShowViewController.swift in Sources */,
 				444A5E5C2714421F00893C26 /* R.generated.swift in Sources */,
 			);

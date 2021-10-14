@@ -6,12 +6,22 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIView {
-    func createUnderline() {
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
-        bottomLine.backgroundColor = UIColor.underlineColor.cgColor
-        layer.addSublayer(bottomLine)
+    func createUnderline(color: UIColor = .lightGrayUnderlineColor,
+                         height: CGFloat = 1,
+                         insetBottom: CGFloat = 1,
+                         insetLeading: CGFloat = 0) {
+        let bottomLine = UIView()
+        self.addSubview(bottomLine)
+        bottomLine.backgroundColor = color
+        bottomLine.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading).inset(insetLeading)
+            make.trailing.equalToSuperview()
+            make.top.equalTo(self.snp.bottom).inset(-insetBottom)
+            make.height.equalTo(height)
+        }
     }
+    
 }

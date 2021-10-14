@@ -1,9 +1,17 @@
 /* 
-  Localizable.strings
-  KODE-Contacts
-
-  Created by Developer on 11.10.2021.
-  
-*/
+ Localizable.strings
+ KODE-Contacts
+ 
+ Created by Developer on 11.10.2021.
+ 
+ */
 
 "Contacts" = "Contacts";
+
+"FirstName" = "First Name";
+"LastName" = "Last Name";
+"Phone" = "Phone";
+
+"SaveContact" = "Save Contact";
+"DiscardChanges" = "Discard Changes";
+"KeepEditing" = "Keep Editing";
