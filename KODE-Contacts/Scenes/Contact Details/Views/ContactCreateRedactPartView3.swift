@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 final class ContactCreateRedactPartView3: DefaultCellView {
-
     override func initalizeDescriptionTextViewUI() {
         super.initalizeDescriptionTextViewUI()
         descriptionTextField.isUserInteractionEnabled = true
