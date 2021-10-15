@@ -22,6 +22,12 @@ class ContactCreateRedactViewModel {
     // MARK: - Properties
     weak var delegate: ContactCreateRedactViewModelDelegate?
     
+    var didStartUpdating: (() -> Void)?
+    var didFinishUpdating: (() -> Void)?
+    var didAskToFocusNextTextField: (() -> Void)?
+    
+    var cellViewModels: [ContactCreateRedactPartViewModel] = []
+    
     private let dependencies: Dependencies
     
     // MARK: - Init
@@ -30,16 +36,37 @@ class ContactCreateRedactViewModel {
     }
     
     // MARK: - Public Methods
+    
+    func reloadData() {
+        setupViewModels()
+    }
+    
     func editContactDidFinish() {
         // TODO: - Replace dummy with real data
         delegate?.contactCreateRedactViewModel(self, didFinishEditing: Contact(name: "Peter",
                                                                                lastName: "Griffin",
                                                                                phoneNumber: "82213252313",
-                                                                               avatar: "Cutie"))
+                                                                               avatarImage: "Cutie"))
     }
     
     func editContactDidCancel() {
         delegate?.contactCreateRedactViewModelDidCancelEditing(self)
+    }
+    
+    // MARK: - Private Methods
+    private func setupViewModels() {
+        cellViewModels = []
+        cellViewModels.append(PartViewModel1(data: PartView1Data()))
+        cellViewModels.append(PartViewModel2())
+        cellViewModels.append(PartViewModel3())
+        
+        for index in 0..<cellViewModels.count {
+            cellViewModels[index].didAskToFocusNextTextField = {
+                self.didAskToFocusNextTextField?()
+            }
+        }
+        
+        didFinishUpdating?()
     }
     
 }

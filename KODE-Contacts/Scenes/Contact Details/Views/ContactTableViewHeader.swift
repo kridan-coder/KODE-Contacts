@@ -12,7 +12,6 @@ class ContactTableViewHeader: UIView {
     
     // MARK: - Init
     init() {
-
         super.init(frame: CGRect.zero)
         initializeUI()
         createConstraints()

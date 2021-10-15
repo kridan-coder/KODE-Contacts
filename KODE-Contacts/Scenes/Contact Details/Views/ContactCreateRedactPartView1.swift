@@ -10,19 +10,23 @@ import SnapKit
 
 class ContactCreateRedactPartView1: UIView {
     // MARK: - Properties
+    private var viewModel: ContactCreateRedactPartViewModel1?
+    
     private let contactImageView = UIImageView()
     
     private let nameTextField: UITextField = .emptyTextField
     private let lastNameTextField: UITextField = .emptyTextField
     private let phoneNumberTextField: UITextField = .emptyTextField
     
+    private let toolbar = CustomToolbar(frame: CGRect.zero)
+    
     // MARK: - Init
     init() {
         
         super.init(frame: CGRect.zero)
-        
         initializeUI()
         createConstraints()
+        setupToolbar()
     }
     
     required init?(coder: NSCoder) {
@@ -33,8 +37,23 @@ class ContactCreateRedactPartView1: UIView {
     
     // MARK: - Public Methods
     
+    func configure(with viewModel: ContactCreateRedactPartViewModel1) {
+        nameTextField.placeholder = viewModel.data.firstTextFieldplaceholder
+        lastNameTextField.placeholder = viewModel.data.secondTextFieldplaceholder
+        phoneNumberTextField.placeholder = viewModel.data.thirdTextFieldplaceholder
+        nameTextField.text = viewModel.data.firstTextFieldText
+        lastNameTextField.text = viewModel.data.secondTextFieldText
+        phoneNumberTextField.text = viewModel.data.thirdTextFieldText
+        if let image = viewModel.data.avatarImage {
+            contactImageView.image = image
+        }
+    }
+    
     // MARK: - Private Methods
     
+    private func setupToolbar() {
+        toolbar.buttonsDelegate = self
+    }
     // UI
     private func initializeUI() {
         initializeNameTextFieldUI()
@@ -59,6 +78,8 @@ class ContactCreateRedactPartView1: UIView {
     
     private func initializePhoneNumberTextFieldUI() {
         phoneNumberTextField.placeholder = R.string.localizable.phone()
+        phoneNumberTextField.keyboardType = .phonePad
+        phoneNumberTextField.inputAccessoryView = toolbar
         phoneNumberTextField.createUnderline()
     }
     
@@ -110,6 +131,17 @@ class ContactCreateRedactPartView1: UIView {
         }
     }
     
+}
+
+// MARK: - ToolbarPickerViewDelegate
+extension ContactCreateRedactPartView1: ToolbarPickerViewDelegate {
+    func didTapFirstButton() {
+        viewModel?.didAskToFocusNextTextField?()
+    }
+    
+    func didTapSecondButton() {
+        phoneNumberTextField.resignFirstResponder()
+    }
 }
 
 // MARK: - Constants

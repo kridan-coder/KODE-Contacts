@@ -9,14 +9,14 @@ import UIKit
 import TPKeyboardAvoiding
 
 class ContactCreateRedactViewController: UIViewController {
-    
     // MARK: - Properties
+    var stackViewSubviews: [UIView] = []
+    
     private let viewModel: ContactCreateRedactViewModel
     
     private let scrollView = TPKeyboardAvoidingScrollView()
     private let stackView = UIStackView()
-    private let pickerView = UIPickerView()
-    
+
     // MARK: - Init
     init(viewModel: ContactCreateRedactViewModel) {
         self.viewModel = viewModel
@@ -32,8 +32,9 @@ class ContactCreateRedactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationController()
-        setupPicker()
         setupView()
+        bindToViewModel()
+        viewModel.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +52,30 @@ class ContactCreateRedactViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    private func bindToViewModel() {
+        viewModel.didFinishUpdating = { [weak self] in
+            self?.setupStackViewSubviews()
+        }
+        viewModel.didAskToFocusNextTextField = { [weak self] in
+            self?.scrollView.focusNextTextField()
+        }
+    }
+    
+    private func setupStackViewSubviews() {
+        stackView.removeAllArrangedSubviews()
+        for viewModel in viewModel.cellViewModels {
+            switch viewModel {
+            case let viewModel1 as ContactCreateRedactPartViewModel1:
+                let view1 = ContactCreateRedactPartView1()
+                view1.configure(with: viewModel1)
+                stackView.addArrangedSubview(view1)
+            default:
+                break
+            }
+        }
+        
+    }
+    
     private func setupNavigationController() {
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editContactDidFinish))
         let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(editContactDidCancel))
@@ -58,17 +83,10 @@ class ContactCreateRedactViewController: UIViewController {
         navigationItem.leftBarButtonItem = cancelBarButton
     }
     
-    private func setupPicker() {
-        pickerView.delegate = self
-        pickerView.dataSource = self
-    }
-    
     private func setupView() {
         view.backgroundColor = .white
-        
         setupScrollView()
         setupStackView()
-        
     }
     
     private func setupScrollView() {
@@ -81,42 +99,15 @@ class ContactCreateRedactViewController: UIViewController {
     private func setupStackView() {
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
             make.edges.equalToSuperview()
+            make.width.equalToSuperview()
         }
         stackView.axis = .vertical
         stackView.spacing = 30
         stackView.distribution = .equalSpacing
-        
-        // TODO: - get rid of test code
-        let partView1 = ContactCreateRedactPartView1()
-        let partView2 = ContactCreateRedactPartView2()
-        let partView3 = ContactCreateRedactPartView3()
-        
-        stackView.addArrangedSubview(partView1)
-        stackView.addArrangedSubview(partView2)
-        stackView.addArrangedSubview(partView3)
-    }
-    
-    private func setupPickerView() {
-        // TODO: - setup it as subview
     }
     
 }
-
-// MARK: - UIPickerViewDataSource
-extension ContactCreateRedactViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 0
-    }
-}
-
-// MARK: - UIPickerViewDelegate
-extension ContactCreateRedactViewController: UIPickerViewDelegate {}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ContactCreateRedactViewController: UIAdaptivePresentationControllerDelegate {

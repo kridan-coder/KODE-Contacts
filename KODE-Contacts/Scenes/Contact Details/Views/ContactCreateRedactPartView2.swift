@@ -7,10 +7,36 @@
 
 import UIKit
 import SnapKit
+import TPKeyboardAvoiding
 
 final class ContactCreateRedactPartView2: DefaultCellView {
     // MARK: - Properties
+    private var viewModel: ContactCreateRedactPartViewModel2?
+    
     private let trailingImageView = UIImageView()
+    private let pickerView = UIPickerView()
+    private let toolbar = CustomToolbar(frame: CGRect.zero)
+    
+    override init() {
+        super.init()
+        setupToolbar()
+        setupPicker()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Actions
+    
+    private func setupToolbar() {
+        toolbar.buttonsDelegate = self
+    }
+    
+    private func setupPicker() {
+        pickerView.dataSource = self
+        pickerView.delegate = self
+    }
     
     // UI
     override func initializeUI() {
@@ -20,7 +46,14 @@ final class ContactCreateRedactPartView2: DefaultCellView {
         descriptionTextField.text = "Default"
         titleLabel.text = "Ringtone"
     }
-
+    
+    override func initalizeDescriptionTextViewUI() {
+        super.initalizeDescriptionTextViewUI()
+        descriptionTextField.isUserInteractionEnabled = true
+        descriptionTextField.inputView = pickerView
+        descriptionTextField.inputAccessoryView = toolbar
+    }
+    
     private func initalizeArrowImageViewUI() {
         trailingImageView.contentMode = .scaleAspectFit
         trailingImageView.image = .arrowImage
@@ -43,6 +76,48 @@ final class ContactCreateRedactPartView2: DefaultCellView {
     }
     
 }
+
+// MARK: - ToolbarPickerViewDelegate
+extension ContactCreateRedactPartView2: ToolbarPickerViewDelegate {
+    func didTapFirstButton() {
+        viewModel?.didAskToFocusNextTextField?()
+    }
+    
+    func didTapSecondButton() {
+        descriptionTextField.resignFirstResponder()
+    }
+}
+
+// MARK: - UIPickerViewDataSource
+extension ContactCreateRedactPartView2: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return 10
+        } else {
+            return 100
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return "First \(row)"
+        } else {
+            return "Second \(row)"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
+    
+}
+
+// MARK: - UIPickerViewDelegate
+extension ContactCreateRedactPartView2: UIPickerViewDelegate {}
 
 // MARK: - Constants
 private extension Constants {

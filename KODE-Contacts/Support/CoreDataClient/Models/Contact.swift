@@ -5,11 +5,11 @@
 //  Created by Developer on 12.10.2021.
 //
 
-import Foundation
+import UIKit
 
 struct Contact {
     var name: String
     var lastName: String
     var phoneNumber: String
-    var avatar: String
+    var avatarImage: String
 }

@@ -13,4 +13,5 @@ extension UIColor {
     static let darkGrayUnderlineColor = UIColor(red: 0.78, green: 0.78, blue: 0.8, alpha: 1.0)
     static let secondaryTextColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
 
+    static let systemBlue = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1)
 }

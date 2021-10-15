@@ -13,7 +13,7 @@ final class ContactCreateRedactPartView3: DefaultCellView {
         super.initalizeDescriptionTextViewUI()
         descriptionTextField.isUserInteractionEnabled = true
         // TODO: - Get rid of test code
-        descriptionTextField.text = "Wake up, Neo..."
+        descriptionTextField.placeholder = "Wake up, Neo..."
         titleLabel.text = "Notes"
     }
     

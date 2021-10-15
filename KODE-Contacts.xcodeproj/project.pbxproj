@@ -29,6 +29,13 @@
 		444A5E6E2714531C00893C26 /* ContactsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E6D2714531C00893C26 /* ContactsListViewController.swift */; };
 		444A5E712714548E00893C26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 444A5E702714548E00893C26 /* Localizable.strings */; };
 		444A5E7327145DD900893C26 /* ContactsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E7227145DD900893C26 /* ContactsListViewModel.swift */; };
+		444FED77271969B1000C7329 /* PartViewModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED76271969B1000C7329 /* PartViewModel1.swift */; };
+		444FED7927196A6C000C7329 /* PartViewModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED7827196A6C000C7329 /* PartViewModel2.swift */; };
+		444FED7B27196A84000C7329 /* PartViewModel3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED7A27196A84000C7329 /* PartViewModel3.swift */; };
+		444FED7F27198461000C7329 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED7E27198461000C7329 /* CustomToolbar.swift */; };
+		444FED812719907C000C7329 /* ContactCreateRedactPartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED802719907C000C7329 /* ContactCreateRedactPartViewModel.swift */; };
+		444FED8327199BDC000C7329 /* PartView1Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED8227199BDC000C7329 /* PartView1Data.swift */; };
+		444FED852719A383000C7329 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED842719A383000C7329 /* UIStackView.swift */; };
 		44791E0D271563B700E6FC6C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E0C271563B700E6FC6C /* UIColor+AppColors.swift */; };
 		44791E10271572E200E6FC6C /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E0F271572E200E6FC6C /* Contact.swift */; };
 		44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */; };
@@ -93,6 +100,13 @@
 		444A5E6D2714531C00893C26 /* ContactsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewController.swift; sourceTree = "<group>"; };
 		444A5E702714548E00893C26 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		444A5E7227145DD900893C26 /* ContactsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListViewModel.swift; sourceTree = "<group>"; };
+		444FED76271969B1000C7329 /* PartViewModel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartViewModel1.swift; sourceTree = "<group>"; };
+		444FED7827196A6C000C7329 /* PartViewModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartViewModel2.swift; sourceTree = "<group>"; };
+		444FED7A27196A84000C7329 /* PartViewModel3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartViewModel3.swift; sourceTree = "<group>"; };
+		444FED7E27198461000C7329 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
+		444FED802719907C000C7329 /* ContactCreateRedactPartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactPartViewModel.swift; sourceTree = "<group>"; };
+		444FED8227199BDC000C7329 /* PartView1Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView1Data.swift; sourceTree = "<group>"; };
+		444FED842719A383000C7329 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		44791E0C271563B700E6FC6C /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
 		44791E0F271572E200E6FC6C /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
@@ -217,6 +231,7 @@
 		444A5E5727143AF600893C26 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				444FED7E27198461000C7329 /* CustomToolbar.swift */,
 				444A5E6227144E0100893C26 /* Dependencies.swift */,
 				444A5E5E27144D7100893C26 /* Coordinator.swift */,
 				440CAC892718451500E6E51F /* DefaultCellView.swift */,
@@ -332,6 +347,8 @@
 		44791E162715776A00E6FC6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				444FED8227199BDC000C7329 /* PartView1Data.swift */,
+				444FED802719907C000C7329 /* ContactCreateRedactPartViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -340,6 +357,9 @@
 			isa = PBXGroup;
 			children = (
 				44791E2027158E3900E6FC6C /* ContactCreateRedactViewModel.swift */,
+				444FED76271969B1000C7329 /* PartViewModel1.swift */,
+				444FED7827196A6C000C7329 /* PartViewModel2.swift */,
+				444FED7A27196A84000C7329 /* PartViewModel3.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -370,6 +390,7 @@
 				44791E272715B37100E6FC6C /* UINavigationController.swift */,
 				44791E2F2715BB8F00E6FC6C /* UIView.swift */,
 				44791E312715BCD200E6FC6C /* UITextField.swift */,
+				444FED842719A383000C7329 /* UIStackView.swift */,
 			);
 			path = Addons;
 			sourceTree = "<group>";
@@ -667,6 +688,7 @@
 			files = (
 				44791E2A2715B92400E6FC6C /* ContactTableViewHeader.swift in Sources */,
 				44791E10271572E200E6FC6C /* Contact.swift in Sources */,
+				444FED852719A383000C7329 /* UIStackView.swift in Sources */,
 				44791E1F27158D3100E6FC6C /* ContactCreateRedactViewController.swift in Sources */,
 				44791E322715BCD200E6FC6C /* UITextField.swift in Sources */,
 				444A5E6327144E0200893C26 /* Dependencies.swift in Sources */,
@@ -677,21 +699,27 @@
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
 				444A5E6E2714531C00893C26 /* ContactsListViewController.swift in Sources */,
 				44791E0D271563B700E6FC6C /* UIColor+AppColors.swift in Sources */,
+				444FED7B27196A84000C7329 /* PartViewModel3.swift in Sources */,
 				44791E302715BB8F00E6FC6C /* UIView.swift in Sources */,
 				444A5E6827144FDE00893C26 /* ContactsListCoordinator.swift in Sources */,
 				44791E2C2715BAFF00E6FC6C /* ContactCreateRedactPartView1.swift in Sources */,
+				444FED7F27198461000C7329 /* CustomToolbar.swift in Sources */,
 				444A5E7327145DD900893C26 /* ContactsListViewModel.swift in Sources */,
 				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
 				440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */,
 				440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */,
 				44791E2127158E3900E6FC6C /* ContactCreateRedactViewModel.swift in Sources */,
 				444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */,
+				444FED8327199BDC000C7329 /* PartView1Data.swift in Sources */,
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
+				444FED812719907C000C7329 /* ContactCreateRedactPartViewModel.swift in Sources */,
 				44791E282715B37100E6FC6C /* UINavigationController.swift in Sources */,
+				444FED77271969B1000C7329 /* PartViewModel1.swift in Sources */,
 				440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */,
 				440CAC86271822D400E6E51F /* ContactCreateRedactPartView2.swift in Sources */,
 				440CAC8427180CB100E6E51F /* UIImage+AppImages.swift in Sources */,
 				44791E1B27158CC500E6FC6C /* ContactShowViewController.swift in Sources */,
+				444FED7927196A6C000C7329 /* PartViewModel2.swift in Sources */,
 				444A5E5C2714421F00893C26 /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

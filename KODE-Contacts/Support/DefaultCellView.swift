@@ -9,9 +9,9 @@ import UIKit
 
 class DefaultCellView: UIView {
     // MARK: - Properties
+    let descriptionTextField: UITextField = .emptyTextField
     internal let titleLabel = UILabel()
-    internal let descriptionTextField: UITextField = .emptyTextField
-    
+
     // MARK: - Init
     init() {
         super.init(frame: CGRect.zero)
