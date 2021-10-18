@@ -8,9 +8,9 @@
 import UIKit
 
 struct PartView1Data {
-    var firstTextFieldplaceholder: String = R.string.localizable.firstName()
-    var secondTextFieldplaceholder: String = R.string.localizable.lastName()
-    var thirdTextFieldplaceholder: String = R.string.localizable.phone()
+    var firstTextFieldPlaceholder: String?
+    var secondTextFieldPlaceholder: String?
+    var thirdTextFieldPlaceholder: String?
     var firstTextFieldText: String?
     var secondTextFieldText: String?
     var thirdTextFieldText: String?

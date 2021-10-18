@@ -18,12 +18,12 @@ final class ContactDetailsCoordinator: Coordinator {
     
     private let dependencies: AppDependencies
     
-    private let contact: Contact?
+    private let contact: Contact
     
     // MARK: - Init
     init(dependencies: AppDependencies, navigationController: UINavigationController, contact: Contact?) {
         self.dependencies = dependencies
-        self.contact = contact
+        self.contact = contact ?? Contact()
         childCoordinators = []
         
         rootNavigationController = navigationController
@@ -33,7 +33,7 @@ final class ContactDetailsCoordinator: Coordinator {
     
     // MARK: Public Methods
     func start() {
-        let contactCreateRedactViewModel = ContactCreateRedactViewModel(dependencies: dependencies)
+        let contactCreateRedactViewModel = ContactCreateRedactViewModel(dependencies: dependencies, contact: contact)
         contactCreateRedactViewModel.delegate = self
         
         let contactCreateRedactViewController = ContactCreateRedactViewController(viewModel: contactCreateRedactViewModel)

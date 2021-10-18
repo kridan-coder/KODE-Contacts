@@ -10,6 +10,7 @@ target 'KODE-Contacts' do
   pod 'SwiftLint'
   pod 'R.swift'
   pod 'TPKeyboardAvoiding'
+  pod 'PhoneNumberKit'
 
   target 'KODE-ContactsTests' do
     inherit! :search_paths

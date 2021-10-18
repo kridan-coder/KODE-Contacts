@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import PhoneNumberKit
 
 class ContactCreateRedactPartView1: UIView {
     // MARK: - Properties
@@ -16,17 +17,17 @@ class ContactCreateRedactPartView1: UIView {
     
     private let nameTextField: UITextField = .emptyTextField
     private let lastNameTextField: UITextField = .emptyTextField
-    private let phoneNumberTextField: UITextField = .emptyTextField
+    private let phoneNumberTextField = PhoneNumberTextField()
     
     private let toolbar = CustomToolbar(frame: CGRect.zero)
     
     // MARK: - Init
     init() {
-        
         super.init(frame: CGRect.zero)
         initializeUI()
         createConstraints()
         setupToolbar()
+        setupImageView()
     }
     
     required init?(coder: NSCoder) {
@@ -38,22 +39,45 @@ class ContactCreateRedactPartView1: UIView {
     // MARK: - Public Methods
     
     func configure(with viewModel: ContactCreateRedactPartViewModel1) {
-        nameTextField.placeholder = viewModel.data.firstTextFieldplaceholder
-        lastNameTextField.placeholder = viewModel.data.secondTextFieldplaceholder
-        phoneNumberTextField.placeholder = viewModel.data.thirdTextFieldplaceholder
-        nameTextField.text = viewModel.data.firstTextFieldText
-        lastNameTextField.text = viewModel.data.secondTextFieldText
-        phoneNumberTextField.text = viewModel.data.thirdTextFieldText
-        if let image = viewModel.data.avatarImage {
-            contactImageView.image = image
+        self.viewModel = viewModel
+        setupData()
+        self.viewModel?.didReloadData = {
+            self.setupData()
         }
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func imageTapped() {
+        viewModel?.didAskToShowImagePicker?()
     }
     
     // MARK: - Private Methods
     
+    private func setupData() {
+        nameTextField.placeholder = viewModel?.data.firstTextFieldPlaceholder
+        lastNameTextField.placeholder = viewModel?.data.secondTextFieldPlaceholder
+        phoneNumberTextField.placeholder = viewModel?.data.thirdTextFieldPlaceholder
+        nameTextField.text = viewModel?.data.firstTextFieldText
+        lastNameTextField.text = viewModel?.data.secondTextFieldText
+        phoneNumberTextField.text = viewModel?.data.thirdTextFieldText
+        if let image = viewModel?.data.avatarImage {
+            layoutIfNeeded()
+            contactImageView.image = image
+            contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
+        }
+    }
+    
     private func setupToolbar() {
         toolbar.buttonsDelegate = self
     }
+    
+    private func setupImageView() {
+        contactImageView.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        contactImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     // UI
     private func initializeUI() {
         initializeNameTextFieldUI()
@@ -64,16 +88,19 @@ class ContactCreateRedactPartView1: UIView {
     
     private func initializeContactImageViewUI() {
         contactImageView.image = .placeholderImage
+        contactImageView.clipsToBounds = true
     }
     
     private func initializeNameTextFieldUI() {
         nameTextField.placeholder = R.string.localizable.firstName()
         nameTextField.createUnderline()
+        nameTextField.delegate = self
     }
     
     private func initializeLastNameTextFieldUI() {
         lastNameTextField.placeholder = R.string.localizable.lastName()
         lastNameTextField.createUnderline()
+        lastNameTextField.delegate = self
     }
     
     private func initializePhoneNumberTextFieldUI() {
@@ -81,6 +108,8 @@ class ContactCreateRedactPartView1: UIView {
         phoneNumberTextField.keyboardType = .phonePad
         phoneNumberTextField.inputAccessoryView = toolbar
         phoneNumberTextField.createUnderline()
+        phoneNumberTextField.maxDigits = 15
+        phoneNumberTextField.delegate = self
     }
     
     // Constraints
@@ -131,6 +160,32 @@ class ContactCreateRedactPartView1: UIView {
         }
     }
     
+}
+
+// MARK: - UITextFieldDelegate
+extension ContactCreateRedactPartView1: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard UITextField.updatedTextIsValid(currentText: textField.text ?? "",
+                                             replacementString: string,
+                                             replacementRange: range,
+                                             limit: 16) else { return false }
+        updateViewModelData(with: textField)
+        return true
+    }
+    
+    // Helpers
+    private func updateViewModelData(with textField: UITextField) {
+        switch textField {
+        case nameTextField:
+            viewModel?.data.firstTextFieldText = textField.text
+        case lastNameTextField:
+            viewModel?.data.secondTextFieldText = textField.text
+        case phoneNumberTextField:
+            viewModel?.data.thirdTextFieldText = textField.text
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - ToolbarPickerViewDelegate

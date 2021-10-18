@@ -8,16 +8,13 @@
 import Foundation
 
 final class PartViewModel1: ContactCreateRedactPartViewModel1 {
+    var data: PartView1Data
+    
+    var didReloadData: (() -> Void)?
+    var didAskToFocusNextTextField: (() -> Void)?
+    var didAskToShowImagePicker: (() -> Void)?
+    
     init(data: PartView1Data) {
         self.data = data
     }
-    
-    var data: PartView1Data {
-        didSet {
-            didUpdateTextFields?()
-        }
-    }
-    
-    var didUpdateTextFields: (() -> Void)?
-    var didAskToFocusNextTextField: (() -> Void)?
 }

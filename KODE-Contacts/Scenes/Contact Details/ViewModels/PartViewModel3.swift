@@ -8,7 +8,13 @@
 import Foundation
 
 final class PartViewModel3: ContactCreateRedactPartViewModel3 {
-    var didUpdateTextFields: (() -> Void)?
+    var data: PartView3Data
+    
+    var didReloadData: (() -> Void)?
     
     var didAskToFocusNextTextField: (() -> Void)?
+    
+    init(data: PartView3Data) {
+        self.data = data
+    }
 }

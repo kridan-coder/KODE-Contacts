@@ -16,6 +16,7 @@ class ContactCreateRedactViewController: UIViewController {
     
     private let scrollView = TPKeyboardAvoidingScrollView()
     private let stackView = UIStackView()
+    private let imagePicker = UIImagePickerController()
 
     // MARK: - Init
     init(viewModel: ContactCreateRedactViewModel) {
@@ -33,6 +34,7 @@ class ContactCreateRedactViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationController()
         setupView()
+        setupImagePicker()
         bindToViewModel()
         viewModel.reloadData()
     }
@@ -59,6 +61,32 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.didAskToFocusNextTextField = { [weak self] in
             self?.scrollView.focusNextTextField()
         }
+        viewModel.didAskToShowImagePicker = { [weak self] in
+            self?.showImagePicker()
+        }
+    }
+    
+    private func showImagePicker() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Take photo", style: .default) { _ in
+            self.imagePicker.sourceType = .savedPhotosAlbum
+            self.present(self.imagePicker, animated: true, completion: nil)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Choose photo", style: .default) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func setupImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
     
     private func setupStackViewSubviews() {
@@ -69,6 +97,14 @@ class ContactCreateRedactViewController: UIViewController {
                 let view1 = ContactCreateRedactPartView1()
                 view1.configure(with: viewModel1)
                 stackView.addArrangedSubview(view1)
+            case let viewModel2 as ContactCreateRedactPartViewModel2:
+                let view2 = ContactCreateRedactPartView2()
+                view2.configure(with: viewModel2)
+                stackView.addArrangedSubview(view2)
+            case let viewModel3 as ContactCreateRedactPartViewModel3:
+                let view3 = ContactCreateRedactPartView3()
+                view3.configure(with: viewModel3)
+                stackView.addArrangedSubview(view3)
             default:
                 break
             }
@@ -107,6 +143,25 @@ class ContactCreateRedactViewController: UIViewController {
         stackView.distribution = .equalSpacing
     }
     
+}
+
+// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
+extension ContactCreateRedactViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true)
+        if let image = info[.editedImage] as? UIImage {
+            viewModel.setupImage(image)
+            return
+        }
+
+        if let image = info[.originalImage] as? UIImage {
+            viewModel.setupImage(image)
+        } else {
+            print("Other source")
+        }
+
+    }
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate

@@ -13,6 +13,9 @@
 		440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */; };
 		440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC892718451500E6E51F /* DefaultCellView.swift */; };
 		440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */; };
+		441D2A37271D44B200288666 /* PartView2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D2A36271D44B200288666 /* PartView2Data.swift */; };
+		441D2A39271D4DA000288666 /* Ringtone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D2A38271D4DA000288666 /* Ringtone.swift */; };
+		441D2A3B271D5BB900288666 /* PartView3Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D2A3A271D5BB900288666 /* PartView3Data.swift */; };
 		444A5E24271436B100893C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E23271436B100893C26 /* AppDelegate.swift */; };
 		444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E25271436B100893C26 /* SceneDelegate.swift */; };
 		444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */; };
@@ -78,6 +81,9 @@
 		440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
 		440CAC892718451500E6E51F /* DefaultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCellView.swift; sourceTree = "<group>"; };
 		440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactPartView3.swift; sourceTree = "<group>"; };
+		441D2A36271D44B200288666 /* PartView2Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView2Data.swift; sourceTree = "<group>"; };
+		441D2A38271D4DA000288666 /* Ringtone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ringtone.swift; sourceTree = "<group>"; };
+		441D2A3A271D5BB900288666 /* PartView3Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView3Data.swift; sourceTree = "<group>"; };
 		444A5E20271436B100893C26 /* KODE-Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODE-Contacts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		444A5E23271436B100893C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		444A5E25271436B100893C26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,6 +237,8 @@
 		444A5E5727143AF600893C26 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				441D2A38271D4DA000288666 /* Ringtone.swift */,
+				44791E0F271572E200E6FC6C /* Contact.swift */,
 				444FED7E27198461000C7329 /* CustomToolbar.swift */,
 				444A5E6227144E0100893C26 /* Dependencies.swift */,
 				444A5E5E27144D7100893C26 /* Coordinator.swift */,
@@ -244,9 +252,8 @@
 		444A5E5827143C0000893C26 /* CoreDataClient */ = {
 			isa = PBXGroup;
 			children = (
-				44791E0E271572D400E6FC6C /* Models */,
-				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
 				444A5E6427144E4300893C26 /* CoreDataClient.swift */,
+				44791E0E271572D400E6FC6C /* Models */,
 			);
 			path = CoreDataClient;
 			sourceTree = "<group>";
@@ -327,7 +334,7 @@
 		44791E0E271572D400E6FC6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44791E0F271572E200E6FC6C /* Contact.swift */,
+				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -348,6 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				444FED8227199BDC000C7329 /* PartView1Data.swift */,
+				441D2A36271D44B200288666 /* PartView2Data.swift */,
+				441D2A3A271D5BB900288666 /* PartView3Data.swift */,
 				444FED802719907C000C7329 /* ContactCreateRedactPartViewModel.swift */,
 			);
 			path = Models;
@@ -690,10 +699,12 @@
 				44791E10271572E200E6FC6C /* Contact.swift in Sources */,
 				444FED852719A383000C7329 /* UIStackView.swift in Sources */,
 				44791E1F27158D3100E6FC6C /* ContactCreateRedactViewController.swift in Sources */,
+				441D2A39271D4DA000288666 /* Ringtone.swift in Sources */,
 				44791E322715BCD200E6FC6C /* UITextField.swift in Sources */,
 				444A5E6327144E0200893C26 /* Dependencies.swift in Sources */,
 				444A5E6527144E4300893C26 /* CoreDataClient.swift in Sources */,
 				440CAC822718079900E6E51F /* Constants.swift in Sources */,
+				441D2A37271D44B200288666 /* PartView2Data.swift in Sources */,
 				444A5E6127144DE800893C26 /* AppCoordinator.swift in Sources */,
 				44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */,
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
@@ -707,6 +718,7 @@
 				444A5E7327145DD900893C26 /* ContactsListViewModel.swift in Sources */,
 				444A5E26271436B100893C26 /* SceneDelegate.swift in Sources */,
 				440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */,
+				441D2A3B271D5BB900288666 /* PartView3Data.swift in Sources */,
 				440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */,
 				44791E2127158E3900E6FC6C /* ContactCreateRedactViewModel.swift in Sources */,
 				444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */,

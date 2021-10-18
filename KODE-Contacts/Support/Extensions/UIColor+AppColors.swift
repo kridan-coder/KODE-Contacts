@@ -14,4 +14,5 @@ extension UIColor {
     static let secondaryTextColor = UIColor(red: 0.29, green: 0.29, blue: 0.29, alpha: 1)
 
     static let systemBlue = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1)
+    static let white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 }

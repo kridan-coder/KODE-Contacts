@@ -9,13 +9,18 @@ import Foundation
 
 protocol ContactCreateRedactPartViewModel {
     var didAskToFocusNextTextField: (() -> Void)? { get set }
-    var didUpdateTextFields: (() -> Void)? { get set }
+    var didReloadData: (() -> Void)? { get set }
 }
 
 protocol ContactCreateRedactPartViewModel1: ContactCreateRedactPartViewModel {
     var data: PartView1Data { get set }
+    var didAskToShowImagePicker: (() -> Void)? { get set }
 }
 
-protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {}
+protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {
+    var data: PartView2Data { get set }
+}
 
-protocol ContactCreateRedactPartViewModel3: ContactCreateRedactPartViewModel {}
+protocol ContactCreateRedactPartViewModel3: ContactCreateRedactPartViewModel {
+    var data: PartView3Data { get set }
+}

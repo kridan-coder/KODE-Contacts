@@ -27,7 +27,23 @@ final class ContactCreateRedactPartView2: DefaultCellView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Actions
+    // MARK: - Public Methods
+    
+    func configure(with viewModel: ContactCreateRedactPartViewModel2) {
+        self.viewModel = viewModel
+        setupData()
+        self.viewModel?.didReloadData = {
+            self.setupData()
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupData() {
+        descriptionTextField.text = viewModel?.data.pickedRingtone.localizedString
+        titleLabel.text = viewModel?.data.titleLabelText
+        pickerView.reloadAllComponents()
+    }
     
     private func setupToolbar() {
         toolbar.buttonsDelegate = self
@@ -42,9 +58,7 @@ final class ContactCreateRedactPartView2: DefaultCellView {
     override func initializeUI() {
         super.initializeUI()
         initalizeArrowImageViewUI()
-        // TODO: - Get rid of test code
-        descriptionTextField.text = "Default"
-        titleLabel.text = "Ringtone"
+        initializePickerViewUI()
     }
     
     override func initalizeDescriptionTextViewUI() {
@@ -52,6 +66,12 @@ final class ContactCreateRedactPartView2: DefaultCellView {
         descriptionTextField.isUserInteractionEnabled = true
         descriptionTextField.inputView = pickerView
         descriptionTextField.inputAccessoryView = toolbar
+        descriptionTextField.delegate = self
+        
+    }
+    
+    private func initializePickerViewUI() {
+        pickerView.backgroundColor = .white
     }
     
     private func initalizeArrowImageViewUI() {
@@ -91,29 +111,32 @@ extension ContactCreateRedactPartView2: ToolbarPickerViewDelegate {
 // MARK: - UIPickerViewDataSource
 extension ContactCreateRedactPartView2: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 10
-        } else {
-            return 100
-        }
+        viewModel?.data.pickerViewDataSet.count ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return "First \(row)"
-        } else {
-            return "Second \(row)"
-        }
+        viewModel?.data.pickerViewDataSet[row].localizedString
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        if let pickedRingtone = viewModel?.data.pickerViewDataSet[row] {
+            descriptionTextField.text = pickedRingtone.localizedString
+            viewModel?.data.pickedRingtone = pickedRingtone
+        }
+
     }
     
+}
+
+// MARK: - UITextFieldDelegate
+extension ContactCreateRedactPartView2: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        false
+    }
 }
 
 // MARK: - UIPickerViewDelegate
