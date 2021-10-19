@@ -16,6 +16,7 @@ final class ContactCreateRedactPartView3: DefaultCellView {
         super.initalizeDescriptionTextViewUI()
         descriptionTextField.isUserInteractionEnabled = true
         descriptionTextField.delegate = self
+        descriptionTextField.returnKeyType = .done
     }
     
     // MARK: - Public Methods
@@ -40,17 +41,25 @@ final class ContactCreateRedactPartView3: DefaultCellView {
 
 // MARK: - UITextFieldDelegate
 extension ContactCreateRedactPartView3: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard UITextField.updatedTextIsValid(currentText: textField.text ?? "",
-                                             replacementString: string,
-                                             replacementRange: range,
-                                             limit: 255) else { return false }
-        updateViewModelData(with: textField)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     
-    // Helpers
-    private func updateViewModelData(with textField: UITextField) {
-        viewModel?.data.textFieldText = textField.text
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let updatedText = UITextField.updatedText(currentText: textField.text,
+                                                      replacementString: string,
+                                                      replacementRange: range) ?? ""
+        
+            guard updatedText.count <= 255 else { return false }
+        
+            updateViewModelData(currentTextField: textField, updatedText: updatedText)
+            return true
     }
+    
+    // Helpers
+    private func updateViewModelData(currentTextField: UITextField, updatedText: String) {
+        viewModel?.data.textFieldText = updatedText
+    }
+    
 }

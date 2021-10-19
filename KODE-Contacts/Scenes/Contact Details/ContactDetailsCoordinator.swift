@@ -18,12 +18,12 @@ final class ContactDetailsCoordinator: Coordinator {
     
     private let dependencies: AppDependencies
     
-    private let contact: Contact
+    private let contact: Contact?
     
     // MARK: - Init
     init(dependencies: AppDependencies, navigationController: UINavigationController, contact: Contact?) {
         self.dependencies = dependencies
-        self.contact = contact ?? Contact()
+        self.contact = contact
         childCoordinators = []
         
         rootNavigationController = navigationController

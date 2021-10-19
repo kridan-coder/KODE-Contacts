@@ -64,6 +64,9 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.didAskToShowImagePicker = { [weak self] in
             self?.showImagePicker()
         }
+        viewModel.didReceiveError = { [weak self] error in
+            self?.showAlertWithError(error)
+        }
     }
     
     private func showImagePicker() {

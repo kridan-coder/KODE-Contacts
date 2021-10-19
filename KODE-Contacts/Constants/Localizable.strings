@@ -29,4 +29,16 @@
 
 "Notes" = "Notes";
 
+"Okay" = "OK";
+
 "WakeUpNeo" = "Wake up, Neo...";
+
+"IncorrectPhoneNumberErrorTitle" = "Phone number is incorrect";
+"RepeatedPhoneNumberErrorTitle" = "Phone number already exists";
+"NoFirstNameErrorTitle" = "First name is not specified";
+"DefaultErrorTitle" = "Something went wrong";
+
+"IncorrectPhoneNumberErrorDescription" = "Please consider specifying valid phone number.";
+"RepeatedPhoneNumberErrorDescription" = "Please specify different phone number.";
+"NoFirstNameErrorDescription" = "Please specify first name of the contact.";
+"DefaultErrorDescription" = "The problem is on our side, we are already looking into it. Please try again.";

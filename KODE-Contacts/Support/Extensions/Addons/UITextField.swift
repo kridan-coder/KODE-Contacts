@@ -14,13 +14,12 @@ extension UITextField {
         return textField
     }
     
-    static func updatedTextIsValid(currentText: String,
-                                        replacementString: String,
-                                        replacementRange: NSRange,
-                                        limit: Int) -> Bool {
-
-        guard let stringRange = Range(replacementRange, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: replacementString)
-        return updatedText.count <= limit
+    static func updatedText(currentText: String?,
+                            replacementString: String,
+                            replacementRange: NSRange) -> String? {
+        guard let safeCurrentText = currentText,
+              let stringRange = Range(replacementRange, in: safeCurrentText) else { return nil }
+        return safeCurrentText.replacingCharacters(in: stringRange, with: replacementString)
     }
+    
 }

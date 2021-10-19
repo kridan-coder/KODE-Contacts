@@ -95,12 +95,14 @@ class ContactCreateRedactPartView1: UIView {
         nameTextField.placeholder = R.string.localizable.firstName()
         nameTextField.createUnderline()
         nameTextField.delegate = self
+        nameTextField.returnKeyType = .next
     }
     
     private func initializeLastNameTextFieldUI() {
         lastNameTextField.placeholder = R.string.localizable.lastName()
         lastNameTextField.createUnderline()
         lastNameTextField.delegate = self
+        lastNameTextField.returnKeyType = .next
     }
     
     private func initializePhoneNumberTextFieldUI() {
@@ -109,7 +111,12 @@ class ContactCreateRedactPartView1: UIView {
         phoneNumberTextField.inputAccessoryView = toolbar
         phoneNumberTextField.createUnderline()
         phoneNumberTextField.maxDigits = 15
+        phoneNumberTextField.defaultRegion = "RU"
+        phoneNumberTextField.withExamplePlaceholder = true
+        phoneNumberTextField.withPrefix = true
+        phoneNumberTextField.withFlag = true
         phoneNumberTextField.delegate = self
+        phoneNumberTextField.returnKeyType = .next
     }
     
     // Constraints
@@ -164,24 +171,31 @@ class ContactCreateRedactPartView1: UIView {
 
 // MARK: - UITextFieldDelegate
 extension ContactCreateRedactPartView1: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        viewModel?.didAskToFocusNextTextField?()
+        return true
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard UITextField.updatedTextIsValid(currentText: textField.text ?? "",
-                                             replacementString: string,
-                                             replacementRange: range,
-                                             limit: 16) else { return false }
-        updateViewModelData(with: textField)
+        let updatedText = UITextField.updatedText(currentText: textField.text,
+                                                  replacementString: string,
+                                                  replacementRange: range) ?? ""
+        
+        guard updatedText.count <= 16 else { return false }
+        
+        updateViewModelData(currentTextField: textField, updatedText: updatedText)
         return true
     }
     
     // Helpers
-    private func updateViewModelData(with textField: UITextField) {
-        switch textField {
+    private func updateViewModelData(currentTextField: UITextField, updatedText: String) {
+        switch currentTextField {
         case nameTextField:
-            viewModel?.data.firstTextFieldText = textField.text
+            viewModel?.data.firstTextFieldText = updatedText
         case lastNameTextField:
-            viewModel?.data.secondTextFieldText = textField.text
+            viewModel?.data.secondTextFieldText = updatedText
         case phoneNumberTextField:
-            viewModel?.data.thirdTextFieldText = textField.text
+            viewModel?.data.thirdTextFieldText = updatedText
         default:
             break
         }

@@ -6,9 +6,24 @@
 //
 
 import Foundation
+import PhoneNumberKit
 
 final class PartViewModel1: ContactCreateRedactPartViewModel1 {
-    var data: PartView1Data
+    private let phoneNumberKit = PhoneNumberKit()
+    
+    var data: PartView1Data {
+        didSet {
+            phoneNumber = try? phoneNumberKit.parse(data.thirdTextFieldText ?? "")
+        }
+    }
+    
+    private var phoneNumber: PhoneNumber?
+    
+    var phoneNumberString: String? {
+        guard let safePhoneNumber = phoneNumber else { return nil }
+        return phoneNumberKit.format(safePhoneNumber, toType: .international)
+        
+    }
     
     var didReloadData: (() -> Void)?
     var didAskToFocusNextTextField: (() -> Void)?
