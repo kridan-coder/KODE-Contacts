@@ -13,6 +13,7 @@
 		440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */; };
 		440CAC8A2718451500E6E51F /* DefaultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC892718451500E6E51F /* DefaultCellView.swift */; };
 		440CAC8C27184B3100E6E51F /* ContactCreateRedactPartView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */; };
+		44136FE027203F3400956694 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44136FDF27203F3400956694 /* String.swift */; };
 		44149B66271E979400F134DE /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44149B65271E979400F134DE /* Errors.swift */; };
 		44149B68271E9CF300F134DE /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44149B67271E9CF300F134DE /* UIViewController.swift */; };
 		44149B6A271E9D1F00F134DE /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44149B69271E9D1F00F134DE /* UIAlertController.swift */; };
@@ -86,6 +87,7 @@
 		440CAC87271830C600E6E51F /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
 		440CAC892718451500E6E51F /* DefaultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCellView.swift; sourceTree = "<group>"; };
 		440CAC8B27184B3100E6E51F /* ContactCreateRedactPartView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactPartView3.swift; sourceTree = "<group>"; };
+		44136FDF27203F3400956694 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		44149B65271E979400F134DE /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		44149B67271E9CF300F134DE /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		44149B69271E9D1F00F134DE /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 				44791E2F2715BB8F00E6FC6C /* UIView.swift */,
 				44791E312715BCD200E6FC6C /* UITextField.swift */,
 				444FED842719A383000C7329 /* UIStackView.swift */,
+				44136FDF27203F3400956694 /* String.swift */,
 			);
 			path = Addons;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
 				444FED812719907C000C7329 /* ContactCreateRedactPartViewModel.swift in Sources */,
 				44791E282715B37100E6FC6C /* UINavigationController.swift in Sources */,
+				44136FE027203F3400956694 /* String.swift in Sources */,
 				444FED77271969B1000C7329 /* PartViewModel1.swift in Sources */,
 				440CAC88271830C600E6E51F /* UIFont+AppFonts.swift in Sources */,
 				447655BF271EBBBB00C12434 /* FileHandler.swift in Sources */,

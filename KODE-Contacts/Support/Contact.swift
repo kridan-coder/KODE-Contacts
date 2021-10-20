@@ -14,6 +14,7 @@ struct Contact {
     var avatarImagePath: String?
     var ringtone: Ringtone
     var notes: String?
+    var uuid: String
     
     init(name: String,
          lastname: String? = nil,
@@ -27,6 +28,7 @@ struct Contact {
         self.avatarImagePath = avatarImagePath
         self.ringtone = ringtone
         self.notes = notes
+        self.uuid = UUID().uuidString
     }
     
     init(from persistentContact: PersistentContact) {
@@ -36,5 +38,6 @@ struct Contact {
         avatarImagePath = persistentContact.avatarImagePath
         ringtone = Ringtone(rawValue: persistentContact.ringtone ?? "") ?? .classic
         notes = persistentContact.notes
+        uuid = persistentContact.uuid ?? UUID().uuidString
     }
 }

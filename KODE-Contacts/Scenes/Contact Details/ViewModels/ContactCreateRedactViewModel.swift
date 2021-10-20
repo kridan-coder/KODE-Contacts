@@ -80,6 +80,7 @@ class ContactCreateRedactViewModel {
         newContact.notes = partViewModel3.data.textFieldText
         
         dependencies.coreDataClient.createContact(newContact)
+        print(dependencies.coreDataClient.getAllContacts())
         delegate?.contactCreateRedactViewModel(self, didFinishEditing: newContact)
     }
     

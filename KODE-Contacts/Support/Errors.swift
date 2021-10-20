@@ -15,6 +15,7 @@ enum ValidationError: CustomError {
     case incorrectPhoneNumber
     case repeatedPhoneNumber
     case noFirstName
+    case unhandled
 }
 
 extension ValidationError {

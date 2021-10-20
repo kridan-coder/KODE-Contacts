@@ -7,8 +7,14 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="phoneNumber" attributeType="String"/>
         <attribute name="ringtone" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="uuid"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistentContact" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="PersistentContact" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

@@ -14,9 +14,9 @@ protocol EntityWithID: NSManagedObject {
 
 extension PersistentContact: EntityWithID {
     public var id: String {
-        self.phoneNumber ?? ""
+        self.uuid ?? ""
     }
     internal var idName: String {
-        #keyPath(PersistentContact.phoneNumber)
+        #keyPath(PersistentContact.uuid)
     }
 }
