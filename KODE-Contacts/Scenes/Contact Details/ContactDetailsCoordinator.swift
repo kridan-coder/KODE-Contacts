@@ -16,6 +16,8 @@ final class ContactDetailsCoordinator: Coordinator {
     
     var rootNavigationController: UINavigationController
     
+    var didFinish: (() -> Void)?
+    
     private let dependencies: AppDependencies
     
     private let contact: Contact?
@@ -44,6 +46,12 @@ final class ContactDetailsCoordinator: Coordinator {
         
         rootNavigationController.present(contactCreateRedactNavigationController, animated: true)
     }
+    
+    func finish() {
+        didFinish?()
+        rootNavigationController.dismiss(animated: true)
+        delegate?.removeAllChildCoordinatorsWithType(type(of: self))
+    }
 
 }
 
@@ -52,13 +60,11 @@ final class ContactDetailsCoordinator: Coordinator {
 extension ContactDetailsCoordinator: ContactCreateRedactViewModelDelegate {
     func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
                                       didFinishEditing contact: Contact) {
-        rootNavigationController.dismiss(animated: true)
-        delegate?.removeAllChildCoordinatorsWithType(type(of: self))
+        finish()
     }
     
     func contactCreateRedactViewModelDidCancelEditing(_ contactCreateRedactViewModel: ContactCreateRedactViewModel) {
-        rootNavigationController.dismiss(animated: true)
-        delegate?.removeAllChildCoordinatorsWithType(type(of: self))
+        finish()
     }
     
 }

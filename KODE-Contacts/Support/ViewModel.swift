@@ -1,5 +1,5 @@
 //
-//  ContactCreateRedactPartViewModel.swift
+//  ViewModel.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 15.10.2021.
@@ -7,9 +7,12 @@
 
 import Foundation
 
-protocol ContactCreateRedactPartViewModel {
-    var didAskToFocusNextTextField: (() -> Void)? { get set }
+protocol ViewModel {
     var didReloadData: (() -> Void)? { get set }
+}
+
+protocol ContactCreateRedactPartViewModel: ViewModel {
+    var didAskToFocusNextTextField: (() -> Void)? { get set }
 }
 
 protocol ContactCreateRedactPartViewModel1: ContactCreateRedactPartViewModel {

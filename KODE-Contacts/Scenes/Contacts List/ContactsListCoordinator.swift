@@ -15,6 +15,8 @@ final class ContactsListCoordinator: Coordinator {
     
     var rootNavigationController: UINavigationController
     
+    var didUpdate: (() -> Void)?
+    
     private let dependencies: AppDependencies
     
     // MARK: - Init
@@ -48,6 +50,9 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
                                                                   navigationController: rootNavigationController,
                                                                   contact: contact)
         contactDetailsCoordinator.delegate = self
+        contactDetailsCoordinator.didFinish = { [weak self] in
+            self?.didUpdate?()
+        }
         self.childCoordinators.append(contactDetailsCoordinator)
         contactDetailsCoordinator.start()
     }
