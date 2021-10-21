@@ -44,7 +44,7 @@
 		444FED8327199BDC000C7329 /* PartView1Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED8227199BDC000C7329 /* PartView1Data.swift */; };
 		444FED852719A383000C7329 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444FED842719A383000C7329 /* UIStackView.swift */; };
 		447655BF271EBBBB00C12434 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447655BE271EBBBB00C12434 /* FileHandler.swift */; };
-		447655C1271ED9DD00C12434 /* EntityWithID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447655C0271ED9DD00C12434 /* EntityWithID.swift */; };
+		447655C1271ED9DD00C12434 /* PersistentContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447655C0271ED9DD00C12434 /* PersistentContact.swift */; };
 		44791E0D271563B700E6FC6C /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E0C271563B700E6FC6C /* UIColor+AppColors.swift */; };
 		44791E10271572E200E6FC6C /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E0F271572E200E6FC6C /* Contact.swift */; };
 		44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */; };
@@ -124,7 +124,7 @@
 		444FED8227199BDC000C7329 /* PartView1Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartView1Data.swift; sourceTree = "<group>"; };
 		444FED842719A383000C7329 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		447655BE271EBBBB00C12434 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
-		447655C0271ED9DD00C12434 /* EntityWithID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityWithID.swift; sourceTree = "<group>"; };
+		447655C0271ED9DD00C12434 /* PersistentContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContact.swift; sourceTree = "<group>"; };
 		44791E0C271563B700E6FC6C /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
 		44791E0F271572E200E6FC6C /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
@@ -348,7 +348,6 @@
 		44791E0E271572D400E6FC6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				447655C0271ED9DD00C12434 /* EntityWithID.swift */,
 				444A5E2C271436B100893C26 /* KODE_Contacts.xcdatamodeld */,
 			);
 			path = Models;
@@ -418,6 +417,7 @@
 				44791E312715BCD200E6FC6C /* UITextField.swift */,
 				444FED842719A383000C7329 /* UIStackView.swift */,
 				44136FDF27203F3400956694 /* String.swift */,
+				447655C0271ED9DD00C12434 /* PersistentContact.swift */,
 			);
 			path = Addons;
 			sourceTree = "<group>";
@@ -753,7 +753,7 @@
 				447655BF271EBBBB00C12434 /* FileHandler.swift in Sources */,
 				440CAC86271822D400E6E51F /* ContactCreateRedactPartView2.swift in Sources */,
 				440CAC8427180CB100E6E51F /* UIImage+AppImages.swift in Sources */,
-				447655C1271ED9DD00C12434 /* EntityWithID.swift in Sources */,
+				447655C1271ED9DD00C12434 /* PersistentContact.swift in Sources */,
 				44791E1B27158CC500E6FC6C /* ContactShowViewController.swift in Sources */,
 				444FED7927196A6C000C7329 /* PartViewModel2.swift in Sources */,
 				444A5E5C2714421F00893C26 /* R.generated.swift in Sources */,

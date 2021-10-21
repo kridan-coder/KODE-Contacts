@@ -7,6 +7,8 @@
 
 import UIKit
 import TPKeyboardAvoiding
+import AVFoundation
+import Photos
 
 class ContactCreateRedactViewController: UIViewController {
     // MARK: - Properties
@@ -17,7 +19,7 @@ class ContactCreateRedactViewController: UIViewController {
     private let scrollView = TPKeyboardAvoidingScrollView()
     private let stackView = UIStackView()
     private let imagePicker = UIImagePickerController()
-
+    
     // MARK: - Init
     init(viewModel: ContactCreateRedactViewModel) {
         self.viewModel = viewModel
@@ -72,19 +74,55 @@ class ContactCreateRedactViewController: UIViewController {
     private func showImagePicker() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Take photo", style: .default) { _ in
-            self.imagePicker.sourceType = .savedPhotosAlbum
-            self.present(self.imagePicker, animated: true, completion: nil)
-        })
+        if UIImagePickerController.isCameraDeviceAvailable(.rear) {
+            alert.addAction(UIAlertAction(title: "Take photo", style: .default) { _ in
+                self.showCamera()
+            })
+        }
         
         alert.addAction(UIAlertAction(title: "Choose photo", style: .default) { _ in
-            self.imagePicker.sourceType = .camera
-            self.present(self.imagePicker, animated: true, completion: nil)
+            self.showPhotoLibrary()
+            
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func showCamera() {
+        self.imagePicker.sourceType = .camera
+        AVCaptureDevice.requestAccess(for: .video) { success in
+            DispatchQueue.main.async {
+                if success {
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                } else {
+                    self.showAlertWithError(PermissionError.noAccessToCamera)
+                    
+                }
+            }
+        }
+    }
+    
+    private func showPhotoLibrary() {
+        self.imagePicker.sourceType = .photoLibrary
+        let status = PHPhotoLibrary.authorizationStatus()
+        guard status != .authorized else {
+            self.present(self.imagePicker, animated: true, completion: nil)
+            return
+        }
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                    
+                default:
+                    self.showAlertWithError(PermissionError.noAccessToPhotos)
+                    
+                }
+            }
+        }
     }
     
     private func setupImagePicker() {
@@ -151,19 +189,19 @@ class ContactCreateRedactViewController: UIViewController {
 // MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 extension ContactCreateRedactViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         dismiss(animated: true)
         if let image = info[.editedImage] as? UIImage {
             viewModel.setupImage(image)
             return
         }
-
+        
         if let image = info[.originalImage] as? UIImage {
             viewModel.setupImage(image)
         } else {
             print("Other source")
         }
-
+        
     }
 }
 

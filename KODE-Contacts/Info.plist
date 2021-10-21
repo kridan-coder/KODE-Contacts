@@ -51,6 +51,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Contacts needs Camera Access for taking a photo when editing a contact.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Contacts needs Photo Library Access for picking photo when editing a contact.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

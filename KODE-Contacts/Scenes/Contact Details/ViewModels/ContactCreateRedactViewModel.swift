@@ -28,13 +28,14 @@ class ContactCreateRedactViewModel {
     var didAskToShowImagePicker: (() -> Void)?
     var didReceiveError: ((Error) -> Void)?
     
-    var partViewModel1: PartViewModel1
-    var partViewModel2: PartViewModel2
-    var partViewModel3: PartViewModel3
     var cellViewModels: [ContactCreateRedactPartViewModel] = []
     
-    var contact: Contact?
-    var isCreatingContact: Bool
+    private var partViewModel1: PartViewModel1
+    private var partViewModel2: PartViewModel2
+    private var partViewModel3: PartViewModel3
+    
+    private var contact: Contact?
+    private var isCreatingContact: Bool
     
     private let dependencies: Dependencies
     
@@ -51,7 +52,6 @@ class ContactCreateRedactViewModel {
     }
     
     // MARK: - Public Methods
-    
     func reloadData() {
         setupViewModels()
     }
@@ -62,25 +62,34 @@ class ContactCreateRedactViewModel {
     }
     
     func editContactDidFinish() {
-        guard let phoneNumberString = partViewModel1.phoneNumberString else {
-            didReceiveError?(ValidationError.incorrectPhoneNumber)
-            return
-        }
-        guard let name = partViewModel1.data.firstTextFieldText,
-              !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            didReceiveError?(ValidationError.noFirstName)
+        let newContact: Contact
+        do {
+            try newContact = formNewContact()
+        } catch let error {
+            didReceiveError?(error)
             return
         }
         
-        var newContact = contact ?? Contact(name: name, phoneNumber: phoneNumberString)
-        newContact.lastName = partViewModel1.data.secondTextFieldText
-        newContact.ringtone = partViewModel2.data.pickedRingtone
-        newContact.avatarImagePath = FileHandler.saveImageAndReturnFilePath(partViewModel1.data.avatarImage,
-                                                                            with: newContact.phoneNumber)
-        newContact.notes = partViewModel3.data.textFieldText
+        if isCreatingContact {
+            
+            do {
+                try dependencies.coreDataClient.createContact(newContact)
+            } catch let error {
+                didReceiveError?(error)
+                return
+            }
+            
+        } else {
+            
+            do {
+                try dependencies.coreDataClient.updateContact(newContact)
+            } catch let error {
+                didReceiveError?(error)
+                return
+            }
+            
+        }
         
-        dependencies.coreDataClient.createContact(newContact)
-        print(dependencies.coreDataClient.getAllContacts())
         delegate?.contactCreateRedactViewModel(self, didFinishEditing: newContact)
     }
     
@@ -89,6 +98,24 @@ class ContactCreateRedactViewModel {
     }
     
     // MARK: - Private Methods
+    private func formNewContact() throws -> Contact {
+        guard let phoneNumberString = partViewModel1.phoneNumberString else {
+            throw ValidationError.incorrectPhoneNumber
+        }
+        guard let name = partViewModel1.data.firstTextFieldText,
+              !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            throw ValidationError.noFirstName
+        }
+        
+        var newContact = contact ?? Contact(name: name, phoneNumber: phoneNumberString)
+        newContact.lastName = partViewModel1.data.secondTextFieldText
+        newContact.ringtone = partViewModel2.data.pickedRingtone
+        newContact.avatarImagePath = FileHandler.saveImageAndReturnFilePath(partViewModel1.data.avatarImage,
+                                                                            with: newContact.uuid)
+        newContact.notes = partViewModel3.data.textFieldText
+        return newContact
+    }
+    
     private func setupViewModels() {
         cellViewModels = []
         partViewModel1.data = PartView1Data(firstTextFieldPlaceholder: R.string.localizable.firstName(),

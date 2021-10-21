@@ -38,7 +38,17 @@
 "NoFirstNameErrorTitle" = "First name is not specified";
 "DefaultErrorTitle" = "Something went wrong";
 
+"ObjectDoesNotExistErrorTitle" = "Object does not exist";
+
+"NoAccessToCameraErrorTitle" = "No access to camera";
+"NoAccessToPhotosErrorTitle" = "No access to photo library";
+
 "IncorrectPhoneNumberErrorDescription" = "Please consider specifying valid phone number.";
 "RepeatedPhoneNumberErrorDescription" = "Please specify different phone number.";
 "NoFirstNameErrorDescription" = "Please specify first name of the contact.";
 "DefaultErrorDescription" = "The problem is on our side, we are already looking into it. Please try again.";
+
+"ObjectDoesNotExistErrorDescription" = "Required object does not exist in the database.";
+
+"NoAccessToCameraErrorDescription" = "Please allow Contacts to use camera in order to take photos. You can set this permission in Settings.";
+"NoAccessToPhotosErrorDescription" = "Please allow Contacts to use photo library in order to get photos. You can set this permission in Settings.";
