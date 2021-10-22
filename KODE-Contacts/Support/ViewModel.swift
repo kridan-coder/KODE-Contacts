@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ViewModel {
-    var didReloadData: (() -> Void)? { get set }
+    var didUpdateData: (() -> Void)? { get set }
 }
 
 protocol ContactCreateRedactPartViewModel: ViewModel {

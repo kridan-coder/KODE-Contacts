@@ -8,47 +8,12 @@
 import UIKit
 import SnapKit
 
-class ContactsListViewController: UIViewController, UISearchBarDelegate {
+class ContactsListViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: ContactsListViewModel
     
     private let searchController: UISearchController
     private let tableView: UITableView
-//    private let collation = UILocalizedIndexedCollation.current()
-//    var orderArray: [Int] = []
-//    var sections: [Int: [ContactCellViewModel]] = [:]
-//    var objects: [CollationIndexable] = [] {
-//        didSet {
-//            sections = [:]
-//            orderArray = []
-//            let selector = #selector(getter: CollationIndexable.collationString)
-////            sections = Array(repeating: [], count: collation.sectionTitles.count)
-////            for item in 0..<collation.sectionTitles.count {
-////                sectionTitles[item] = collation.sectionIndexTitles[item]
-////            }
-//
-//            let sortedObjects = collation.sortedArray(from: objects, collationStringSelector: selector)
-//
-//            for object in sortedObjects {
-//                let sectionNumber = collation.section(for: object, collationStringSelector: selector)
-//                let contact = (object as? ContactCellViewModel
-//                                ?? ContactCellViewModel(data: Contact(name: "Something went wrong...",
-//                                                                      phoneNumber: "+6 666 666 66-66")))
-//
-//                //newWay.append((sectionNumber, contact))
-//
-//                if sections[sectionNumber] == nil {
-//                    sections[sectionNumber] = []
-//                    orderArray.append(sectionNumber)
-//                }
-//                    sections[sectionNumber]?.append(contact)
-//
-//            }
-//
-//            // sections.removeAll { $0.isEmpty }
-//            self.tableView.reloadData()
-//        }
-//    }
     
     // MARK: - Init
     init(viewModel: ContactsListViewModel) {
@@ -84,12 +49,14 @@ class ContactsListViewController: UIViewController, UISearchBarDelegate {
     // MARK: Private Methods
     
     private func bindToViewModel() {
-        viewModel.didReloadData = { [weak self] in
+        viewModel.didUpdateData = { [weak self] in
             self?.tableView.reloadData()
         }
     }
 
     private func setupSearchController() {
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
     }
@@ -143,7 +110,7 @@ extension ContactsListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.titles[section]
+        viewModel.titles[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -174,6 +141,17 @@ extension ContactsListViewController: UITableViewDataSource {
         cell.configure(with: viewModel.sections[indexPath.section].1[indexPath.row])        
         return cell
         
+    }
+    
+}
+
+extension ContactsListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterContacts(with: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.discardFiltering()
     }
     
 }

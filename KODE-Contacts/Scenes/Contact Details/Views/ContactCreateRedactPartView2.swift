@@ -32,7 +32,7 @@ final class ContactCreateRedactPartView2: DefaultCellView {
     func configure(with viewModel: ContactCreateRedactPartViewModel2) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didReloadData = {
+        self.viewModel?.didUpdateData = {
             self.setupData()
         }
     }

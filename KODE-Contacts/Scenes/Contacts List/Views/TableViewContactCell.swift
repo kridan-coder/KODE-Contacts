@@ -63,7 +63,7 @@ class TableViewContactCell: UITableViewCell {
     func configure(with viewModel: ContactCellViewModel) {
         self.viewModel = viewModel
         setupData()
-        viewModel.didReloadData = {
+        viewModel.didUpdateData = {
             self.setupData()
         }
     }

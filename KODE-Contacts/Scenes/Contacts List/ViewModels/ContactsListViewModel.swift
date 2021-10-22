@@ -25,16 +25,16 @@ class ContactsListViewModel: ViewModel {
         }
     }
     
-    var didReloadData: (() -> Void)?
+    var didUpdateData: (() -> Void)?
     
     var sections: [(Int, [ContactCellViewModel])] = []
     var titles: [String] = []
     
     private let collation = UILocalizedIndexedCollation.current()
-    
     private let sortSelector = #selector(getter: CollationIndexable.collationString)
     private var sectionsDictionary: [Int: [ContactCellViewModel]] = [:]
     private var contacts: [ContactCellViewModel] = []
+    private var filteredContacts: [ContactCellViewModel] = []
     
     private let dependencies: Dependencies
     
@@ -44,6 +44,25 @@ class ContactsListViewModel: ViewModel {
     }
     
     // MARK: - Public Methods
+    func filterContacts(with text: String) {
+        guard !text.isEmpty else {
+            discardFiltering()
+            return
+        }
+        filteredContacts = contacts.filter {
+            guard let safeLastName = $0.data.lastName else { return $0.data.name.contains(text) }
+            return safeLastName.contains(text) || $0.data.name.contains(text)
+        }
+        setupData()
+        didUpdateData?()
+    }
+    
+    func discardFiltering() {
+        filteredContacts = contacts
+        setupData()
+        didUpdateData?()
+    }
+    
     func deleteContact(at indexPath: IndexPath) throws {
         let contact = sections[indexPath.section].1[indexPath.row]
         do {
@@ -62,8 +81,9 @@ class ContactsListViewModel: ViewModel {
     func loadDataFromDatabase() {
         let contacts = dependencies.coreDataClient.getAllContacts()
         self.contacts = contacts.map { ContactCellViewModel(data: $0) }
+        filteredContacts = self.contacts
         setupData()
-        didReloadData?()
+        didUpdateData?()
     }
     
     // MARK: - Private Methods
@@ -71,9 +91,9 @@ class ContactsListViewModel: ViewModel {
         sectionsDictionary = [:]
         sections = []
         titles = []
-        contacts = collation.sortedArray(from: contacts,
-                                         collationStringSelector: sortSelector) as? [ContactCellViewModel] ?? []
-        for contact in contacts {
+        filteredContacts = collation.sortedArray(from: filteredContacts,
+                                                 collationStringSelector: sortSelector) as? [ContactCellViewModel] ?? []
+        for contact in filteredContacts {
             let sectionNumber = collation.section(for: contact, collationStringSelector: sortSelector)
             if sectionsDictionary[sectionNumber] == nil {
                 sectionsDictionary[sectionNumber] = []

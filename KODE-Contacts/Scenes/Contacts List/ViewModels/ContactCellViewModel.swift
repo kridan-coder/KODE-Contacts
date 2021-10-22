@@ -8,11 +8,11 @@
 import Foundation
 
 class ContactCellViewModel: ViewModel {
-    var didReloadData: (() -> Void)?
+    var didUpdateData: (() -> Void)?
     
     var data: Contact {
         didSet {
-            didReloadData?()
+            didUpdateData?()
         }
     }
     

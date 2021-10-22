@@ -25,7 +25,7 @@ final class PartViewModel1: ContactCreateRedactPartViewModel1 {
         
     }
     
-    var didReloadData: (() -> Void)?
+    var didUpdateData: (() -> Void)?
     var didAskToFocusNextTextField: (() -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     

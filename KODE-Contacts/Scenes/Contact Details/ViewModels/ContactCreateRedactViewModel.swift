@@ -58,7 +58,7 @@ class ContactCreateRedactViewModel {
     
     func setupImage(_ image: UIImage) {
         partViewModel1.data.avatarImage = image
-        partViewModel1.didReloadData?()
+        partViewModel1.didUpdateData?()
     }
     
     func editContactDidFinish() {

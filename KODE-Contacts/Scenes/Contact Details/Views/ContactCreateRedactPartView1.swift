@@ -41,7 +41,7 @@ class ContactCreateRedactPartView1: UIView {
     func configure(with viewModel: ContactCreateRedactPartViewModel1) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didReloadData = {
+        self.viewModel?.didUpdateData = {
             self.setupData()
         }
     }
