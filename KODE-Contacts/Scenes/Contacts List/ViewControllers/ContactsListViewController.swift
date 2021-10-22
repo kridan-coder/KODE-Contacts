@@ -14,40 +14,41 @@ class ContactsListViewController: UIViewController, UISearchBarDelegate {
     
     private let searchController: UISearchController
     private let tableView: UITableView
-    private let collation = UILocalizedIndexedCollation.current()
-    var orderArray: [Int] = []
-    var sections: [Int: [ContactCellViewModel]] = [:]
-    var objects: [CollationIndexable] = [] {
-        didSet {
-            sections = [:]
-            orderArray = []
-            let selector = #selector(getter: CollationIndexable.collationString)
-//            sections = Array(repeating: [], count: collation.sectionTitles.count)
-//            for item in 0..<collation.sectionTitles.count {
-//                sectionTitles[item] = collation.sectionIndexTitles[item]
+//    private let collation = UILocalizedIndexedCollation.current()
+//    var orderArray: [Int] = []
+//    var sections: [Int: [ContactCellViewModel]] = [:]
+//    var objects: [CollationIndexable] = [] {
+//        didSet {
+//            sections = [:]
+//            orderArray = []
+//            let selector = #selector(getter: CollationIndexable.collationString)
+////            sections = Array(repeating: [], count: collation.sectionTitles.count)
+////            for item in 0..<collation.sectionTitles.count {
+////                sectionTitles[item] = collation.sectionIndexTitles[item]
+////            }
+//
+//            let sortedObjects = collation.sortedArray(from: objects, collationStringSelector: selector)
+//
+//            for object in sortedObjects {
+//                let sectionNumber = collation.section(for: object, collationStringSelector: selector)
+//                let contact = (object as? ContactCellViewModel
+//                                ?? ContactCellViewModel(data: Contact(name: "Something went wrong...",
+//                                                                      phoneNumber: "+6 666 666 66-66")))
+//
+//                //newWay.append((sectionNumber, contact))
+//
+//                if sections[sectionNumber] == nil {
+//                    sections[sectionNumber] = []
+//                    orderArray.append(sectionNumber)
+//                }
+//                    sections[sectionNumber]?.append(contact)
+//
 //            }
-
-            let sortedObjects = collation.sortedArray(from: objects, collationStringSelector: selector)
-            
-            for object in sortedObjects {
-                let sectionNumber = collation.section(for: object, collationStringSelector: selector)
-                let contact = (object as? ContactCellViewModel
-                                ?? ContactCellViewModel(data: Contact(name: "Something went wrong...",
-                                                                      phoneNumber: "+6 666 666 66-66")))
-                
-                if sections[sectionNumber] == nil {
-                    sections[sectionNumber] = []
-                    orderArray.append(sectionNumber)
-                }
-                    sections[sectionNumber]?.append(contact)
-                
-                
-            }
-            
-            // sections.removeAll { $0.isEmpty }
-            self.tableView.reloadData()
-        }
-    }
+//
+//            // sections.removeAll { $0.isEmpty }
+//            self.tableView.reloadData()
+//        }
+//    }
     
     // MARK: - Init
     init(viewModel: ContactsListViewModel) {
@@ -72,7 +73,7 @@ class ContactsListViewController: UIViewController, UISearchBarDelegate {
         
         setupView()
         bindToViewModel()
-        viewModel.reloadData()
+        viewModel.loadDataFromDatabase()
     }
     
     // MARK: Actions
@@ -84,13 +85,8 @@ class ContactsListViewController: UIViewController, UISearchBarDelegate {
     
     private func bindToViewModel() {
         viewModel.didReloadData = { [weak self] in
-            self?.setupObjects()
             self?.tableView.reloadData()
         }
-    }
-    
-    private func setupObjects() {
-        objects = viewModel.contacts
     }
 
     private func setupSearchController() {
@@ -127,57 +123,46 @@ class ContactsListViewController: UIViewController, UISearchBarDelegate {
 extension ContactsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            var needsToRemoveSection = false
             do {
-                try viewModel.deleteContact(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                if viewModel.sections[indexPath.section].1.count == 1 {
+                    needsToRemoveSection = true
+                }
+                try viewModel.deleteContact(at: indexPath)
             } catch let error {
                 showAlertWithError(error)
+                return
             }
             
+            if needsToRemoveSection {
+                tableView.deleteSections([indexPath.section], with: .fade)
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //let titles: [Int] = sections.map {$0.key}
-        
-        return collation.sectionTitles[orderArray[section]]
-        
-        //return collation.sectionTitles[titles[section]]
+        return viewModel.titles[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        var titles: [String]? = []
-        
-//        for key in sections.keys {
-//            titles?.append(collation.sectionTitles[key])
-//        }
-        
-        for item in orderArray {
-            titles?.append(collation.sectionTitles[item])
-        }
-        
-        return titles
+        viewModel.titles
     }
 
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        return index
-//        var value = 0
-//        for itemNumber in 0..<orderArray.count where orderArray[itemNumber] == index {
-//            value = itemNumber
-//        }
-//        return value
-        
+        index
     }
     
 }
 
 extension ContactsListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        viewModel.sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[(orderArray[section])]?.count ?? 0
+        viewModel.sections[section].1.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -186,8 +171,7 @@ extension ContactsListViewController: UITableViewDataSource {
                 as? TableViewContactCell else {
             return UITableViewCell()
         }
-        cell.configure(with: sections[(orderArray[indexPath.section])]?[indexPath.row] ?? ContactCellViewModel(data: Contact(name: "Something went wrong...",
-                                                                                                                                phoneNumber: "+6 666 666 66-66")))
+        cell.configure(with: viewModel.sections[indexPath.section].1[indexPath.row])        
         return cell
         
     }
