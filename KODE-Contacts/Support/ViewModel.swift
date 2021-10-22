@@ -11,6 +11,12 @@ protocol ViewModel {
     var didUpdateData: (() -> Void)? { get set }
 }
 
+protocol ContactShowPartViewModel: ViewModel {
+    var title: String { get set }
+    var description: String { get set }
+    var descriptionIsClickable: Bool { get set }
+}
+
 protocol ContactCreateRedactPartViewModel: ViewModel {
     var didAskToFocusNextTextField: (() -> Void)? { get set }
 }
@@ -27,3 +33,5 @@ protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {
 protocol ContactCreateRedactPartViewModel3: ContactCreateRedactPartViewModel {
     var data: PartView3Data { get set }
 }
+
+

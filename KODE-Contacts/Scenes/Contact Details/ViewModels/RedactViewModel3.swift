@@ -1,5 +1,5 @@
 //
-//  ContactCreateRedactPartViewModel2.swift
+//  ContactCreateRedactPartViewModel3.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 15.10.2021.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class PartViewModel2: ContactCreateRedactPartViewModel2 {
-    var data: PartView2Data
+final class RedactViewModel3: ContactCreateRedactPartViewModel3 {
+    var data: PartView3Data
     
     var didUpdateData: (() -> Void)?
     
     var didAskToFocusNextTextField: (() -> Void)?
     
-    init(data: PartView2Data) {
+    init(data: PartView3Data) {
         self.data = data
     }
 }

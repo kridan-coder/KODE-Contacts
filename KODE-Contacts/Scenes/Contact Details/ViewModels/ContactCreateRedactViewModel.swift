@@ -30,9 +30,9 @@ class ContactCreateRedactViewModel {
     
     var cellViewModels: [ContactCreateRedactPartViewModel] = []
     
-    private var partViewModel1: PartViewModel1
-    private var partViewModel2: PartViewModel2
-    private var partViewModel3: PartViewModel3
+    private var partViewModel1: RedactViewModel1
+    private var partViewModel2: RedactViewModel2
+    private var partViewModel3: RedactViewModel3
     
     private var contact: Contact?
     private var isCreatingContact: Bool
@@ -46,9 +46,9 @@ class ContactCreateRedactViewModel {
         
         isCreatingContact = contact == nil
         
-        partViewModel1 = PartViewModel1(data: PartView1Data())
-        partViewModel2 = PartViewModel2(data: PartView2Data())
-        partViewModel3 = PartViewModel3(data: PartView3Data())
+        partViewModel1 = RedactViewModel1(data: PartView1Data())
+        partViewModel2 = RedactViewModel2(data: PartView2Data())
+        partViewModel3 = RedactViewModel3(data: PartView3Data())
     }
     
     // MARK: - Public Methods

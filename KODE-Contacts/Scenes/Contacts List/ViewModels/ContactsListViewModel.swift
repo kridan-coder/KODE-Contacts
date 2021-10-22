@@ -50,8 +50,8 @@ class ContactsListViewModel: ViewModel {
             return
         }
         filteredContacts = contacts.filter {
-            guard let safeLastName = $0.data.lastName else { return $0.data.name.contains(text) }
-            return safeLastName.contains(text) || $0.data.name.contains(text)
+            guard let safeLastName = $0.data.lastName else { return $0.data.name.replacingOccurrences(of: " ", with: "").contains(text) }
+            return safeLastName.replacingOccurrences(of: " ", with: "").contains(text) || $0.data.name.replacingOccurrences(of: " ", with: "").contains(text)
         }
         setupData()
         didUpdateData?()
@@ -71,6 +71,7 @@ class ContactsListViewModel: ViewModel {
             throw error
         }
         contacts = contacts.filter { $0.data.uuid != contact.data.uuid }
+        filteredContacts = contacts
         setupData()
     }
     

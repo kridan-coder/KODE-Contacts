@@ -8,7 +8,7 @@
 import Foundation
 import PhoneNumberKit
 
-final class PartViewModel1: ContactCreateRedactPartViewModel1 {
+final class RedactViewModel1: ContactCreateRedactPartViewModel1 {
     private let phoneNumberKit = PhoneNumberKit()
     
     var data: PartView1Data {
