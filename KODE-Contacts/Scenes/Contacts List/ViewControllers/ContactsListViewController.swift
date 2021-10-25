@@ -143,6 +143,10 @@ extension ContactsListViewController: UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectedRowAt(indexPath)
+    }
+    
 }
 
 extension ContactsListViewController: UISearchBarDelegate {

@@ -26,7 +26,8 @@ final class FileHandler {
         }
     }
     
-    static func getSavedImage(with path: String) -> UIImage? {
+    static func getSavedImage(with path: String?) -> UIImage? {
+        guard let path = path else { return nil }
         return UIImage(contentsOfFile: path)
     }
     

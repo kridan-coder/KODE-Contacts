@@ -8,6 +8,6 @@
 import UIKit
 
 extension UIFont {
-    static let cellTitle = UIFont.systemFont(ofSize: 15)
-    static let cellItem = UIFont.systemFont(ofSize: 17)
+    static let cellTitle = UIFont.systemFont(ofSize: 16)
+    static let cellItem = UIFont.systemFont(ofSize: 18)
 }

@@ -15,4 +15,5 @@ extension UIColor {
 
     static let systemBlue = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1)
     static let white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    static let almostWhite = UIColor(red: 0.98, green: 0.98, blue: 1, alpha: 1)
 }

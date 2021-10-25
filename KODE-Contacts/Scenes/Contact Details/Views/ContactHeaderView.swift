@@ -39,8 +39,14 @@ class ContactHeaderView: UIView {
     }
     
     // MARK: - Private Methods
-    private func initializeUI() {
-        fullNameLabel.font = UIFont.systemFont(ofSize: 40)
+    func initializeUI() {
+        backgroundColor = .almostWhite
+        let layer = CALayer()
+        layer.backgroundColor = UIColor.almostWhite.cgColor
+        layer.frame = CGRect(x: 0, y: -1000, width: 1000, height: 1000)
+        self.layer.addSublayer(layer)
+        fullNameLabel.font = UIFont.systemFont(ofSize: 30)
+        fullNameLabel.textAlignment = .center
     }
     
     private func createConstraints() {
@@ -56,7 +62,7 @@ class ContactHeaderView: UIView {
         
         fullNameLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(40)
-            make.top.equalTo(fullNameLabel.snp.bottom).offset(15)
+            make.top.equalTo(contactImageView.snp.bottom).offset(15)
             make.bottom.equalToSuperview().inset(15)
         }
     }

@@ -44,6 +44,11 @@ class ContactsListViewModel: ViewModel {
     }
     
     // MARK: - Public Methods
+    func selectedRowAt(_ indexPath: IndexPath) {
+        let contact = sections[indexPath.section].1[indexPath.row]
+        delegate?.contactsListViewModel(self, didRequestContactDetailsFor: contact.data)
+    }
+    
     func filterContacts(with text: String) {
         guard !text.isEmpty else {
             discardFiltering()

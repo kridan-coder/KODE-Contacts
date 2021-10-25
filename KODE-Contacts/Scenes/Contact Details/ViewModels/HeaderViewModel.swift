@@ -11,10 +11,10 @@ final class HeaderViewModel: ViewModel {
     var didUpdateData: (() -> Void)?
     
     var fullName: String
-    var image: UIImage
+    var image: UIImage?
     
-    init(image: UIImage, fullName: String) {
-        self.image = image
+    init(image: UIImage?, fullName: String) {
+        self.image = image ?? .placeholderImage
         self.fullName = fullName
     }
 }

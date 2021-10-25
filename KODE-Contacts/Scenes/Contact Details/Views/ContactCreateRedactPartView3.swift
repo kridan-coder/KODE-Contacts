@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ContactCreateRedactPartView3: DefaultCellView {
+final class ContactCreateRedactPartView3: DefaultViewCell {
     // MARK: - Properties
     private var viewModel: ContactCreateRedactPartViewModel3?
     
@@ -51,7 +51,7 @@ extension ContactCreateRedactPartView3: UITextFieldDelegate {
                                                       replacementString: string,
                                                       replacementRange: range) ?? ""
         
-            guard updatedText.count <= 255 else { return false }
+            guard updatedText.count <= 18 else { return false }
         
             updateViewModelData(currentTextField: textField, updatedText: updatedText)
             return true

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import TPKeyboardAvoiding
 
-final class ContactCreateRedactPartView2: DefaultCellView {
+final class ContactCreateRedactPartView2: DefaultViewCell {
     // MARK: - Properties
     private var viewModel: ContactCreateRedactPartViewModel2?
     
@@ -17,8 +17,8 @@ final class ContactCreateRedactPartView2: DefaultCellView {
     private let pickerView = UIPickerView()
     private let toolbar = CustomToolbar(frame: CGRect.zero)
     
-    override init() {
-        super.init()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupToolbar()
         setupPicker()
     }

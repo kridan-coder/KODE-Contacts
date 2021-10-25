@@ -7,14 +7,15 @@
 
 import UIKit
 
-class DefaultCellView: UIView {
+class DefaultViewCell: UIView {
     // MARK: - Properties
     let descriptionTextField: UITextField = .emptyTextField
+    var underline: UIView?
     internal let titleLabel = UILabel()
 
     // MARK: - Init
-    init() {
-        super.init(frame: CGRect.zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         initializeUI()
         createConstraints()
     }
@@ -27,13 +28,16 @@ class DefaultCellView: UIView {
     
     // UI
     internal func initializeUI() {
-        createUnderline(color: .darkGrayUnderlineColor, insetBottom: Constants.insetBottom, insetLeading: Constants.insetLeading)
+        underline = createUnderline(color: .darkGrayUnderlineColor,
+                                    insetBottom: Constants.insetBottom,
+                                    insetLeading: Constants.insetLeading)
         initalizeTitleLabelUI()
         initalizeDescriptionTextViewUI()
     }
     
     internal func initalizeTitleLabelUI() {
         titleLabel.font = .cellTitle
+        titleLabel.isUserInteractionEnabled = true
     }
     
     internal func initalizeDescriptionTextViewUI() {

@@ -110,7 +110,7 @@ class ContactCreateRedactPartView1: UIView {
         phoneNumberTextField.keyboardType = .phonePad
         phoneNumberTextField.inputAccessoryView = toolbar
         phoneNumberTextField.createUnderline()
-        phoneNumberTextField.maxDigits = 15
+        phoneNumberTextField.maxDigits = 16
         phoneNumberTextField.defaultRegion = "RU"
         phoneNumberTextField.withExamplePlaceholder = true
         phoneNumberTextField.withPrefix = true
@@ -181,7 +181,7 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
                                                   replacementString: string,
                                                   replacementRange: range) ?? ""
         
-        guard updatedText.count <= 16 else { return false }
+        guard updatedText.count <= 18 else { return false }
         
         updateViewModelData(currentTextField: textField, updatedText: updatedText)
         return true
