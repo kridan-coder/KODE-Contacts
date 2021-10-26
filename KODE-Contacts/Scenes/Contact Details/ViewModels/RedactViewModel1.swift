@@ -9,15 +9,12 @@ import Foundation
 import PhoneNumberKit
 
 final class RedactViewModel1: ContactCreateRedactPartViewModel1 {
-    private let phoneNumberKit = PhoneNumberKit()
-    
+    // MARK: - Properties
     var data: PartView1Data {
         didSet {
             phoneNumber = try? phoneNumberKit.parse(data.thirdTextFieldText ?? "")
         }
     }
-    
-    private var phoneNumber: PhoneNumber?
     
     var phoneNumberString: String? {
         guard let safePhoneNumber = phoneNumber else { return nil }
@@ -29,7 +26,12 @@ final class RedactViewModel1: ContactCreateRedactPartViewModel1 {
     var didAskToFocusNextTextField: (() -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     
+    private let phoneNumberKit = PhoneNumberKit()
+    private var phoneNumber: PhoneNumber?
+    
+    // MARK: - Init
     init(data: PartView1Data) {
         self.data = data
     }
+    
 }

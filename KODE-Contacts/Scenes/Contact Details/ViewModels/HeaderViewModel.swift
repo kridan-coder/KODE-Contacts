@@ -14,7 +14,8 @@ final class HeaderViewModel: ViewModel {
     var image: UIImage?
     
     init(image: UIImage?, fullName: String) {
-        self.image = image ?? .placeholderImage
+        self.image = image ?? .placeholderAvatar
         self.fullName = fullName
     }
+    
 }

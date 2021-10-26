@@ -19,4 +19,5 @@ class ContactCellViewModel: ViewModel {
     init(data: Contact) {
         self.data = data
     }
+    
 }

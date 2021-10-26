@@ -30,8 +30,14 @@
 "Notes" = "Notes";
 
 "Okay" = "OK";
+"Cancel" = "Cancel";
+
+"Take photo" = "Take photo";
+"Choose photo" = "Choose photo";
 
 "WakeUpNeo" = "Wake up, Neo...";
+
+"CreateContact" = "Create a contact.";
 
 "IncorrectPhoneNumberErrorTitle" = "Phone number is incorrect";
 "RepeatedPhoneNumberErrorTitle" = "Phone number already exists";

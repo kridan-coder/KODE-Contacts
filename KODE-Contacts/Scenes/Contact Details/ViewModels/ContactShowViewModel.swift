@@ -13,32 +13,31 @@ protocol ContactShowViewModelDelegate: AnyObject {
 }
 
 final class ContactShowViewModel {
+    // MARK: - Properties
     var didFinishUpdating: (() -> Void)?
     
     var showViewModels: [ShowViewModel] = []
     
-    var headerViewModel: HeaderViewModel
+    var headerViewModel: HeaderViewModel?
     
-    private var contact: Contact
+    var contact: Contact
+    
+    var fullName: String {
+        if let lastName = contact.lastName {
+            return contact.name + " " + lastName
+        } else {
+            return contact.name
+        }
+    }
     
     weak var delegate: ContactShowViewModelDelegate?
     
     // MARK: - Init
     init(contact: Contact) {
         self.contact = contact
-        
-        let fullName: String
-        if let lastName = contact.lastName {
-            fullName = contact.name + " " + lastName
-        } else {
-            fullName = contact.name
-        }
-        let image = FileHandler.getSavedImage(with: contact.avatarImagePath)
-        headerViewModel = HeaderViewModel(image: image,
-                                          fullName: fullName)
-        
     }
     
+    // MARK: - Public Methods
     func reloadData() {
         setupViewModels()
         didFinishUpdating?()
@@ -52,34 +51,25 @@ final class ContactShowViewModel {
         delegate?.contactShowViewModelDidCancel(self)
     }
     
+    // MARK: - Private Methods
     private func setupViewModels() {
         let image = FileHandler.getSavedImage(with: contact.avatarImagePath)
-        
-        let fullName: String
-        if let lastName = contact.lastName {
-            fullName = contact.name + " " + lastName
-        } else {
-            fullName = contact.name
-        }
-        
         headerViewModel = HeaderViewModel(image: image,
                                           fullName: fullName)
         
         showViewModels = []
         let showPhoneViewModel = ShowViewModel(title: R.string.localizable.phone(),
-                                               description: contact.phoneNumber,
-                                               descriptionIsClickable: true)
+                                               description: contact.phoneNumber)
         showViewModels.append(showPhoneViewModel)
         
         let showRingtoneViewModel = ShowViewModel(title: R.string.localizable.ringtone(),
-                                                  description: contact.ringtone.localizedString,
-                                                  descriptionIsClickable: false)
+                                                  description: contact.ringtone.localizedString)
         showViewModels.append(showRingtoneViewModel)
         
-        guard let notes = contact.notes else { return }
+        guard let notes = contact.notes,
+              !notes.isEmpty else { return }
         let showNotesViewModel = ShowViewModel(title: R.string.localizable.notes(),
-                                               description: notes,
-                                               descriptionIsClickable: false)
+                                               description: notes)
         showViewModels.append(showNotesViewModel)
     }
     

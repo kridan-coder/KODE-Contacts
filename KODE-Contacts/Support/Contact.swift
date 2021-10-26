@@ -40,4 +40,5 @@ struct Contact {
         notes = persistentContact.notes
         uuid = persistentContact.uuid ?? UUID().uuidString
     }
+    
 }

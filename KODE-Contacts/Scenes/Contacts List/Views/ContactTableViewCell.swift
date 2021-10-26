@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import SnapKit
 
-class TableViewContactCell: UITableViewCell {
+class ContactTableViewCell: UITableViewCell {
     // MARK: - Properties
     private let firstLabel = UILabel()
     private let secondLabel = UILabel()
@@ -16,6 +15,7 @@ class TableViewContactCell: UITableViewCell {
     
     private var viewModel: ContactCellViewModel?
     
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initializeUI()
@@ -26,49 +26,17 @@ class TableViewContactCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initializeUI() {
-        stackView.alignment = .leading
-        stackView.spacing = 8
-        stackView.axis = .horizontal
-        
-        firstLabel.font = UIFont.systemFont(ofSize: 20)
-        secondLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-    }
-    
-    private func createConstraints() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(firstLabel)
-        stackView.addArrangedSubview(secondLabel)
-        
-        let horizontalOffset = max(separatorInset.left, separatorInset.right)
-        let verticalInset = horizontalOffset / 1.33333
-        
-        stackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(horizontalOffset)
-            make.trailing.lessThanOrEqualToSuperview().offset(horizontalOffset)
-            make.top.bottom.equalToSuperview().inset(verticalInset)
-        }
-        
-//        firstLabel.snp.makeConstraints { make in
-//            make.leading.equalToSuperview()
-//            make.top.bottom.equalToSuperview()
-//        }
-//
-//        secondLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(firstLabel.snp.trailing).offset(10)
-//            make.top.bottom.equalToSuperview()
-//        }
-    }
-    
+    // MARK: - Public Methods
     func configure(with viewModel: ContactCellViewModel) {
         self.viewModel = viewModel
         setupData()
-        viewModel.didUpdateData = {
-            self.setupData()
+        viewModel.didUpdateData = { [weak self] in
+            self?.setupData()
         }
     }
     
-    func setupData() {
+    // MARK: - Private Methods
+    private func setupData() {
         guard viewModel?.data.lastName != nil else {
             firstLabel.text = nil
             firstLabel.isHidden = true
@@ -79,5 +47,37 @@ class TableViewContactCell: UITableViewCell {
         firstLabel.text = viewModel?.data.name
         secondLabel.text = viewModel?.data.lastName
     }
+    
+    private func initializeUI() {
+        stackView.alignment = .leading
+        stackView.spacing = Constants.StackView.spacing
+        stackView.axis = .horizontal
+        
+        firstLabel.font = .contactName
+        secondLabel.font = .contactLastName
+    }
+    
+    private func createConstraints() {
+        addSubview(stackView)
+        stackView.addArrangedSubview(firstLabel)
+        stackView.addArrangedSubview(secondLabel)
+        
+        let horizontalOffset = max(separatorInset.left, separatorInset.right)
+        let verticalInset = horizontalOffset / Constants.StackView.quotient
+        
+        stackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(horizontalOffset)
+            make.trailing.lessThanOrEqualToSuperview().offset(horizontalOffset)
+            make.top.bottom.equalToSuperview().inset(verticalInset)
+        }
+    }
+    
+}
 
+// MARK: - Constants
+private extension Constants {
+    struct StackView {
+        static let spacing = CGFloat(8)
+        static let quotient = CGFloat(4 / 3)
+    }
 }

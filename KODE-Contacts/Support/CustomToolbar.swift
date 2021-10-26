@@ -44,7 +44,7 @@ final class CustomToolbar: UIToolbar {
         self.barStyle = UIBarStyle.default
         self.sizeToFit()
         self.isTranslucent = true
-        self.tintColor = .systemBlue
+        self.tintColor = .brightBlue
         self.setItems([firstButton, spaceButton, secondButton], animated: false)
         self.isUserInteractionEnabled = true
     }

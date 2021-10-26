@@ -8,6 +8,7 @@
 import UIKit
 
 class ContactShowViewController: UIViewController {
+    // MARK: - Properties
     private let viewModel: ContactShowViewModel
     private let tableView = UITableView()
     
@@ -21,6 +22,7 @@ class ContactShowViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         createConstraints()
@@ -35,8 +37,12 @@ class ContactShowViewController: UIViewController {
         viewModel.requestToCancel()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Actions
+    @objc private func editContactRequest() {
+        viewModel.requestToEdit()
+    }
     
+    // MARK: - Private Methods
     private func createConstraints() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -47,10 +53,6 @@ class ContactShowViewController: UIViewController {
     private func setupNavigationController() {
         let editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editContactRequest))
         navigationItem.rightBarButtonItem = editBarButton
-    }
-    
-    @objc private func editContactRequest() {
-        viewModel.requestToEdit()
     }
     
     private func setupTableView() {
@@ -71,16 +73,17 @@ class ContactShowViewController: UIViewController {
 
 extension ContactShowViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let viewModel = viewModel.headerViewModel else { return nil }
         let view = ContactHeaderView()
-        view.configure(with: viewModel.headerViewModel)
-        view.layoutIfNeeded()
-        view.initializeUI()
+        view.configure(with: viewModel)
         return view
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 175
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let view = view as? ContactHeaderView else { return }
+        view.setupDynamicUI()
     }
+    
 }
 
 extension ContactShowViewController: UITableViewDataSource {

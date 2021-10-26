@@ -1,5 +1,5 @@
 //
-//  DefaultCellView.swift
+//  DefaultRedactViewCell.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 14.10.2021.
@@ -7,27 +7,33 @@
 
 import UIKit
 
-class DefaultViewCell: UIView {
+class DefaultRedactViewCell: UIView {
     // MARK: - Properties
+    let titleLabel = UILabel()
     let descriptionTextField: UITextField = .emptyTextField
     var underline: UIView?
-    internal let titleLabel = UILabel()
-
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         initializeUI()
         createConstraints()
+        additionalSetup()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        initializeUI()
+        createConstraints()
+        additionalSetup()
     }
     
-    // MARK: - Internal Methods
+    // MARK: - Public Methods
+    func additionalSetup() {}
     
+    // MARK: - Private Methods
     // UI
-    internal func initializeUI() {
+    private func initializeUI() {
         underline = createUnderline(color: .darkGrayUnderlineColor,
                                     insetBottom: Constants.insetBottom,
                                     insetLeading: Constants.insetLeading)
@@ -35,19 +41,17 @@ class DefaultViewCell: UIView {
         initalizeDescriptionTextViewUI()
     }
     
-    internal func initalizeTitleLabelUI() {
+    private func initalizeTitleLabelUI() {
         titleLabel.font = .cellTitle
-        titleLabel.isUserInteractionEnabled = true
     }
     
-    internal func initalizeDescriptionTextViewUI() {
+    private func initalizeDescriptionTextViewUI() {
         descriptionTextField.font = .cellItem
         descriptionTextField.textColor = .secondaryTextColor
-        descriptionTextField.isUserInteractionEnabled = false
     }
     
     // Constraints
-    internal func createConstraints() {
+    private func createConstraints() {
         addSubview(titleLabel)
         addSubview(descriptionTextField)
         
@@ -59,7 +63,7 @@ class DefaultViewCell: UIView {
         createConstraintsForItemLabel()
     }
     
-    internal func createConstraintsForTitleLabel() {
+    private func createConstraintsForTitleLabel() {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(Constants.insetLeading)
             make.trailing.equalToSuperview().inset(-Constants.TextField.insetSmall)
@@ -67,7 +71,7 @@ class DefaultViewCell: UIView {
         }
     }
     
-    internal func createConstraintsForItemLabel() {
+    private func createConstraintsForItemLabel() {
         descriptionTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(Constants.TextField.insetBig)
             make.trailing.equalToSuperview().inset(-Constants.TextField.insetSmall)

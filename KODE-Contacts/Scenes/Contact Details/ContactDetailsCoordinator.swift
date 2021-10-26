@@ -15,13 +15,13 @@ final class ContactDetailsCoordinator: Coordinator {
     
     var rootNavigationController: UINavigationController
     
-    var didFinish: (() -> Void)?
+    var onDidFinish: (() -> Void)?
     
     var contactShowViewModel: ContactShowViewModel?
     
     private let dependencies: AppDependencies
     
-    private let contact: Contact?
+    private var contact: Contact?
     
     // MARK: - Init
     init(dependencies: AppDependencies, navigationController: UINavigationController, contact: Contact? = nil) {
@@ -45,8 +45,6 @@ final class ContactDetailsCoordinator: Coordinator {
     }
     
     func finish() {
-        didFinish?()
-        rootNavigationController.dismiss(animated: true)
         rootNavigationController.navigationBar.prefersLargeTitles = true
         rootNavigationController.navigationBar.barTintColor = .white
         delegate?.removeAllChildCoordinatorsWithType(type(of: self))
@@ -58,9 +56,10 @@ final class ContactDetailsCoordinator: Coordinator {
         rootNavigationController.navigationBar.barTintColor = .almostWhite
         
         contactShowViewModel = ContactShowViewModel(contact: contact)
-        //contactShowViewModel.delegate = self
+        contactShowViewModel?.delegate = self
         
-        let contactShowViewController = ContactShowViewController(viewModel: contactShowViewModel ?? ContactShowViewModel(contact: contact))
+        let contactShowViewController = ContactShowViewController(viewModel: contactShowViewModel ??
+                                                                    ContactShowViewModel(contact: contact))
         
         rootNavigationController.pushViewController(contactShowViewController, animated: true)
     }
@@ -81,23 +80,29 @@ final class ContactDetailsCoordinator: Coordinator {
 }
 
 // MARK: - ContactCreateRedactViewModelDelegate
-
 extension ContactDetailsCoordinator: ContactCreateRedactViewModelDelegate {
     func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
                                       didFinishEditing contact: Contact) {
+        self.contact = contact
+        contactShowViewModel?.contact = contact
         contactShowViewModel?.reloadData()
         rootNavigationController.dismiss(animated: true)
+        onDidFinish?()
     }
     
     func contactCreateRedactViewModelDidCancelEditing(_ contactCreateRedactViewModel: ContactCreateRedactViewModel) {
         rootNavigationController.dismiss(animated: true)
+        onDidFinish?()
     }
     
 }
 
+// MARK: - ContactShowViewModelDelegate
 extension ContactDetailsCoordinator: ContactShowViewModelDelegate {
     func contactShowViewModelDidCancel(_ contactShowViewModel: ContactShowViewModel) {
+        rootNavigationController.dismiss(animated: true)
         finish()
+        onDidFinish?()
     }
     
     func contactShowViewModel(_ contactShowViewModel: ContactShowViewModel, didAskToEdit contact: Contact) {

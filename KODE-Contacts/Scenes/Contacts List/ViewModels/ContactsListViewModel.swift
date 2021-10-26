@@ -55,8 +55,11 @@ class ContactsListViewModel: ViewModel {
             return
         }
         filteredContacts = contacts.filter {
-            guard let safeLastName = $0.data.lastName else { return $0.data.name.replacingOccurrences(of: " ", with: "").contains(text) }
-            return safeLastName.replacingOccurrences(of: " ", with: "").contains(text) || $0.data.name.replacingOccurrences(of: " ", with: "").contains(text)
+            guard let safeLastName = $0.data.lastName else {
+                return $0.data.name.withoutSpaces.contains(text)
+            }
+            return safeLastName.withoutSpaces.contains(text)
+                || $0.data.name.withoutSpaces.contains(text)
         }
         setupData()
         didUpdateData?()

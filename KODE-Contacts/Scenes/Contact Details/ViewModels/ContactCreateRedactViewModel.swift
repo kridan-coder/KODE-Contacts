@@ -103,10 +103,12 @@ class ContactCreateRedactViewModel {
             throw ValidationError.incorrectPhoneNumber
         }
         guard let name = partViewModel1.data.firstTextFieldText,
-              !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+              !name.replacingOccurrences(of: " ", with: "").isEmpty else {
             throw ValidationError.noFirstName
         }
         
+        contact?.name = name
+        contact?.phoneNumber = phoneNumberString
         var newContact = contact ?? Contact(name: name, phoneNumber: phoneNumberString)
         newContact.lastName = partViewModel1.data.secondTextFieldText
         newContact.ringtone = partViewModel2.data.pickedRingtone
@@ -118,12 +120,11 @@ class ContactCreateRedactViewModel {
     
     private func setupViewModels() {
         cellViewModels = []
-        partViewModel1.data = PartView1Data(firstTextFieldPlaceholder: R.string.localizable.firstName(),
-                                            secondTextFieldPlaceholder: R.string.localizable.lastName(),
-                                            thirdTextFieldPlaceholder: R.string.localizable.phone(),
-                                            firstTextFieldText: contact?.name,
+        partViewModel1.data = PartView1Data(firstTextFieldText: contact?.name,
                                             secondTextFieldText: contact?.lastName,
-                                            thirdTextFieldText: contact?.phoneNumber)
+                                            thirdTextFieldText: contact?.phoneNumber,
+                                            avatarImage: FileHandler.getSavedImage(with: contact?.avatarImagePath)
+                                                ?? .placeholderAdd)
         
         partViewModel2.data = PartView2Data(pickedRingtone: contact?.ringtone ?? .classic)
         partViewModel3.data = PartView3Data(textFieldText: contact?.notes)

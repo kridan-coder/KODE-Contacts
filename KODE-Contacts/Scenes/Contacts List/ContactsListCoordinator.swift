@@ -43,14 +43,13 @@ final class ContactsListCoordinator: Coordinator {
 }
 
 // MARK: - ContactsListViewModelDelegate
-
 extension ContactsListCoordinator: ContactsListViewModelDelegate {
     func contactsListViewModel(_ contactsListViewModel: ContactsListViewModel, didRequestContactDetailsFor contact: Contact?) {
         let contactDetailsCoordinator = ContactDetailsCoordinator(dependencies: dependencies,
                                                                   navigationController: rootNavigationController,
                                                                   contact: contact)
         contactDetailsCoordinator.delegate = self
-        contactDetailsCoordinator.didFinish = { [weak self] in
+        contactDetailsCoordinator.onDidFinish = { [weak self] in
             self?.didUpdate?()
         }
         self.childCoordinators.append(contactDetailsCoordinator)

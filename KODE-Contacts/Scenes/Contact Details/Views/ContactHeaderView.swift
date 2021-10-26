@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class ContactHeaderView: UIView {
     // MARK: - Properties
@@ -25,6 +24,8 @@ class ContactHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Public Methods
     func configure(with viewModel: HeaderViewModel) {
         self.viewModel = viewModel
         setupData()
@@ -33,20 +34,29 @@ class ContactHeaderView: UIView {
         }
     }
     
-    func setupData() {
-        contactImageView.image = viewModel?.image
-        fullNameLabel.text = viewModel?.fullName
+    func setupDynamicUI() {
+        layoutIfNeeded()
+        contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
+        let layer = CALayer()
+        layer.backgroundColor = UIColor.almostWhite.cgColor
+        layer.frame = CGRect(x: 0, y: -Constants.layerSize, width: Constants.layerSize, height: Constants.layerSize)
+        self.layer.addSublayer(layer)
     }
     
     // MARK: - Private Methods
-    func initializeUI() {
+    private func setupData() {
+        fullNameLabel.text = viewModel?.fullName
+        if let image = viewModel?.image {
+            contactImageView.image = image
+        }
+    }
+    
+    private func initializeUI() {
         backgroundColor = .almostWhite
-        let layer = CALayer()
-        layer.backgroundColor = UIColor.almostWhite.cgColor
-        layer.frame = CGRect(x: 0, y: -1000, width: 1000, height: 1000)
-        self.layer.addSublayer(layer)
-        fullNameLabel.font = UIFont.systemFont(ofSize: 30)
+        contactImageView.clipsToBounds = true
+        fullNameLabel.font = .header
         fullNameLabel.textAlignment = .center
+        fullNameLabel.numberOfLines = 0
     }
     
     private func createConstraints() {
@@ -54,16 +64,25 @@ class ContactHeaderView: UIView {
         addSubview(fullNameLabel)
         
         contactImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
+            make.top.equalToSuperview().inset(Constants.defaultInset)
             make.width.equalTo(contactImageView.snp.height)
-            make.width.equalToSuperview().dividedBy(4.36)
+            make.width.equalToSuperview().dividedBy(Constants.division)
             make.centerX.equalToSuperview()
         }
         
         fullNameLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(40)
-            make.top.equalTo(contactImageView.snp.bottom).offset(15)
-            make.bottom.equalToSuperview().inset(15)
+            make.leading.trailing.equalToSuperview().inset(Constants.bigInset)
+            make.top.equalTo(contactImageView.snp.bottom).offset(Constants.defaultInset)
+            make.bottom.equalToSuperview().inset(Constants.defaultInset)
         }
     }
+    
+}
+
+// MARK: - Constants
+private extension Constants {
+    static let defaultInset = CGFloat(15)
+    static let bigInset = CGFloat(40)
+    static let division = CGFloat(4)
+    static let layerSize = CGFloat(1000)
 }

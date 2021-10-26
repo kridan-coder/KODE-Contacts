@@ -6,22 +6,22 @@
 //
 
 import UIKit
-import SnapKit
 
 class ContactsListViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: ContactsListViewModel
     
-    private let searchController: UISearchController
-    private let tableView: UITableView
+    private let searchController = UISearchController()
+    private let tableView = UITableView()
+    private let placeholderLabel = UILabel()
+    
+    private var isSearching: Bool {
+        searchController.isActive
+    }
     
     // MARK: - Init
     init(viewModel: ContactsListViewModel) {
         self.viewModel = viewModel
-        
-        searchController = UISearchController()
-        tableView = UITableView()
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,11 +32,13 @@ class ContactsListViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeUI()
+        createConstraints()
+        
         setupNavigationController()
         setupSearchController()
         setupTableView()
         
-        setupView()
         bindToViewModel()
         viewModel.loadDataFromDatabase()
     }
@@ -47,13 +49,12 @@ class ContactsListViewController: UIViewController {
     }
     
     // MARK: Private Methods
-    
     private func bindToViewModel() {
         viewModel.didUpdateData = { [weak self] in
             self?.tableView.reloadData()
         }
     }
-
+    
     private func setupSearchController() {
         searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -69,24 +70,49 @@ class ContactsListViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TableViewContactCell.self, forCellReuseIdentifier: String(describing: TableViewContactCell.self))
+        tableView.tableFooterView = UIView()
+        tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: String(describing: ContactTableViewCell.self))
     }
     
     // UI
-    private func setupView() {
+    private func initializeUI() {
         view.backgroundColor = .white
-        setupTableViewUI()
+        initializePlaceholderUI()
     }
     
-    private func setupTableViewUI() {
+    private func initializePlaceholderUI() {
+        placeholderLabel.font = .placeholder
+        placeholderLabel.textColor = .secondaryTextColor
+        placeholderLabel.text = R.string.localizable.createContact()
+        placeholderLabel.textAlignment = .center
+        placeholderLabel.numberOfLines = 0
+    }
+    
+    // Constraints
+    private func createConstraints() {
+        createConstraintsForTableView()
+        createConstraintsForPlaceholderLabel()
+    }
+    
+    private func createConstraintsForTableView() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
+    private func createConstraintsForPlaceholderLabel() {
+        tableView.addSubview(placeholderLabel)
+        placeholderLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+    }
+    
 }
 
+// MARK: - UITableViewDelegate
 extension ContactsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -116,16 +142,25 @@ extension ContactsListViewController: UITableViewDelegate {
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         viewModel.titles
     }
-
+    
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         index
     }
     
 }
 
+// MARK: - UITableViewDataSource
 extension ContactsListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.sections.count
+        let numberOfSections = viewModel.sections.count
+        
+        if numberOfSections == 0, !isSearching {
+            placeholderLabel.isHidden = false
+        } else {
+            placeholderLabel.isHidden = true
+        }
+        
+        return numberOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,8 +169,8 @@ extension ContactsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TableViewContactCell.self))
-                as? TableViewContactCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactTableViewCell.self))
+                as? ContactTableViewCell else {
             return UITableViewCell()
         }
         cell.configure(with: viewModel.sections[indexPath.section].1[indexPath.row])        
@@ -149,6 +184,7 @@ extension ContactsListViewController: UITableViewDataSource {
     
 }
 
+// MARK: - UISearchBarDelegate
 extension ContactsListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterContacts(with: searchText)

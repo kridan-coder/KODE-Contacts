@@ -41,10 +41,6 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     // MARK: Actions
     @objc private func editContactDidFinish() {
         viewModel.editContactDidFinish()
@@ -55,7 +51,6 @@ class ContactCreateRedactViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    
     private func bindToViewModel() {
         viewModel.didFinishUpdating = { [weak self] in
             self?.setupStackViewSubviews()
@@ -75,17 +70,16 @@ class ContactCreateRedactViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if UIImagePickerController.isCameraDeviceAvailable(.rear) {
-            alert.addAction(UIAlertAction(title: "Take photo", style: .default) { _ in
+            alert.addAction(UIAlertAction(title: R.string.localizable.takePhoto(), style: .default) { _ in
                 self.showCamera()
             })
         }
         
-        alert.addAction(UIAlertAction(title: "Choose photo", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: R.string.localizable.choosePhoto(), style: .default) { _ in
             self.showPhotoLibrary()
-            
         })
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
     }
@@ -132,20 +126,25 @@ class ContactCreateRedactViewController: UIViewController {
     
     private func setupStackViewSubviews() {
         stackView.removeAllArrangedSubviews()
+        
         for viewModel in viewModel.cellViewModels {
             switch viewModel {
             case let viewModel1 as ContactCreateRedactPartViewModel1:
                 let view1 = ContactCreateRedactPartView1()
                 view1.configure(with: viewModel1)
+                view1.setupDynamicUI()
                 stackView.addArrangedSubview(view1)
+                
             case let viewModel2 as ContactCreateRedactPartViewModel2:
                 let view2 = ContactCreateRedactPartView2()
                 view2.configure(with: viewModel2)
                 stackView.addArrangedSubview(view2)
+                
             case let viewModel3 as ContactCreateRedactPartViewModel3:
                 let view3 = ContactCreateRedactPartView3()
                 view3.configure(with: viewModel3)
                 stackView.addArrangedSubview(view3)
+                
             default:
                 break
             }
@@ -180,7 +179,7 @@ class ContactCreateRedactViewController: UIViewController {
             make.width.equalToSuperview()
         }
         stackView.axis = .vertical
-        stackView.spacing = 30
+        stackView.spacing = Constants.stackViewSpacing
         stackView.distribution = .equalSpacing
     }
     
@@ -198,11 +197,9 @@ extension ContactCreateRedactViewController: UIImagePickerControllerDelegate & U
         
         if let image = info[.originalImage] as? UIImage {
             viewModel.setupImage(image)
-        } else {
-            print("Other source")
         }
-        
     }
+    
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -227,4 +224,9 @@ extension ContactCreateRedactViewController: UIAdaptivePresentationControllerDel
         present(alert, animated: true, completion: nil)
     }
     
+}
+
+// MARK: - Constants
+private extension Constants {
+    static let stackViewSpacing = CGFloat(30)
 }

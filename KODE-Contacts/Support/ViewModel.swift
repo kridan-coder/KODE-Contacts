@@ -14,7 +14,7 @@ protocol ViewModel {
 protocol ContactShowPartViewModel: ViewModel {
     var title: String { get set }
     var description: String { get set }
-    var descriptionIsClickable: Bool { get set }
+    var descriptionURL: URL? { get set }
 }
 
 protocol ContactCreateRedactPartViewModel: ViewModel {
@@ -33,5 +33,3 @@ protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {
 protocol ContactCreateRedactPartViewModel3: ContactCreateRedactPartViewModel {
     var data: PartView3Data { get set }
 }
-
-

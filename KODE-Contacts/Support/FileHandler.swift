@@ -15,9 +15,11 @@ final class FileHandler {
         let fileName = key
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         guard let data = safeImage.jpegData(compressionQuality: 1) else { return nil }
+        
         if FileManager.default.fileExists(atPath: fileURL.path) {
             try? FileManager.default.removeItem(atPath: fileURL.path)
         }
+        
         do {
             try data.write(to: fileURL)
             return fileURL.path

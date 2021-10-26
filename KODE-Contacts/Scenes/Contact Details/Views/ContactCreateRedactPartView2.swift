@@ -6,17 +6,17 @@
 //
 
 import UIKit
-import SnapKit
 import TPKeyboardAvoiding
 
-final class ContactCreateRedactPartView2: DefaultViewCell {
+final class ContactCreateRedactPartView2: DefaultRedactViewCell {
     // MARK: - Properties
+    let trailingImageView = UIImageView()
+    let pickerView = UIPickerView()
+    let toolbar = CustomToolbar(frame: CGRect.zero)
+    
     private var viewModel: ContactCreateRedactPartViewModel2?
     
-    private let trailingImageView = UIImageView()
-    private let pickerView = UIPickerView()
-    private let toolbar = CustomToolbar(frame: CGRect.zero)
-    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupToolbar()
@@ -27,21 +27,31 @@ final class ContactCreateRedactPartView2: DefaultViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Public Methods
+    // MARK: - Additional setup
+    override func additionalSetup() {
+        initalizeArrowImageViewUI()
+        initializePickerViewUI()
+        additionallyInitalizeDescriptionTextViewUI()
+        additionallyCreateConstraints()
+    }
     
+    // MARK: - Public Methods
     func configure(with viewModel: ContactCreateRedactPartViewModel2) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = {
-            self.setupData()
+        self.viewModel?.didUpdateData = { [weak self] in
+            self?.setupData()
         }
     }
     
     // MARK: - Private Methods
-    
     private func setupData() {
-        descriptionTextField.text = viewModel?.data.pickedRingtone.localizedString
-        titleLabel.text = viewModel?.data.titleLabelText
+        guard let viewModel = viewModel else { return }
+        descriptionTextField.text = viewModel.data.pickedRingtone.localizedString
+        titleLabel.text = viewModel.data.titleLabelText
+        pickerView.selectRow(viewModel.data.pickerViewDataSet.firstIndex(of: viewModel.data.pickedRingtone) ?? 0,
+                             inComponent: 0,
+                             animated: false)
         pickerView.reloadAllComponents()
     }
     
@@ -55,19 +65,11 @@ final class ContactCreateRedactPartView2: DefaultViewCell {
     }
     
     // UI
-    override func initializeUI() {
-        super.initializeUI()
-        initalizeArrowImageViewUI()
-        initializePickerViewUI()
-    }
-    
-    override func initalizeDescriptionTextViewUI() {
-        super.initalizeDescriptionTextViewUI()
+    private func additionallyInitalizeDescriptionTextViewUI() {
         descriptionTextField.isUserInteractionEnabled = true
         descriptionTextField.inputView = pickerView
         descriptionTextField.inputAccessoryView = toolbar
         descriptionTextField.delegate = self
-        
     }
     
     private func initializePickerViewUI() {
@@ -76,12 +78,11 @@ final class ContactCreateRedactPartView2: DefaultViewCell {
     
     private func initalizeArrowImageViewUI() {
         trailingImageView.contentMode = .scaleAspectFit
-        trailingImageView.image = .arrowImage
+        trailingImageView.image = .arrow
     }
     
     // Constraints
-    override func createConstraints() {
-        super.createConstraints()
+    private func additionallyCreateConstraints() {
         addSubview(trailingImageView)
         createConstraintsForArrowImageView()
     }
@@ -106,6 +107,7 @@ extension ContactCreateRedactPartView2: ToolbarPickerViewDelegate {
     func didTapSecondButton() {
         descriptionTextField.resignFirstResponder()
     }
+    
 }
 
 // MARK: - UIPickerViewDataSource
@@ -127,7 +129,7 @@ extension ContactCreateRedactPartView2: UIPickerViewDataSource {
             descriptionTextField.text = pickedRingtone.localizedString
             viewModel?.data.pickedRingtone = pickedRingtone
         }
-
+        
     }
     
 }
@@ -137,6 +139,7 @@ extension ContactCreateRedactPartView2: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         false
     }
+    
 }
 
 // MARK: - UIPickerViewDelegate

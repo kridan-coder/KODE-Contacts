@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIImage {
-    static let placeholderImage = UIImage(named: "Placeholder")
-    static let arrowImage = UIImage(named: "Arrow")
+    static let placeholderAdd = UIImage(named: "Placeholder")
+    static let placeholderAvatar = UIImage(named: "PlaceholderAvatar")
+    static let arrow = UIImage(named: "Arrow")
 }

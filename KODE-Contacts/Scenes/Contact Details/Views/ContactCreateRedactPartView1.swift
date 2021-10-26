@@ -6,11 +6,16 @@
 //
 
 import UIKit
-import SnapKit
 import PhoneNumberKit
 
 class ContactCreateRedactPartView1: UIView {
     // MARK: - Properties
+    override var bounds: CGRect {
+        didSet {
+            setupDynamicUI()
+        }
+    }
+    
     private var viewModel: ContactCreateRedactPartViewModel1?
     
     private let contactImageView = UIImageView()
@@ -20,7 +25,6 @@ class ContactCreateRedactPartView1: UIView {
     private let phoneNumberTextField = PhoneNumberTextField()
     
     private let toolbar = CustomToolbar(frame: CGRect.zero)
-    
     // MARK: - Init
     init() {
         super.init(frame: CGRect.zero)
@@ -34,10 +38,7 @@ class ContactCreateRedactPartView1: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
-    
     // MARK: - Public Methods
-    
     func configure(with viewModel: ContactCreateRedactPartViewModel1) {
         self.viewModel = viewModel
         setupData()
@@ -46,14 +47,17 @@ class ContactCreateRedactPartView1: UIView {
         }
     }
     
-    // MARK: - Actions
+    func setupDynamicUI() {
+        layoutIfNeeded()
+        contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
+    }
     
+    // MARK: - Actions
     @objc private func imageTapped() {
         viewModel?.didAskToShowImagePicker?()
     }
     
     // MARK: - Private Methods
-    
     private func setupData() {
         nameTextField.placeholder = viewModel?.data.firstTextFieldPlaceholder
         lastNameTextField.placeholder = viewModel?.data.secondTextFieldPlaceholder
@@ -61,11 +65,7 @@ class ContactCreateRedactPartView1: UIView {
         nameTextField.text = viewModel?.data.firstTextFieldText
         lastNameTextField.text = viewModel?.data.secondTextFieldText
         phoneNumberTextField.text = viewModel?.data.thirdTextFieldText
-        if let image = viewModel?.data.avatarImage {
-            layoutIfNeeded()
-            contactImageView.image = image
-            contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
-        }
+        contactImageView.image = viewModel?.data.avatarImage
     }
     
     private func setupToolbar() {
@@ -87,7 +87,7 @@ class ContactCreateRedactPartView1: UIView {
     }
     
     private func initializeContactImageViewUI() {
-        contactImageView.image = .placeholderImage
+        contactImageView.image = .placeholderAdd
         contactImageView.clipsToBounds = true
     }
     
@@ -110,7 +110,7 @@ class ContactCreateRedactPartView1: UIView {
         phoneNumberTextField.keyboardType = .phonePad
         phoneNumberTextField.inputAccessoryView = toolbar
         phoneNumberTextField.createUnderline()
-        phoneNumberTextField.maxDigits = 16
+        phoneNumberTextField.maxDigits = Constants.maxCharacterCount
         phoneNumberTextField.defaultRegion = "RU"
         phoneNumberTextField.withExamplePlaceholder = true
         phoneNumberTextField.withPrefix = true
@@ -181,7 +181,7 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
                                                   replacementString: string,
                                                   replacementRange: range) ?? ""
         
-        guard updatedText.count <= 18 else { return false }
+        guard updatedText.count <= Constants.maxCharacterCount else { return false }
         
         updateViewModelData(currentTextField: textField, updatedText: updatedText)
         return true
@@ -200,6 +200,7 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
             break
         }
     }
+    
 }
 
 // MARK: - ToolbarPickerViewDelegate
@@ -211,10 +212,13 @@ extension ContactCreateRedactPartView1: ToolbarPickerViewDelegate {
     func didTapSecondButton() {
         phoneNumberTextField.resignFirstResponder()
     }
+    
 }
 
 // MARK: - Constants
 private extension Constants {
+    static let maxCharacterCount = 18
+    
     struct ContactImageView {
         static let inset = CGFloat(20)
         static let size = CGFloat(75)

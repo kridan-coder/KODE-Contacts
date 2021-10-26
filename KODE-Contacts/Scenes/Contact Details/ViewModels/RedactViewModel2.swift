@@ -17,4 +17,5 @@ final class RedactViewModel2: ContactCreateRedactPartViewModel2 {
     init(data: PartView2Data) {
         self.data = data
     }
+    
 }
