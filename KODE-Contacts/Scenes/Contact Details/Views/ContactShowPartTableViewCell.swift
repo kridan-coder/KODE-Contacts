@@ -90,5 +90,4 @@ class ContactShowPartTableViewCell: UITableViewCell {
 // MARK: - Constants
 private extension Constants {
     static let inset = CGFloat(5)
-    
 }

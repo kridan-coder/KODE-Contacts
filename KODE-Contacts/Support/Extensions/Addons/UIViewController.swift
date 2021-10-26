@@ -14,11 +14,9 @@ extension UIViewController {
         let title: String
         if let customError = error as? CustomError {
             title = customError.errorTitle
-            print(customError.localizedDescription)
         } else {
             title = R.string.localizable.defaultErrorTitle()
         }
-        print(error.localizedDescription)
         let alert = UIAlertController.buildAlertWithOneButton(title: title, message: error.localizedDescription)
         present(alert, animated: true)
     }

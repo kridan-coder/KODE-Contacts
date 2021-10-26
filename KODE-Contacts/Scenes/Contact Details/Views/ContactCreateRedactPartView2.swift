@@ -129,7 +129,6 @@ extension ContactCreateRedactPartView2: UIPickerViewDataSource {
             descriptionTextField.text = pickedRingtone.localizedString
             viewModel?.data.pickedRingtone = pickedRingtone
         }
-        
     }
     
 }

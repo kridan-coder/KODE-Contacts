@@ -8,7 +8,6 @@
 import CoreData
 
 extension PersistentContact {
-    
     func setupWithContact(_ contact: Contact) {
         self.phoneNumber = contact.phoneNumber
         self.avatarImagePath = contact.avatarImagePath
