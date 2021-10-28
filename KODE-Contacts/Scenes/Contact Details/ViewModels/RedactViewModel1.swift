@@ -25,6 +25,8 @@ final class RedactViewModel1: ContactCreateRedactPartViewModel1 {
     var didUpdateData: (() -> Void)?
     var didAskToFocusNextTextField: (() -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
+    var didFillNeededField: (() -> Void)?
+    var didEmptyNeededField: (() -> Void)?
     
     private let phoneNumberKit = PhoneNumberKit()
     private var phoneNumber: PhoneNumber?

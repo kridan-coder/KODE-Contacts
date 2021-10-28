@@ -193,6 +193,11 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
         switch currentTextField {
         case nameTextField:
             viewModel?.data.firstTextFieldText = updatedText
+            if updatedText.isEmpty {
+                viewModel?.didEmptyNeededField?()
+            } else {
+                viewModel?.didFillNeededField?()
+            }
         case lastNameTextField:
             viewModel?.data.secondTextFieldText = updatedText
         case phoneNumberTextField:

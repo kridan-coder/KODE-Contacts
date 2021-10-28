@@ -15,8 +15,14 @@ class ContactsListViewController: UIViewController {
     private let tableView = UITableView()
     private let placeholderLabel = UILabel()
     
-    private var isSearching: Bool {
-        searchController.isActive
+    private var isSearching: Bool = false {
+        didSet {
+            if isSearching {
+                placeholderLabel.text = R.string.localizable.noResults()
+            } else {
+                placeholderLabel.text = R.string.localizable.createContact()
+            }
+        }
     }
     
     // MARK: - Init
@@ -132,13 +138,11 @@ extension ContactsListViewController: UITableViewDelegate {
 extension ContactsListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         let numberOfSections = viewModel.sections.count
-        
-        if numberOfSections == 0, !isSearching {
+        if numberOfSections == 0 {
             placeholderLabel.isHidden = false
         } else {
             placeholderLabel.isHidden = true
         }
-        
         return numberOfSections
     }
     
@@ -166,11 +170,13 @@ extension ContactsListViewController: UITableViewDataSource {
 // MARK: - UISearchBarDelegate
 extension ContactsListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearching = true
         viewModel.filterContacts(with: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.discardFiltering()
+        isSearching = false
     }
     
 }

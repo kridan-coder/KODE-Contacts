@@ -20,6 +20,11 @@ class ContactCreateRedactViewController: UIViewController {
     private let stackView = UIStackView()
     private let imagePicker = UIImagePickerController()
     
+    private var neededTextFields: [UITextField] = []
+    
+    private var doneBarButton: UIBarButtonItem?
+    private var cancelBarButton: UIBarButtonItem?
+    
     // MARK: - Init
     init(viewModel: ContactCreateRedactViewModel) {
         self.viewModel = viewModel
@@ -63,6 +68,12 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.didReceiveError = { [weak self] error in
             self?.showAlertWithError(error)
         }
+        viewModel.didFillNeededField = { [weak self] in
+            self?.enableDoneButton()
+        }
+        viewModel.didEmptyNeededField = { [weak self] in
+            self?.disableDoneButton()
+        }
     }
     
     private func setup() {
@@ -70,6 +81,14 @@ class ContactCreateRedactViewController: UIViewController {
         setupImagePicker()
         setupScrollView()
         setupStackView()
+    }
+    
+    private func disableDoneButton() {
+        doneBarButton?.isEnabled = false
+    }
+    
+    private func enableDoneButton() {
+        doneBarButton?.isEnabled = true
     }
     
     private func showImagePicker() {
@@ -159,8 +178,9 @@ class ContactCreateRedactViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editContactDidFinish))
-        let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(editContactDidCancel))
+        doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editContactDidFinish))
+        doneBarButton?.isEnabled = false
+        cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(editContactDidCancel))
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.leftBarButtonItem = cancelBarButton
     }

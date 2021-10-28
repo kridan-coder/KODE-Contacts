@@ -39,6 +39,8 @@
 
 "CreateContact" = "Create contact.";
 
+"NoResults" = "No results.";
+
 "IncorrectPhoneNumberErrorTitle" = "Phone number is incorrect";
 "RepeatedPhoneNumberErrorTitle" = "Phone number already exists";
 "NoFirstNameErrorTitle" = "First name is not specified";

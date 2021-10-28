@@ -27,7 +27,8 @@ protocol ContactCreateRedactPartViewModel: ViewModel {
 protocol ContactCreateRedactPartViewModel1: ContactCreateRedactPartViewModel {
     var data: PartView1Data { get set }
     var didAskToShowImagePicker: (() -> Void)? { get set }
-    
+    var didFillNeededField: (() -> Void)? { get set }
+    var didEmptyNeededField: (() -> Void)? { get set }
 }
 
 protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {

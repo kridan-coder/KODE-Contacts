@@ -30,6 +30,8 @@ class ContactCreateRedactViewModel {
     
     var didStartUpdating: (() -> Void)?
     var didFinishUpdating: (() -> Void)?
+    var didFillNeededField: (() -> Void)?
+    var didEmptyNeededField: (() -> Void)?
     var didAskToFocusNextTextField: (() -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didReceiveError: ((Error) -> Void)?
@@ -145,13 +147,19 @@ class ContactCreateRedactViewModel {
     }
     
     private func bindToViewModels() {
-        partViewModel1.didAskToShowImagePicker = {
-            self.didAskToShowImagePicker?()
+        partViewModel1.didAskToShowImagePicker = { [weak self] in
+            self?.didAskToShowImagePicker?()
+        }
+        partViewModel1.didFillNeededField = { [weak self] in
+            self?.didFillNeededField?()
+        }
+        partViewModel1.didEmptyNeededField = { [weak self] in
+            self?.didEmptyNeededField?()
         }
         
         for index in 0..<cellViewModels.count {
-            cellViewModels[index].didAskToFocusNextTextField = {
-                self.didAskToFocusNextTextField?()
+            cellViewModels[index].didAskToFocusNextTextField = { [weak self] in
+                self?.didAskToFocusNextTextField?()
             }
         }
     }
