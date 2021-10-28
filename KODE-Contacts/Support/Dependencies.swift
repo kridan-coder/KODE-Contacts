@@ -9,8 +9,10 @@ import Foundation
 
 struct AppDependencies: HasCoreDataClientProvider {
     let coreDataClient: CoreDataClient
+    
 }
 
 protocol HasCoreDataClientProvider {
     var coreDataClient: CoreDataClient { get }
+    
 }

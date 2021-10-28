@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 extension UIView {
-    func createUnderline(color: UIColor = .lightGrayUnderlineColor,
-                         height: CGFloat = 1,
-                         insetBottom: CGFloat = 1,
-                         insetLeading: CGFloat = 0) -> UIView {
+    @discardableResult func createUnderline(color: UIColor = .lightGrayUnderlineColor,
+                                            height: CGFloat = 1,
+                                            insetBottom: CGFloat = 1,
+                                            insetLeading: CGFloat = 0) -> UIView {
         let underline = UIView()
         self.addSubview(underline)
         underline.backgroundColor = color

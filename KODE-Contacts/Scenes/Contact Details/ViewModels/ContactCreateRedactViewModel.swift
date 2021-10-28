@@ -9,7 +9,13 @@ import UIKit
 
 protocol ContactCreateRedactViewModelDelegate: AnyObject {
     func contactCreateRedactViewModel
+    (_ contactCreateRedactViewModel: ContactCreateRedactViewModel, didFinishCreating contact: Contact)
+    
+    func contactCreateRedactViewModel
     (_ contactCreateRedactViewModel: ContactCreateRedactViewModel, didFinishEditing contact: Contact)
+    
+    func contactCreateRedactViewModelDidCancelCreating
+    (_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
     
     func contactCreateRedactViewModelDidCancelEditing
     (_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
@@ -74,6 +80,7 @@ class ContactCreateRedactViewModel {
             
             do {
                 try dependencies.coreDataClient.createContact(newContact)
+                delegate?.contactCreateRedactViewModel(self, didFinishCreating: newContact)
             } catch let error {
                 didReceiveError?(error)
                 return
@@ -83,18 +90,20 @@ class ContactCreateRedactViewModel {
             
             do {
                 try dependencies.coreDataClient.updateContact(newContact)
+                delegate?.contactCreateRedactViewModel(self, didFinishEditing: newContact)
             } catch let error {
                 didReceiveError?(error)
                 return
             }
-            
         }
-        
-        delegate?.contactCreateRedactViewModel(self, didFinishEditing: newContact)
     }
     
     func editContactDidCancel() {
-        delegate?.contactCreateRedactViewModelDidCancelEditing(self)
+        if isCreatingContact {
+            delegate?.contactCreateRedactViewModelDidCancelCreating(self)
+        } else {
+            delegate?.contactCreateRedactViewModelDidCancelEditing(self)
+        }
     }
     
     // MARK: - Private Methods
@@ -103,7 +112,7 @@ class ContactCreateRedactViewModel {
             throw ValidationError.incorrectPhoneNumber
         }
         guard let name = partViewModel1.data.firstTextFieldText,
-              !name.replacingOccurrences(of: " ", with: "").isEmpty else {
+              !name.withoutSpaces.isEmpty else {
             throw ValidationError.noFirstName
         }
         

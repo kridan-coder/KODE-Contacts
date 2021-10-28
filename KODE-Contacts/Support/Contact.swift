@@ -16,6 +16,14 @@ struct Contact {
     var notes: String?
     var uuid: String
     
+    var fullName: String {
+        if let lastName = self.lastName {
+            return self.name + " " + lastName
+        } else {
+            return self.name
+        }
+    }
+    
     init(name: String,
          lastname: String? = nil,
          phoneNumber: String,

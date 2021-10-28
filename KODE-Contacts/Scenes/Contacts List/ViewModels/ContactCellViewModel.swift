@@ -10,14 +10,14 @@ import Foundation
 class ContactCellViewModel: ViewModel {
     var didUpdateData: (() -> Void)?
     
-    var data: Contact {
+    var contact: Contact {
         didSet {
             didUpdateData?()
         }
     }
     
-    init(data: Contact) {
-        self.data = data
+    init(contact: Contact) {
+        self.contact = contact
     }
     
 }

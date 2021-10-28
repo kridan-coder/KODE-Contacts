@@ -13,4 +13,5 @@ enum Ringtone: String, CaseIterable {
     var localizedString: String {
         return NSLocalizedString(self.rawValue, comment: "")
     }
+    
 }

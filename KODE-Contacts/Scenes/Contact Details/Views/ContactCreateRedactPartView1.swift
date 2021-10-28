@@ -10,12 +10,6 @@ import PhoneNumberKit
 
 class ContactCreateRedactPartView1: UIView {
     // MARK: - Properties
-    override var bounds: CGRect {
-        didSet {
-            setupDynamicUI()
-        }
-    }
-    
     private var viewModel: ContactCreateRedactPartViewModel1?
     
     private let contactImageView = UIImageView()
@@ -25,6 +19,7 @@ class ContactCreateRedactPartView1: UIView {
     private let phoneNumberTextField = PhoneNumberTextField()
     
     private let toolbar = CustomToolbar(frame: CGRect.zero)
+    
     // MARK: - Init
     init() {
         super.init(frame: CGRect.zero)
@@ -36,6 +31,12 @@ class ContactCreateRedactPartView1: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Overrides
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupDynamicUI()
     }
     
     // MARK: - Public Methods

@@ -22,14 +22,6 @@ final class ContactShowViewModel {
     
     var contact: Contact
     
-    var fullName: String {
-        if let lastName = contact.lastName {
-            return contact.name + " " + lastName
-        } else {
-            return contact.name
-        }
-    }
-    
     weak var delegate: ContactShowViewModelDelegate?
     
     // MARK: - Init
@@ -55,7 +47,7 @@ final class ContactShowViewModel {
     private func setupViewModels() {
         let image = FileHandler.getSavedImage(with: contact.avatarImagePath)
         headerViewModel = HeaderViewModel(image: image,
-                                          fullName: fullName)
+                                          fullName: contact.fullName)
         
         showViewModels = []
         let showPhoneViewModel = ShowViewModel(title: R.string.localizable.phone(),

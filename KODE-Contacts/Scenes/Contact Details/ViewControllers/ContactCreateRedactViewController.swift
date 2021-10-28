@@ -34,9 +34,8 @@ class ContactCreateRedactViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationController()
-        setupView()
-        setupImagePicker()
+        view.backgroundColor = .white
+        setup()
         bindToViewModel()
         viewModel.reloadData()
     }
@@ -64,6 +63,13 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.didReceiveError = { [weak self] error in
             self?.showAlertWithError(error)
         }
+    }
+    
+    private func setup() {
+        setupNavigationController()
+        setupImagePicker()
+        setupScrollView()
+        setupStackView()
     }
     
     private func showImagePicker() {
@@ -119,11 +125,6 @@ class ContactCreateRedactViewController: UIViewController {
         }
     }
     
-    private func setupImagePicker() {
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-    }
-    
     private func setupStackViewSubviews() {
         stackView.removeAllArrangedSubviews()
         
@@ -152,17 +153,16 @@ class ContactCreateRedactViewController: UIViewController {
         
     }
     
+    private func setupImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    }
+    
     private func setupNavigationController() {
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editContactDidFinish))
         let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(editContactDidCancel))
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.leftBarButtonItem = cancelBarButton
-    }
-    
-    private func setupView() {
-        view.backgroundColor = .white
-        setupScrollView()
-        setupStackView()
     }
     
     private func setupScrollView() {
@@ -174,13 +174,13 @@ class ContactCreateRedactViewController: UIViewController {
     
     private func setupStackView() {
         scrollView.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.spacing = Constants.stackViewSpacing
+        stackView.distribution = .equalSpacing
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
         }
-        stackView.axis = .vertical
-        stackView.spacing = Constants.stackViewSpacing
-        stackView.distribution = .equalSpacing
     }
     
 }
@@ -229,4 +229,5 @@ extension ContactCreateRedactViewController: UIAdaptivePresentationControllerDel
 // MARK: - Constants
 private extension Constants {
     static let stackViewSpacing = CGFloat(30)
+    
 }

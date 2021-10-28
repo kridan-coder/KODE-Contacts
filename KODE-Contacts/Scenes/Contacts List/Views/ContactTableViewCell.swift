@@ -9,17 +9,13 @@ import UIKit
 
 class ContactTableViewCell: UITableViewCell {
     // MARK: - Properties
-    private let firstLabel = UILabel()
-    private let secondLabel = UILabel()
-    private let stackView = UIStackView()
-    
     private var viewModel: ContactCellViewModel?
     
+    private let label = UILabel()
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        initializeUI()
-        createConstraints()
+        setupLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -37,37 +33,27 @@ class ContactTableViewCell: UITableViewCell {
     
     // MARK: - Private Methods
     private func setupData() {
-        guard viewModel?.data.lastName != nil else {
-            firstLabel.text = nil
-            firstLabel.isHidden = true
-            secondLabel.text = viewModel?.data.name
-            return
-        }
-        firstLabel.isHidden = false
-        firstLabel.text = viewModel?.data.name
-        secondLabel.text = viewModel?.data.lastName
+        guard let viewModel = viewModel else { return }
+        let fullName = viewModel.contact.fullName
+        
+        let boldTextRange = (fullName as NSString).range(of: viewModel.contact.lastName ?? viewModel.contact.name)
+        
+        let attributedString = NSMutableAttributedString(string: fullName,
+                                                         attributes: [NSAttributedString.Key.font: UIFont.contactName])
+        
+        attributedString.setAttributes([NSAttributedString.Key.font: UIFont.contactLastName], range: boldTextRange)
+        
+        label.attributedText = attributedString
     }
     
-    private func initializeUI() {
-        stackView.alignment = .leading
-        stackView.spacing = Constants.StackView.spacing
-        stackView.axis = .horizontal
+    private func setupLabel() {
+        addSubview(label)
         
-        firstLabel.font = .contactName
-        secondLabel.font = .contactLastName
-    }
-    
-    private func createConstraints() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(firstLabel)
-        stackView.addArrangedSubview(secondLabel)
+        let horizontalInset = max(separatorInset.left, separatorInset.right)
+        let verticalInset = horizontalInset / Constants.StackView.quotient
         
-        let horizontalOffset = max(separatorInset.left, separatorInset.right)
-        let verticalInset = horizontalOffset / Constants.StackView.quotient
-        
-        stackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(horizontalOffset)
-            make.trailing.lessThanOrEqualToSuperview().offset(horizontalOffset)
+        label.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(horizontalInset)
             make.top.bottom.equalToSuperview().inset(verticalInset)
         }
     }
@@ -80,4 +66,5 @@ private extension Constants {
         static let spacing = CGFloat(8)
         static let quotient = CGFloat(4 / 3)
     }
+    
 }

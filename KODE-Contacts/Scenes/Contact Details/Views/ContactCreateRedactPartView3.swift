@@ -38,6 +38,7 @@ final class ContactCreateRedactPartView3: DefaultRedactViewCell {
         descriptionTextField.delegate = self
         descriptionTextField.returnKeyType = .done
     }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -68,4 +69,5 @@ extension ContactCreateRedactPartView3: UITextFieldDelegate {
 // MARK: - Constants
 private extension Constants {
     static let maxCharacterCount = 100
+    
 }

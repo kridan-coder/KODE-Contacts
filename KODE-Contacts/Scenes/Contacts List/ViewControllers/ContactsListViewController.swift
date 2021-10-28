@@ -32,27 +32,39 @@ class ContactsListViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeUI()
-        createConstraints()
-        
-        setupNavigationController()
-        setupSearchController()
-        setupTableView()
-        
+        view.backgroundColor = .white
+        setup()
         bindToViewModel()
         viewModel.loadDataFromDatabase()
     }
     
     // MARK: Actions
     @objc private func addBarButtonPressed() {
-        viewModel.addButtonPressed()
+        viewModel.addContact()
     }
     
     // MARK: Private Methods
+    
     private func bindToViewModel() {
         viewModel.didUpdateData = { [weak self] in
             self?.tableView.reloadData()
         }
+        viewModel.didReceiveError = { [weak self] error in
+            self?.showAlertWithError(error)
+        }
+        viewModel.didRemoveRow = { [weak self] indexPath in
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        viewModel.didRemoveSection = { [weak self] indexPath in
+            self?.tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+        }
+    }
+    
+    private func setup() {
+        setupNavigationController()
+        setupSearchController()
+        setupTableView()
+        setupPlaceholderLabel()
     }
     
     private func setupSearchController() {
@@ -68,44 +80,26 @@ class ContactsListViewController: UIViewController {
     }
     
     private func setupTableView() {
+        view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: String(describing: ContactTableViewCell.self))
-    }
-    
-    // UI
-    private func initializeUI() {
-        view.backgroundColor = .white
-        initializePlaceholderUI()
-    }
-    
-    private func initializePlaceholderUI() {
-        placeholderLabel.font = .placeholder
-        placeholderLabel.textColor = .secondaryTextColor
-        placeholderLabel.text = R.string.localizable.createContact()
-        placeholderLabel.textAlignment = .center
-        placeholderLabel.numberOfLines = 0
-    }
-    
-    // Constraints
-    private func createConstraints() {
-        createConstraintsForTableView()
-        createConstraintsForPlaceholderLabel()
-    }
-    
-    private func createConstraintsForTableView() {
-        view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    private func createConstraintsForPlaceholderLabel() {
+    private func setupPlaceholderLabel() {
         tableView.addSubview(placeholderLabel)
+        placeholderLabel.font = .placeholder
+        placeholderLabel.textColor = .secondaryTextColor
+        placeholderLabel.text = R.string.localizable.createContact()
+        placeholderLabel.textAlignment = .center
+        placeholderLabel.numberOfLines = 0
         placeholderLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-Constants.placeholderCenterYOffset)
             make.centerX.equalToSuperview()
         }
     }
@@ -116,22 +110,7 @@ class ContactsListViewController: UIViewController {
 extension ContactsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            var needsToRemoveSection = false
-            do {
-                if viewModel.sections[indexPath.section].1.count == 1 {
-                    needsToRemoveSection = true
-                }
-                try viewModel.deleteContact(at: indexPath)
-            } catch let error {
-                showAlertWithError(error)
-                return
-            }
-            
-            if needsToRemoveSection {
-                tableView.deleteSections([indexPath.section], with: .fade)
-            } else {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            viewModel.deleteContact(at: indexPath)
         }
     }
     
@@ -164,7 +143,7 @@ extension ContactsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.sections[section].1.count
+        viewModel.sections[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -173,7 +152,7 @@ extension ContactsListViewController: UITableViewDataSource {
                 as? ContactTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure(with: viewModel.sections[indexPath.section].1[indexPath.row])        
+        cell.configure(with: viewModel.sections[indexPath.section][indexPath.row])
         return cell
         
     }
@@ -193,5 +172,11 @@ extension ContactsListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.discardFiltering()
     }
+    
+}
+
+// MARK: - Constants
+private extension Constants {
+    static let placeholderCenterYOffset = CGFloat(75)
     
 }

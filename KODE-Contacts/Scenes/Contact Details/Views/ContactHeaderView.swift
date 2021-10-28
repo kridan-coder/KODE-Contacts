@@ -9,10 +9,10 @@ import UIKit
 
 class ContactHeaderView: UIView {
     // MARK: - Properties
+    private var viewModel: HeaderViewModel?
+    
     private let contactImageView = UIImageView()
     private let fullNameLabel = UILabel()
-    
-    private var viewModel: HeaderViewModel?
     
     // MARK: - Init
     init() {
@@ -85,4 +85,5 @@ private extension Constants {
     static let bigInset = CGFloat(40)
     static let division = CGFloat(4)
     static let layerSize = CGFloat(1000)
+    
 }

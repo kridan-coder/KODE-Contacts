@@ -309,16 +309,8 @@
 				444A5E6C271452FB00893C26 /* Views */,
 				444A5E6B271452F100893C26 /* ViewControllers */,
 				444A5E6A271452EA00893C26 /* ViewModels */,
-				444A5E69271452E200893C26 /* Models */,
 			);
 			path = "Contacts List";
-			sourceTree = "<group>";
-		};
-		444A5E69271452E200893C26 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		444A5E6A271452EA00893C26 /* ViewModels */ = {

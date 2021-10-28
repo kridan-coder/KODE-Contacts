@@ -9,10 +9,12 @@ import Foundation
 
 @objc protocol CollationIndexable {
     @objc var collationString: String { get }
+    
 }
 
 extension ContactCellViewModel: CollationIndexable {
     @objc var collationString: String {
-        return self.data.lastName ?? self.data.name
+        return self.contact.lastName ?? self.contact.name
     }
+    
 }

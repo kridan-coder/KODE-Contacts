@@ -21,4 +21,5 @@ extension PersistentContact {
     var asContact: Contact {
         Contact(from: self)
     }
+    
 }

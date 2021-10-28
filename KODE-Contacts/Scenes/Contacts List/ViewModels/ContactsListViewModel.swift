@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ContactsListViewModelDelegate: AnyObject {
-    var didUpdate: (() -> Void)? { get set }
-    func contactsListViewModel(_ contactsListViewModel: ContactsListViewModel, didRequestContactDetailsFor contact: Contact?)
+    func contactsListViewModel(_ contactsListViewModel: ContactsListViewModel, didRequestContactDetailsFor contact: Contact)
+    func contactListViewModelDidRequestToCreateContact(_ contactsListViewModel: ContactsListViewModel)
 }
 
 class ContactsListViewModel: ViewModel {
@@ -17,22 +17,18 @@ class ContactsListViewModel: ViewModel {
     typealias Dependencies = HasCoreDataClientProvider
     
     // MARK: - Properties
-    weak var delegate: ContactsListViewModelDelegate? {
-        didSet {
-            delegate?.didUpdate = { [weak self] in
-                self?.loadDataFromDatabase()
-            }
-        }
-    }
+    weak var delegate: ContactsListViewModelDelegate?
     
     var didUpdateData: (() -> Void)?
+    var didReceiveError: ((Error) -> Void)?
+    var didRemoveRow: ((IndexPath) -> Void)?
+    var didRemoveSection: ((IndexPath) -> Void)?
     
-    var sections: [(Int, [ContactCellViewModel])] = []
+    var sections: [[ContactCellViewModel]] = []
     var titles: [String] = []
     
     private let collation = UILocalizedIndexedCollation.current()
     private let sortSelector = #selector(getter: CollationIndexable.collationString)
-    private var sectionsDictionary: [Int: [ContactCellViewModel]] = [:]
     private var contacts: [ContactCellViewModel] = []
     private var filteredContacts: [ContactCellViewModel] = []
     
@@ -45,8 +41,8 @@ class ContactsListViewModel: ViewModel {
     
     // MARK: - Public Methods
     func selectedRowAt(_ indexPath: IndexPath) {
-        let contact = sections[indexPath.section].1[indexPath.row]
-        delegate?.contactsListViewModel(self, didRequestContactDetailsFor: contact.data)
+        let contact = sections[indexPath.section][indexPath.row]
+        delegate?.contactsListViewModel(self, didRequestContactDetailsFor: contact.contact)
     }
     
     func filterContacts(with text: String) {
@@ -55,11 +51,11 @@ class ContactsListViewModel: ViewModel {
             return
         }
         filteredContacts = contacts.filter {
-            guard let safeLastName = $0.data.lastName else {
-                return $0.data.name.withoutSpaces.contains(text)
+            guard let safeLastName = $0.contact.lastName else {
+                return $0.contact.name.withoutSpaces.contains(text)
             }
             return safeLastName.withoutSpaces.contains(text)
-                || $0.data.name.withoutSpaces.contains(text)
+                || $0.contact.name.withoutSpaces.contains(text)
         }
         setupData()
         didUpdateData?()
@@ -71,25 +67,33 @@ class ContactsListViewModel: ViewModel {
         didUpdateData?()
     }
     
-    func deleteContact(at indexPath: IndexPath) throws {
-        let contact = sections[indexPath.section].1[indexPath.row]
+    func deleteContact(at indexPath: IndexPath) {
+        let contact = sections[indexPath.section][indexPath.row]
+        let needsToRemoveSection = sections[indexPath.section].count == 1
         do {
-            try dependencies.coreDataClient.deleteContact(contact.data)
+            try dependencies.coreDataClient.deleteContact(contact.contact)
         } catch let error {
-            throw error
+            didReceiveError?(error)
+            return
         }
-        contacts = contacts.filter { $0.data.uuid != contact.data.uuid }
+        contacts = contacts.filter { $0.contact.uuid != contact.contact.uuid }
         filteredContacts = contacts
         setupData()
+        
+        if needsToRemoveSection {
+            didRemoveSection?(indexPath)
+        } else {
+            didRemoveRow?(indexPath)
+        }
     }
     
-    func addButtonPressed() {
-        delegate?.contactsListViewModel(self, didRequestContactDetailsFor: nil)
+    func addContact() {
+        delegate?.contactListViewModelDidRequestToCreateContact(self)
     }
     
     func loadDataFromDatabase() {
         let contacts = dependencies.coreDataClient.getAllContacts()
-        self.contacts = contacts.map { ContactCellViewModel(data: $0) }
+        self.contacts = contacts.map { ContactCellViewModel(contact: $0) }
         filteredContacts = self.contacts
         setupData()
         didUpdateData?()
@@ -97,7 +101,7 @@ class ContactsListViewModel: ViewModel {
     
     // MARK: - Private Methods
     private func setupData() {
-        sectionsDictionary = [:]
+        var sectionsDictionary: [Int: [ContactCellViewModel]] = [:]
         sections = []
         titles = []
         filteredContacts = collation.sortedArray(from: filteredContacts,
@@ -109,9 +113,12 @@ class ContactsListViewModel: ViewModel {
             }
             sectionsDictionary[sectionNumber]?.append(contact)
         }
-        sections = sectionsDictionary.sorted { $0.key < $1.key }
-        for item in sections {
-            titles.append(collation.sectionIndexTitles[item.0])
+        let sortedSections = sectionsDictionary.sorted { $0.key < $1.key }
+        for section in sortedSections {
+            sections.append(section.value)
+        }
+        for section in sortedSections {
+            titles.append(collation.sectionIndexTitles[section.key])
         }
     }
     

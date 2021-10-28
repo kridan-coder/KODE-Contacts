@@ -11,9 +11,7 @@ class ContactShowPartTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var viewModel: ContactShowPartViewModel?
     
-    private var view = DefaultReadViewCell()
-    
-    private var url: URL?
+    private let view = DefaultReadViewCell()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -39,7 +37,7 @@ class ContactShowPartTableViewCell: UITableViewCell {
     
     // MARK: - Actions
     @objc private func tappedOnLink() {
-        guard let safeURL = url,
+        guard let safeURL = viewModel?.descriptionURL,
               UIApplication.shared.canOpenURL(safeURL) else { return }
         UIApplication.shared.open(safeURL)
     }
@@ -77,8 +75,7 @@ class ContactShowPartTableViewCell: UITableViewCell {
     private func setupData() {
         view.descriptionLabel.text = viewModel?.description
         view.titleLabel.text = viewModel?.title
-        url = viewModel?.descriptionURL
-        if url != nil {
+        if viewModel?.descriptionURL != nil {
             makeDescriptionLabelClickable()
         } else {
             makeDescriptionLabelDefault()
@@ -90,4 +87,5 @@ class ContactShowPartTableViewCell: UITableViewCell {
 // MARK: - Constants
 private extension Constants {
     static let inset = CGFloat(5)
+    
 }

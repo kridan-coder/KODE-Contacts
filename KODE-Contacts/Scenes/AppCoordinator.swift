@@ -11,11 +11,9 @@ final class AppCoordinator: Coordinator {
     // MARK: - Properties
     let dependencies: AppDependencies
     
-    weak var delegate: Coordinator?
-    
     var childCoordinators: [Coordinator]
     
-    var rootNavigationController: UINavigationController = .transparentNavigationController
+    var rootNavigationController = UINavigationController.createDefaultNavigationController()
     
     private let window: UIWindow
     

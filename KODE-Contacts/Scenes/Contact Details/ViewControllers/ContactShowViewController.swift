@@ -25,10 +25,8 @@ class ContactShowViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        createConstraints()
+        setup()
         bindToViewModel()
-        setupTableView()
-        setupNavigationController()
         viewModel.reloadData()
     }
     
@@ -43,11 +41,16 @@ class ContactShowViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func createConstraints() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+    
+    private func bindToViewModel() {
+        viewModel.didFinishUpdating = { [weak self] in
+            self?.tableView.reloadData()
         }
+    }
+    
+    private func setup() {
+        setupTableView()
+        setupNavigationController()
     }
     
     private func setupNavigationController() {
@@ -56,16 +59,14 @@ class ContactShowViewController: UIViewController {
     }
     
     private func setupTableView() {
+        view.addSubview(tableView)
         tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ContactShowPartTableViewCell.self,
                            forCellReuseIdentifier: String(describing: ContactShowPartTableViewCell.self))
-    }
-    
-    private func bindToViewModel() {
-        viewModel.didFinishUpdating = { [weak self] in
-            self?.tableView.reloadData()
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
