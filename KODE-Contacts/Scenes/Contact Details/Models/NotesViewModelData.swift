@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PartView3Data {
+struct NotesViewModelData {
     var titleLabelText: String = R.string.localizable.notes()
     var textFieldPlaceholder: String? = R.string.localizable.wakeUpNeo()
     var textFieldText: String?

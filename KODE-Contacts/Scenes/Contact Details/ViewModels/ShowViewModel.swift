@@ -8,6 +8,8 @@
 import Foundation
 
 final class ShowViewModel: ContactShowPartViewModel {
+    var didAskToOpenLink: ((URL?) -> Void)?
+    
     // MARK: - Properties
     var didUpdateData: (() -> Void)?
     

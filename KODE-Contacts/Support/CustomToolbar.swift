@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol ToolbarPickerViewDelegate: AnyObject {
-    func didTapFirstButton()
-    func didTapSecondButton()
+protocol CustomToolbarDelegate: AnyObject {
+    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar)
+    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar)
 }
 
 final class CustomToolbar: UIToolbar {
-    public weak var buttonsDelegate: ToolbarPickerViewDelegate?
+    public weak var buttonsDelegate: CustomToolbarDelegate?
     
     init(frame: CGRect,
          firstButtonTitle: String = R.string.localizable.next(),
@@ -50,11 +50,11 @@ final class CustomToolbar: UIToolbar {
     }
     
     @objc func didTapFirstButton() {
-        self.buttonsDelegate?.didTapFirstButton()
+        self.buttonsDelegate?.customToolbarDidPressFirstButton(self)
     }
     
     @objc func didTapSecondButton() {
-        self.buttonsDelegate?.didTapSecondButton()
+        self.buttonsDelegate?.customToolbarDidPressSecondButton(self)
     }
     
 }

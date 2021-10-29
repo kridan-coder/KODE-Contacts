@@ -16,6 +16,7 @@ protocol ContactShowPartViewModel: ViewModel {
     var title: String { get set }
     var description: String { get set }
     var descriptionURL: URL? { get set }
+    var didAskToOpenLink: ((URL?) -> Void)? { get set }
     
 }
 
@@ -24,19 +25,20 @@ protocol ContactCreateRedactPartViewModel: ViewModel {
     
 }
 
-protocol ContactCreateRedactPartViewModel1: ContactCreateRedactPartViewModel {
-    var data: PartView1Data { get set }
+protocol ContactProfileViewModel: ContactCreateRedactPartViewModel {
+    var data: ProfileViewModelData { get set }
     var didAskToShowImagePicker: (() -> Void)? { get set }
-    var didFillNeededField: (() -> Void)? { get set }
-    var didEmptyNeededField: (() -> Void)? { get set }
-}
-
-protocol ContactCreateRedactPartViewModel2: ContactCreateRedactPartViewModel {
-    var data: PartView2Data { get set }
+    var didDoneAvailable: ((Bool) -> Void)? { get set }
+    var didUpdateImage: (() -> Void)? { get set }
     
 }
 
-protocol ContactCreateRedactPartViewModel3: ContactCreateRedactPartViewModel {
-    var data: PartView3Data { get set }
+protocol ContactRingtoneViewModel: ContactCreateRedactPartViewModel {
+    var data: RingtoneViewModelData { get set }
+    
+}
+
+protocol ContactNotesViewModel: ContactCreateRedactPartViewModel {
+    var data: NotesViewModelData { get set }
     
 }

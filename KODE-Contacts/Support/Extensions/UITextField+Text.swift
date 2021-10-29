@@ -1,19 +1,13 @@
 //
-//  UITextField.swift
+//  UITextField+Text.swift
 //  KODE-Contacts
 //
-//  Created by Developer on 12.10.2021.
+//  Created by Developer on 29.10.2021.
 //
 
 import UIKit
 
 extension UITextField {
-    static var emptyTextField: UITextField {
-        let textField = UITextField()
-        textField.borderStyle = .none
-        return textField
-    }
-    
     static func updatedText(currentText: String?,
                             replacementString: String,
                             replacementRange: NSRange) -> String? {

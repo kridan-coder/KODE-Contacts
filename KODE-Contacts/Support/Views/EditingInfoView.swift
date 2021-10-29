@@ -7,10 +7,10 @@
 
 import UIKit
 
-class DefaultRedactViewCell: UIView {
+class EditingInfoView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel()
-    let descriptionTextField: UITextField = .emptyTextField
+    let descriptionTextField = TextFieldWithSeparatorView()
     var underline: UIView?
     
     // MARK: - Init
@@ -34,9 +34,6 @@ class DefaultRedactViewCell: UIView {
     // MARK: - Private Methods
     // UI
     private func initializeUI() {
-        underline = createUnderline(color: .darkGrayUnderlineColor,
-                                    insetBottom: Constants.insetBottom,
-                                    insetLeading: Constants.insetLeading)
         initalizeTitleLabelUI()
         initalizeDescriptionTextViewUI()
     }
@@ -84,7 +81,7 @@ class DefaultRedactViewCell: UIView {
 
 // MARK: - Constants
 private extension Constants {
-    static let height = CGFloat(50)
+    static let height = CGFloat(65)
     static let insetBottom = CGFloat(10)
     static let insetLeading = CGFloat(20)
     

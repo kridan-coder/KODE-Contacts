@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ContactShowViewModelDelegate: AnyObject {
+    func contactShowViewModel(_ contactShowViewModel: ContactShowViewModel, didAskToOpen url: URL)
     func contactShowViewModel(_ contactShowViewModel: ContactShowViewModel, didAskToEdit contact: Contact)
     func contactShowViewModelDidCancel(_ contactShowViewModel: ContactShowViewModel)
 }
@@ -32,6 +33,7 @@ final class ContactShowViewModel {
     // MARK: - Public Methods
     func reloadData() {
         setupViewModels()
+        bindToViewModels()
         didFinishUpdating?()
     }
     
@@ -63,6 +65,19 @@ final class ContactShowViewModel {
         let showNotesViewModel = ShowViewModel(title: R.string.localizable.notes(),
                                                description: notes)
         showViewModels.append(showNotesViewModel)
+    }
+    
+    private func bindToViewModels() {
+        for viewModel in showViewModels {
+            viewModel.didAskToOpenLink = { [weak self] url in
+                self?.requestToOpenLink(link: url)
+            }
+        }
+    }
+    
+    private func requestToOpenLink(link: URL?) {
+        guard let safeLink = link else { return }
+        delegate?.contactShowViewModel(self, didAskToOpen: safeLink)
     }
     
 }

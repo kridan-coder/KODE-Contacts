@@ -69,6 +69,7 @@ extension ContactsListCoordinator: ContactDetailsCoordinatorDelegate {
         rootNavigationController.changeBackgroundColor(.navigationBarLight)
         contactsListViewModel?.loadDataFromDatabase()
         removeAllChildCoordinatorsWithType(type(of: contactDetailsCoordinator))
+        rootNavigationController.dismiss(animated: true)
     }
     
 }

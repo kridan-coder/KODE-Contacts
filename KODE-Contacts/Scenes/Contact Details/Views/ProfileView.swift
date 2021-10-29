@@ -8,15 +8,15 @@
 import UIKit
 import PhoneNumberKit
 
-class ContactCreateRedactPartView1: UIView {
+class ProfileView: UIView {
     // MARK: - Properties
-    private var viewModel: ContactCreateRedactPartViewModel1?
+    private var viewModel: ContactProfileViewModel?
     
     private let contactImageView = UIImageView()
     
-    private let nameTextField: UITextField = .emptyTextField
-    private let lastNameTextField: UITextField = .emptyTextField
-    private let phoneNumberTextField = PhoneNumberTextField()
+    private let nameTextField = TextFieldWithSeparatorView()
+    private let lastNameTextField = TextFieldWithSeparatorView()
+    private let phoneNumberTextField = PhoneNumberTextFieldWithSeparatorView(frame: CGRect.zero)
     
     private let toolbar = CustomToolbar(frame: CGRect.zero)
     
@@ -40,12 +40,9 @@ class ContactCreateRedactPartView1: UIView {
     }
     
     // MARK: - Public Methods
-    func configure(with viewModel: ContactCreateRedactPartViewModel1) {
+    func configure(with viewModel: ContactProfileViewModel) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = {
-            self.setupData()
-        }
     }
     
     func setupDynamicUI() {
@@ -94,14 +91,12 @@ class ContactCreateRedactPartView1: UIView {
     
     private func initializeNameTextFieldUI() {
         nameTextField.placeholder = R.string.localizable.firstName()
-        nameTextField.createUnderline()
         nameTextField.delegate = self
         nameTextField.returnKeyType = .next
     }
     
     private func initializeLastNameTextFieldUI() {
         lastNameTextField.placeholder = R.string.localizable.lastName()
-        lastNameTextField.createUnderline()
         lastNameTextField.delegate = self
         lastNameTextField.returnKeyType = .next
     }
@@ -110,7 +105,6 @@ class ContactCreateRedactPartView1: UIView {
         phoneNumberTextField.placeholder = R.string.localizable.phone()
         phoneNumberTextField.keyboardType = .phonePad
         phoneNumberTextField.inputAccessoryView = toolbar
-        phoneNumberTextField.createUnderline()
         phoneNumberTextField.maxDigits = Constants.maxCharacterCount
         phoneNumberTextField.defaultRegion = "RU"
         phoneNumberTextField.withExamplePlaceholder = true
@@ -171,7 +165,7 @@ class ContactCreateRedactPartView1: UIView {
 }
 
 // MARK: - UITextFieldDelegate
-extension ContactCreateRedactPartView1: UITextFieldDelegate {
+extension ProfileView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         viewModel?.didAskToFocusNextTextField?()
         return true
@@ -193,11 +187,7 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
         switch currentTextField {
         case nameTextField:
             viewModel?.data.firstTextFieldText = updatedText
-            if updatedText.isEmpty {
-                viewModel?.didEmptyNeededField?()
-            } else {
-                viewModel?.didFillNeededField?()
-            }
+            viewModel?.didDoneAvailable?(!updatedText.isEmpty)
         case lastNameTextField:
             viewModel?.data.secondTextFieldText = updatedText
         case phoneNumberTextField:
@@ -205,17 +195,18 @@ extension ContactCreateRedactPartView1: UITextFieldDelegate {
         default:
             break
         }
+        viewModel?.didUpdateData?()
     }
     
 }
 
 // MARK: - ToolbarPickerViewDelegate
-extension ContactCreateRedactPartView1: ToolbarPickerViewDelegate {
-    func didTapFirstButton() {
+extension ProfileView: CustomToolbarDelegate {
+    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar) {
         viewModel?.didAskToFocusNextTextField?()
     }
     
-    func didTapSecondButton() {
+    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar) {
         phoneNumberTextField.resignFirstResponder()
     }
     

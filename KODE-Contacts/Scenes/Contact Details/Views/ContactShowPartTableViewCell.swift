@@ -11,19 +11,17 @@ class ContactShowPartTableViewCell: UITableViewCell {
     // MARK: - Properties
     private var viewModel: ContactShowPartViewModel?
     
-    private let view = DefaultReadViewCell()
+    private let view = InfoView()
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        createConstraints()
-        initializeUI()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        createConstraints()
-        initializeUI()
+        setup()
     }
     
     // MARK: - Public Methods
@@ -37,12 +35,15 @@ class ContactShowPartTableViewCell: UITableViewCell {
     
     // MARK: - Actions
     @objc private func tappedOnLink() {
-        guard let safeURL = viewModel?.descriptionURL,
-              UIApplication.shared.canOpenURL(safeURL) else { return }
-        UIApplication.shared.open(safeURL)
+        viewModel?.didAskToOpenLink?(viewModel?.descriptionURL)
     }
     
     // MARK: - Private Methods
+    private func setup() {
+        createConstraints()
+        initializeUI()
+    }
+    
     private func makeDescriptionLabelClickable() {
         view.descriptionLabel.textColor = .brightBlue
         setupGestureRecognizer()

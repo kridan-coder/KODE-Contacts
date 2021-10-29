@@ -9,11 +9,13 @@ import Foundation
 
 protocol CustomError: Error {
     var errorTitle: String { get }
+    
 }
 
 enum CoreDataError: CustomError {
     case objectDoesNotExist
     case unhandled
+    
 }
 
 enum ValidationError: CustomError {
@@ -21,12 +23,14 @@ enum ValidationError: CustomError {
     case repeatedPhoneNumber
     case noFirstName
     case unhandled
+    
 }
 
 enum PermissionError: CustomError {
     case noAccessToCamera
     case noAccessToPhotos
     case unhandled
+    
 }
 
 extension PermissionError {
@@ -40,6 +44,7 @@ extension PermissionError {
             return R.string.localizable.defaultErrorTitle()
         }
     }
+    
 }
 
 extension CoreDataError {
@@ -51,6 +56,7 @@ extension CoreDataError {
             return R.string.localizable.defaultErrorTitle()
         }
     }
+    
 }
 
 extension ValidationError {
@@ -80,6 +86,7 @@ extension PermissionError: LocalizedError {
             return R.string.localizable.defaultErrorDescription()
         }
     }
+    
 }
 
 extension CoreDataError: LocalizedError {
@@ -91,6 +98,7 @@ extension CoreDataError: LocalizedError {
             return R.string.localizable.defaultErrorDescription()
         }
     }
+    
 }
 
 extension ValidationError: LocalizedError {

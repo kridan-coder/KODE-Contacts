@@ -5,7 +5,7 @@
 //  Created by Developer on 12.10.2021.
 //
 
-import UIKit
+import Foundation
 
 struct Contact {
     var name: String
@@ -18,10 +18,19 @@ struct Contact {
     
     var fullName: String {
         if let lastName = self.lastName {
-            return self.name + " " + lastName
+            return name + " " + lastName
         } else {
-            return self.name
+            return name
         }
+    }
+    
+    var asContactCreating: ContactCreating? {
+        ContactCreating(name: self.name,
+                        lastName: self.lastName,
+                        phoneNumber: self.phoneNumber,
+                        avatarImage: FileHandler.getSavedImage(with: avatarImagePath),
+                        ringtone: self.ringtone,
+                        notes: self.notes)
     }
     
     init(name: String,

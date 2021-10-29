@@ -25,6 +25,12 @@ class ContactHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overrides
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupDynamicUI()
+    }
+    
     // MARK: - Public Methods
     func configure(with viewModel: HeaderViewModel) {
         self.viewModel = viewModel

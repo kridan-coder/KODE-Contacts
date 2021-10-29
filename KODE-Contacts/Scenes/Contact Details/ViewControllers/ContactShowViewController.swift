@@ -80,11 +80,6 @@ extension ContactShowViewController: UITableViewDelegate {
         return view
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let view = view as? ContactHeaderView else { return }
-        view.setupDynamicUI()
-    }
-    
 }
 
 extension ContactShowViewController: UITableViewDataSource {

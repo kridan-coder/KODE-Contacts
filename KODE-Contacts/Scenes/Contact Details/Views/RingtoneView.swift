@@ -8,13 +8,13 @@
 import UIKit
 import TPKeyboardAvoiding
 
-final class ContactCreateRedactPartView2: DefaultRedactViewCell {
+final class RingtoneView: EditingInfoView {
     // MARK: - Properties
     let trailingImageView = UIImageView()
     let pickerView = UIPickerView()
     let toolbar = CustomToolbar(frame: CGRect.zero)
     
-    private var viewModel: ContactCreateRedactPartViewModel2?
+    private var viewModel: ContactRingtoneViewModel?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -36,12 +36,9 @@ final class ContactCreateRedactPartView2: DefaultRedactViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with viewModel: ContactCreateRedactPartViewModel2) {
+    func configure(with viewModel: ContactRingtoneViewModel) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = { [weak self] in
-            self?.setupData()
-        }
     }
     
     // MARK: - Private Methods
@@ -99,19 +96,19 @@ final class ContactCreateRedactPartView2: DefaultRedactViewCell {
 }
 
 // MARK: - ToolbarPickerViewDelegate
-extension ContactCreateRedactPartView2: ToolbarPickerViewDelegate {
-    func didTapFirstButton() {
+extension RingtoneView: CustomToolbarDelegate {
+    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar) {
         viewModel?.didAskToFocusNextTextField?()
     }
     
-    func didTapSecondButton() {
+    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar) {
         descriptionTextField.resignFirstResponder()
     }
     
 }
 
 // MARK: - UIPickerViewDataSource
-extension ContactCreateRedactPartView2: UIPickerViewDataSource {
+extension RingtoneView: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
@@ -128,13 +125,14 @@ extension ContactCreateRedactPartView2: UIPickerViewDataSource {
         if let pickedRingtone = viewModel?.data.pickerViewDataSet[row] {
             descriptionTextField.text = pickedRingtone.localizedString
             viewModel?.data.pickedRingtone = pickedRingtone
+            viewModel?.didUpdateData?()
         }
     }
     
 }
 
 // MARK: - UITextFieldDelegate
-extension ContactCreateRedactPartView2: UITextFieldDelegate {
+extension RingtoneView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         false
     }
@@ -142,14 +140,14 @@ extension ContactCreateRedactPartView2: UITextFieldDelegate {
 }
 
 // MARK: - UIPickerViewDelegate
-extension ContactCreateRedactPartView2: UIPickerViewDelegate {}
+extension RingtoneView: UIPickerViewDelegate {}
 
 // MARK: - Constants
 private extension Constants {
     struct TrailingImageView {
         static let insetTrailing = CGFloat(20)
         static let centerYOffset = CGFloat(5)
-        static let superViewRatio = CGFloat(3.3)
+        static let superViewRatio = CGFloat(4)
     }
     
 }

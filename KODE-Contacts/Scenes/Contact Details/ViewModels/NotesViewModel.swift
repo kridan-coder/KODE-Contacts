@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class RedactViewModel3: ContactCreateRedactPartViewModel3 {
-    var data: PartView3Data
+final class NotesViewModel: ContactNotesViewModel {
+    var data: NotesViewModelData
     
     var didUpdateData: (() -> Void)?
     
     var didAskToFocusNextTextField: (() -> Void)?
     
-    init(data: PartView3Data) {
+    init(data: NotesViewModelData) {
         self.data = data
     }
     

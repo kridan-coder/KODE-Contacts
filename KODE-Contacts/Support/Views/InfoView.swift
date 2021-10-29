@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DefaultReadViewCell: UIView {
+class InfoView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
@@ -34,9 +34,6 @@ class DefaultReadViewCell: UIView {
     // MARK: - Private Methods
     // UI
     private func initializeUI() {
-        underline = createUnderline(color: .darkGrayUnderlineColor,
-                                    insetBottom: Constants.insetBottom,
-                                    insetLeading: Constants.insetLeading)
         initalizeTitleLabelUI()
         initalizeDescriptionLabel()
     }

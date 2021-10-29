@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct PartView1Data {
+struct ProfileViewModelData {
     var firstTextFieldPlaceholder: String? = R.string.localizable.firstName()
     var secondTextFieldPlaceholder: String? = R.string.localizable.lastName()
     var thirdTextFieldPlaceholder: String? = R.string.localizable.phone()
@@ -15,4 +15,5 @@ struct PartView1Data {
     var secondTextFieldText: String?
     var thirdTextFieldText: String?
     var avatarImage: UIImage?
+    
 }

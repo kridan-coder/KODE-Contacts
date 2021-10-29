@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PartView2Data {
+struct RingtoneViewModelData {
     var titleLabelText: String = R.string.localizable.ringtone()
     var pickerViewDataSet: [Ringtone] = Ringtone.allCases
     var pickedRingtone: Ringtone = .classic

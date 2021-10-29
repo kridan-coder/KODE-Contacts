@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-final class ContactCreateRedactPartView3: DefaultRedactViewCell {
+final class NotesView: EditingInfoView {
     // MARK: - Properties
-    private var viewModel: ContactCreateRedactPartViewModel3?
+    private var viewModel: ContactNotesViewModel?
     
     // MARK: - Additional setup
     override func additionalSetup() {
@@ -18,12 +18,9 @@ final class ContactCreateRedactPartView3: DefaultRedactViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with viewModel: ContactCreateRedactPartViewModel3) {
+    func configure(with viewModel: ContactNotesViewModel) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = {
-            self.setupData()
-        }
     }
     
     // MARK: - Private Methods
@@ -42,7 +39,7 @@ final class ContactCreateRedactPartView3: DefaultRedactViewCell {
 }
 
 // MARK: - UITextFieldDelegate
-extension ContactCreateRedactPartView3: UITextFieldDelegate {
+extension NotesView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -62,6 +59,7 @@ extension ContactCreateRedactPartView3: UITextFieldDelegate {
     // Helpers
     private func updateViewModelData(currentTextField: UITextField, updatedText: String) {
         viewModel?.data.textFieldText = updatedText
+        viewModel?.didUpdateData?()
     }
     
 }

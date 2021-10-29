@@ -46,12 +46,12 @@ class ContactCreateRedactViewController: UIViewController {
     }
     
     // MARK: Actions
-    @objc private func editContactDidFinish() {
-        viewModel.editContactDidFinish()
+    @objc private func tapDone() {
+        viewModel.saveContact()
     }
     
-    @objc private func editContactDidCancel() {
-        viewModel.editContactDidCancel()
+    @objc private func tapCancel() {
+        viewModel.cancel()
     }
     
     // MARK: - Private Methods
@@ -68,11 +68,8 @@ class ContactCreateRedactViewController: UIViewController {
         viewModel.didReceiveError = { [weak self] error in
             self?.showAlertWithError(error)
         }
-        viewModel.didFillNeededField = { [weak self] in
-            self?.enableDoneButton()
-        }
-        viewModel.didEmptyNeededField = { [weak self] in
-            self?.disableDoneButton()
+        viewModel.didDoneAvailable = { [weak self] available in
+            self?.doneBarButton?.isEnabled = available
         }
     }
     
@@ -81,14 +78,6 @@ class ContactCreateRedactViewController: UIViewController {
         setupImagePicker()
         setupScrollView()
         setupStackView()
-    }
-    
-    private func disableDoneButton() {
-        doneBarButton?.isEnabled = false
-    }
-    
-    private func enableDoneButton() {
-        doneBarButton?.isEnabled = true
     }
     
     private func showImagePicker() {
@@ -149,19 +138,19 @@ class ContactCreateRedactViewController: UIViewController {
         
         for viewModel in viewModel.cellViewModels {
             switch viewModel {
-            case let viewModel1 as ContactCreateRedactPartViewModel1:
-                let view1 = ContactCreateRedactPartView1()
+            case let viewModel1 as ContactProfileViewModel:
+                let view1 = ProfileView()
                 view1.configure(with: viewModel1)
                 view1.setupDynamicUI()
                 stackView.addArrangedSubview(view1)
                 
-            case let viewModel2 as ContactCreateRedactPartViewModel2:
-                let view2 = ContactCreateRedactPartView2()
+            case let viewModel2 as ContactRingtoneViewModel:
+                let view2 = RingtoneView()
                 view2.configure(with: viewModel2)
                 stackView.addArrangedSubview(view2)
                 
-            case let viewModel3 as ContactCreateRedactPartViewModel3:
-                let view3 = ContactCreateRedactPartView3()
+            case let viewModel3 as ContactNotesViewModel:
+                let view3 = NotesView()
                 view3.configure(with: viewModel3)
                 stackView.addArrangedSubview(view3)
                 
@@ -178,9 +167,9 @@ class ContactCreateRedactViewController: UIViewController {
     }
     
     private func setupNavigationController() {
-        doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editContactDidFinish))
+        doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapDone))
         doneBarButton?.isEnabled = false
-        cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(editContactDidCancel))
+        cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCancel))
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.leftBarButtonItem = cancelBarButton
     }
@@ -228,15 +217,15 @@ extension ContactCreateRedactViewController: UIAdaptivePresentationControllerDel
         confirmCancel()
     }
     
-    func confirmCancel() {
+    private func confirmCancel() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: R.string.localizable.saveContact(), style: .default) { _ in
-            self.editContactDidFinish()
+            self.tapDone()
         })
         
         alert.addAction(UIAlertAction(title: R.string.localizable.discardChanges(), style: .default) { _ in
-            self.editContactDidCancel()
+            self.tapCancel()
         })
         
         alert.addAction(UIAlertAction(title: R.string.localizable.keepEditing(), style: .cancel, handler: nil))
