@@ -5,7 +5,7 @@
 //  Created by Developer on 15.10.2021.
 //
 
-import Foundation
+import UIKit
 
 protocol ViewModel {
     var didUpdateData: (() -> Void)? { get set }
@@ -29,7 +29,7 @@ protocol ContactProfileViewModel: ContactCreateRedactPartViewModel {
     var data: ProfileViewModelData { get set }
     var didAskToShowImagePicker: (() -> Void)? { get set }
     var didDoneAvailable: ((Bool) -> Void)? { get set }
-    var didUpdateImage: (() -> Void)? { get set }
+    var didSetupImage: ((UIImage) -> Void)? { get set }
     
 }
 

@@ -11,4 +11,5 @@ extension UIImage {
     static let placeholderAdd = UIImage(named: "Placeholder")
     static let placeholderAvatar = UIImage(named: "PlaceholderAvatar")
     static let arrow = UIImage(named: "Arrow")
+    
 }

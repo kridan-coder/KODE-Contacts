@@ -11,27 +11,28 @@ class InfoView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
-    var underline: UIView?
     
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initializeUI()
-        createConstraints()
-        additionalSetup()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        initializeUI()
-        createConstraints()
-        additionalSetup()
+        setup()
     }
     
     // MARK: - Public Methods
     func additionalSetup() {}
     
     // MARK: - Private Methods
+    private func setup() {
+        initializeUI()
+        createConstraints()
+        additionalSetup()
+    }
+    
     // UI
     private func initializeUI() {
         initalizeTitleLabelUI()

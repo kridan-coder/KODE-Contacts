@@ -12,7 +12,7 @@ import Photos
 
 class ContactCreateRedactViewController: UIViewController {
     // MARK: - Properties
-    var stackViewSubviews: [UIView] = []
+    private var stackViewSubviews: [UIView] = []
     
     private let viewModel: ContactCreateRedactViewModel
     
@@ -141,7 +141,6 @@ class ContactCreateRedactViewController: UIViewController {
             case let viewModel1 as ContactProfileViewModel:
                 let view1 = ProfileView()
                 view1.configure(with: viewModel1)
-                view1.setupDynamicUI()
                 stackView.addArrangedSubview(view1)
                 
             case let viewModel2 as ContactRingtoneViewModel:

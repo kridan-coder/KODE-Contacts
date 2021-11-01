@@ -9,8 +9,6 @@ import Foundation
 import PhoneNumberKit
 
 final class ProfileViewModel: ContactProfileViewModel {
-    var didUpdateImage: (() -> Void)?
-    
     // MARK: - Properties
     var data: ProfileViewModelData {
         didSet {
@@ -24,6 +22,7 @@ final class ProfileViewModel: ContactProfileViewModel {
     }
     
     var didUpdateData: (() -> Void)?
+    var didSetupImage: ((UIImage) -> Void)?
     var didAskToFocusNextTextField: (() -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didDoneAvailable: ((Bool) -> Void)?

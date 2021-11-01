@@ -41,7 +41,6 @@ class ContactShowPartTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     private func setup() {
         createConstraints()
-        initializeUI()
     }
     
     private func makeDescriptionLabelClickable() {
@@ -67,10 +66,6 @@ class ContactShowPartTableViewCell: UITableViewCell {
             make.leading.trailing.equalToSuperview()
             make.top.bottom.equalToSuperview().inset(Constants.inset)
         }
-    }
-    
-    private func initializeUI() {
-        view.underline?.isHidden = true
     }
     
     private func setupData() {

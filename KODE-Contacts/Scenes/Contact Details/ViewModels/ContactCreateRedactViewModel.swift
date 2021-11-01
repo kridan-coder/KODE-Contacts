@@ -36,10 +36,6 @@ class ContactCreateRedactViewModel {
     
     var cellViewModels: [ContactCreateRedactPartViewModel] = []
     
-//    private var partViewModel1: ProfileViewModel
-//    private var partViewModel2: RingtoneViewModel
-//    private var partViewModel3: NotesViewModel
-    
     private var contact: Contact?
     private var contactCreating: ContactCreating
     private var isCreatingContact: Bool
@@ -151,7 +147,7 @@ class ContactCreateRedactViewModel {
         
         self.didSetupImage = { [weak viewModel] image in
             viewModel?.data.avatarImage = image
-            viewModel?.didUpdateData?()
+            viewModel?.didSetupImage?(image)
         }
         
         viewModel.didAskToShowImagePicker = { [weak self] in

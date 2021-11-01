@@ -19,8 +19,7 @@ final class RingtoneView: EditingInfoView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupToolbar()
-        setupPicker()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +49,11 @@ final class RingtoneView: EditingInfoView {
                              inComponent: 0,
                              animated: false)
         pickerView.reloadAllComponents()
+    }
+    
+    private func setup() {
+        setupToolbar()
+        setupPicker()
     }
     
     private func setupToolbar() {
@@ -97,11 +101,11 @@ final class RingtoneView: EditingInfoView {
 
 // MARK: - ToolbarPickerViewDelegate
 extension RingtoneView: CustomToolbarDelegate {
-    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar) {
+    func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
         viewModel?.didAskToFocusNextTextField?()
     }
     
-    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar) {
+    func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {
         descriptionTextField.resignFirstResponder()
     }
     

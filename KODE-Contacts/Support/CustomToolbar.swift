@@ -8,8 +8,8 @@
 import UIKit
 
 protocol CustomToolbarDelegate: AnyObject {
-    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar)
-    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar)
+    func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar)
+    func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar)
 }
 
 final class CustomToolbar: UIToolbar {
@@ -50,11 +50,11 @@ final class CustomToolbar: UIToolbar {
     }
     
     @objc func didTapFirstButton() {
-        self.buttonsDelegate?.customToolbarDidPressFirstButton(self)
+        self.buttonsDelegate?.customToolbarDidChooseFirstOption(self)
     }
     
     @objc func didTapSecondButton() {
-        self.buttonsDelegate?.customToolbarDidPressSecondButton(self)
+        self.buttonsDelegate?.customToolbarDidChooseSecondOption(self)
     }
     
 }

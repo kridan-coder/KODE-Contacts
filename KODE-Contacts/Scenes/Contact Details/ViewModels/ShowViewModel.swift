@@ -8,11 +8,9 @@
 import Foundation
 
 final class ShowViewModel: ContactShowPartViewModel {
-    var didAskToOpenLink: ((URL?) -> Void)?
-    
     // MARK: - Properties
     var didUpdateData: (() -> Void)?
-    
+    var didAskToOpenLink: ((URL?) -> Void)?
     var title: String
     var description: String
     var descriptionURL: URL?

@@ -12,6 +12,7 @@ class ContactTableViewCell: UITableViewCell {
     private var viewModel: ContactCellViewModel?
     
     private let label = UILabel()
+    
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,7 +37,8 @@ class ContactTableViewCell: UITableViewCell {
         guard let viewModel = viewModel else { return }
         let fullName = viewModel.contact.fullName
         
-        let boldTextRange = (fullName as NSString).range(of: viewModel.contact.lastName ?? viewModel.contact.name)
+        let boldTextRange = (fullName as NSString).range(of: viewModel.contact.lastName ?? viewModel.contact.name,
+                                                         options: [.backwards])
         
         let attributedString = NSMutableAttributedString(string: fullName,
                                                          attributes: [NSAttributedString.Key.font: UIFont.contactName])

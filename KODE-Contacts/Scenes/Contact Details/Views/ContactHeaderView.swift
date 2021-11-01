@@ -17,8 +17,7 @@ class ContactHeaderView: UIView {
     // MARK: - Init
     init() {
         super.init(frame: CGRect.zero)
-        initializeUI()
-        createConstraints()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +39,8 @@ class ContactHeaderView: UIView {
         }
     }
     
-    func setupDynamicUI() {
+    // MARK: - Private Methods
+    private func setupDynamicUI() {
         layoutIfNeeded()
         contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
         let layer = CALayer()
@@ -49,7 +49,11 @@ class ContactHeaderView: UIView {
         self.layer.addSublayer(layer)
     }
     
-    // MARK: - Private Methods
+    private func setup() {
+        initializeUI()
+        createConstraints()
+    }
+    
     private func setupData() {
         fullNameLabel.text = viewModel?.fullName
         if let image = viewModel?.image {

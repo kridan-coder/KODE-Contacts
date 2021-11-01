@@ -14,4 +14,5 @@ extension UIFont {
     static let contactName = UIFont.systemFont(ofSize: 20)
     static let contactLastName = UIFont.systemFont(ofSize: 20, weight: .semibold)
     static let header = UIFont.systemFont(ofSize: 30)
+    
 }

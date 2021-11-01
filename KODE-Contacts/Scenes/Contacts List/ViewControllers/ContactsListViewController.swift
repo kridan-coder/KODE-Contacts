@@ -50,7 +50,6 @@ class ContactsListViewController: UIViewController {
     }
     
     // MARK: Private Methods
-    
     private func bindToViewModel() {
         viewModel.didUpdateData = { [weak self] in
             self?.tableView.reloadData()

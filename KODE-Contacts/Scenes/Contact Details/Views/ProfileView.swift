@@ -23,10 +23,7 @@ class ProfileView: UIView {
     // MARK: - Init
     init() {
         super.init(frame: CGRect.zero)
-        initializeUI()
-        createConstraints()
-        setupToolbar()
-        setupImageView()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -42,12 +39,10 @@ class ProfileView: UIView {
     // MARK: - Public Methods
     func configure(with viewModel: ContactProfileViewModel) {
         self.viewModel = viewModel
+        self.viewModel?.didSetupImage = { [weak self] image in
+            self?.contactImageView.image = image
+        }
         setupData()
-    }
-    
-    func setupDynamicUI() {
-        layoutIfNeeded()
-        contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
     }
     
     // MARK: - Actions
@@ -56,6 +51,11 @@ class ProfileView: UIView {
     }
     
     // MARK: - Private Methods
+    private func setupDynamicUI() {
+        layoutIfNeeded()
+        contactImageView.layer.cornerRadius = contactImageView.bounds.width / 2
+    }
+    
     private func setupData() {
         nameTextField.placeholder = viewModel?.data.firstTextFieldPlaceholder
         lastNameTextField.placeholder = viewModel?.data.secondTextFieldPlaceholder
@@ -64,6 +64,13 @@ class ProfileView: UIView {
         lastNameTextField.text = viewModel?.data.secondTextFieldText
         phoneNumberTextField.text = viewModel?.data.thirdTextFieldText
         contactImageView.image = viewModel?.data.avatarImage
+    }
+    
+    private func setup() {
+        initializeUI()
+        createConstraints()
+        setupToolbar()
+        setupImageView()
     }
     
     private func setupToolbar() {
@@ -202,11 +209,11 @@ extension ProfileView: UITextFieldDelegate {
 
 // MARK: - ToolbarPickerViewDelegate
 extension ProfileView: CustomToolbarDelegate {
-    func customToolbarDidPressFirstButton(_ customToolbar: CustomToolbar) {
+    func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
         viewModel?.didAskToFocusNextTextField?()
     }
     
-    func customToolbarDidPressSecondButton(_ customToolbar: CustomToolbar) {
+    func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {
         phoneNumberTextField.resignFirstResponder()
     }
     
