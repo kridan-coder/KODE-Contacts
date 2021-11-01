@@ -13,6 +13,7 @@ final class ShowViewModel: ContactShowPartViewModel {
     var didAskToOpenLink: ((URL?) -> Void)?
     var title: String
     var description: String
+    var descriptionHasLink: Bool = false
     var descriptionURL: URL?
     
     // MARK: - Init
@@ -20,6 +21,11 @@ final class ShowViewModel: ContactShowPartViewModel {
         self.title = title
         self.description = description
         validateForLink()
+    }
+    
+    // MARK: - Public Methods
+    func openLink() {
+        didAskToOpenLink?(descriptionURL)
     }
     
     // MARK: - Private Methods
@@ -31,6 +37,7 @@ final class ShowViewModel: ContactShowPartViewModel {
         dataDetector?.enumerateMatches(in: description, options: [], range: range) { match, _, _ in
             switch match?.resultType {
             case .some(let type):
+                descriptionHasLink = true
                 switch type {
                 case .phoneNumber:
                     var myURL = URLComponents()
@@ -41,7 +48,7 @@ final class ShowViewModel: ContactShowPartViewModel {
                     descriptionURL = match?.url
                 }
             case .none:
-                break
+                descriptionHasLink = false
             }
         }
     }

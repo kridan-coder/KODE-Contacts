@@ -47,7 +47,7 @@ class ProfileView: UIView {
     
     // MARK: - Actions
     @objc private func imageTapped() {
-        viewModel?.didAskToShowImagePicker?()
+        viewModel?.showImagePicker()
     }
     
     // MARK: - Private Methods
@@ -92,7 +92,7 @@ class ProfileView: UIView {
     }
     
     private func initializeContactImageViewUI() {
-        contactImageView.image = .placeholderAdd
+        contactImageView.image = R.image.placeholder()
         contactImageView.clipsToBounds = true
     }
     
@@ -194,7 +194,11 @@ extension ProfileView: UITextFieldDelegate {
         switch currentTextField {
         case nameTextField:
             viewModel?.data.firstTextFieldText = updatedText
-            viewModel?.didDoneAvailable?(!updatedText.isEmpty)
+            if updatedText.isEmpty {
+                viewModel?.makeDoneUnavailable()
+            } else {
+                viewModel?.makeDoneAvailable()
+            }
         case lastNameTextField:
             viewModel?.data.secondTextFieldText = updatedText
         case phoneNumberTextField:

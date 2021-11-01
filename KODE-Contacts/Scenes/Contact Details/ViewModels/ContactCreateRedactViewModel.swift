@@ -141,7 +141,7 @@ class ContactCreateRedactViewModel {
                                         secondTextFieldText: contact?.lastName,
                                         thirdTextFieldText: contact?.phoneNumber,
                                         avatarImage: FileHandler.getSavedImage(with: contact?.avatarImagePath)
-                                        ?? .placeholderAdd)
+                                            ?? R.image.placeholder())
         let viewModel = ProfileViewModel(data: data)
         cellViewModels.append(viewModel)
         

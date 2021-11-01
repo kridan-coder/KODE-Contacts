@@ -35,7 +35,7 @@ class ContactShowPartTableViewCell: UITableViewCell {
     
     // MARK: - Actions
     @objc private func tappedOnLink() {
-        viewModel?.didAskToOpenLink?(viewModel?.descriptionURL)
+        viewModel?.openLink()
     }
     
     // MARK: - Private Methods
@@ -69,9 +69,10 @@ class ContactShowPartTableViewCell: UITableViewCell {
     }
     
     private func setupData() {
-        view.descriptionLabel.text = viewModel?.description
-        view.titleLabel.text = viewModel?.title
-        if viewModel?.descriptionURL != nil {
+        guard let viewModel = viewModel else { return }
+        view.descriptionLabel.text = viewModel.description
+        view.titleLabel.text = viewModel.title
+        if viewModel.descriptionHasLink {
             makeDescriptionLabelClickable()
         } else {
             makeDescriptionLabelDefault()

@@ -28,7 +28,7 @@ final class RingtoneView: EditingInfoView {
     
     // MARK: - Additional setup
     override func additionalSetup() {
-        initalizeArrowImageViewUI()
+        initalizeTrailingImageViewUI()
         initializePickerViewUI()
         additionallyInitalizeDescriptionTextViewUI()
         additionallyCreateConstraints()
@@ -77,9 +77,9 @@ final class RingtoneView: EditingInfoView {
         pickerView.backgroundColor = .white
     }
     
-    private func initalizeArrowImageViewUI() {
+    private func initalizeTrailingImageViewUI() {
         trailingImageView.contentMode = .scaleAspectFit
-        trailingImageView.image = .arrow
+        trailingImageView.image = R.image.arrow()
     }
     
     // Constraints

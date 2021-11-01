@@ -15,8 +15,8 @@ protocol ViewModel {
 protocol ContactShowPartViewModel: ViewModel {
     var title: String { get set }
     var description: String { get set }
-    var descriptionURL: URL? { get set }
-    var didAskToOpenLink: ((URL?) -> Void)? { get set }
+    var descriptionHasLink: Bool { get set }
+    func openLink()
     
 }
 
@@ -27,9 +27,10 @@ protocol ContactCreateRedactPartViewModel: ViewModel {
 
 protocol ContactProfileViewModel: ContactCreateRedactPartViewModel {
     var data: ProfileViewModelData { get set }
-    var didAskToShowImagePicker: (() -> Void)? { get set }
-    var didDoneAvailable: ((Bool) -> Void)? { get set }
     var didSetupImage: ((UIImage) -> Void)? { get set }
+    func showImagePicker()
+    func makeDoneAvailable()
+    func makeDoneUnavailable()
     
 }
 

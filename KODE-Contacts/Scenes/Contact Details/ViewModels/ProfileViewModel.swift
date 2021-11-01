@@ -35,4 +35,16 @@ final class ProfileViewModel: ContactProfileViewModel {
         self.data = data
     }
     
+    // MARK: - Public Methods
+    func showImagePicker() {
+        didAskToShowImagePicker?()
+    }
+    
+    func makeDoneAvailable() {
+        didDoneAvailable?(true)
+    }
+    
+    func makeDoneUnavailable() {
+        didDoneAvailable?(false)
+    }
 }
