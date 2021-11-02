@@ -12,7 +12,8 @@ struct ContactCreating {
     var lastName: String?
     var phoneNumber: String?
     var avatarImage: UIImage?
-    var ringtone: Ringtone?
+    var ringtone: Ringtone = .classic
     var notes: String?
+    var uuid: String?
     
 }

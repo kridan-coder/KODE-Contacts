@@ -15,8 +15,8 @@ extension String {
         return safeText
     }
     
-    var withoutSpaces: String {
-        self.replacingOccurrences(of: " ", with: "")
+    var withoutSpacesAndNewLines: String {
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
 }

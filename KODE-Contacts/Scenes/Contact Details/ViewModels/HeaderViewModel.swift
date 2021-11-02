@@ -7,11 +7,9 @@
 
 import UIKit
 
-final class HeaderViewModel: ViewModel {
-    var didUpdateData: (() -> Void)?
-    
-    var fullName: String
-    var image: UIImage?
+final class HeaderViewModel: ContactHeaderViewModel {
+    let fullName: String
+    let image: UIImage?
     
     init(image: UIImage?, fullName: String) {
         self.image = image ?? R.image.placeholderAvatar()

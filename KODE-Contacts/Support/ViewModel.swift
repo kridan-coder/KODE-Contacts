@@ -7,20 +7,26 @@
 
 import UIKit
 
-protocol ViewModel {
+protocol ViewModelEditable {
     var didUpdateData: (() -> Void)? { get set }
     
 }
 
-protocol ContactShowPartViewModel: ViewModel {
-    var title: String { get set }
-    var description: String { get set }
-    var descriptionHasLink: Bool { get set }
+protocol ContactHeaderViewModel {
+    var image: UIImage? { get }
+    var fullName: String { get }
+    
+}
+
+protocol ContactShowPartViewModel {
+    var title: String { get }
+    var description: String { get }
+    var descriptionHasLink: Bool { get }
     func openLink()
     
 }
 
-protocol ContactCreateRedactPartViewModel: ViewModel {
+protocol ContactCreateRedactPartViewModel: ViewModelEditable {
     var didAskToFocusNextTextField: (() -> Void)? { get set }
     
 }

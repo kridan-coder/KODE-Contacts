@@ -8,13 +8,13 @@
 import Foundation
 
 struct Contact {
-    var name: String
-    var lastName: String?
-    var phoneNumber: String
-    var avatarImagePath: String?
-    var ringtone: Ringtone
-    var notes: String?
-    var uuid: String
+    let name: String
+    let lastName: String?
+    let phoneNumber: String
+    let avatarImagePath: String?
+    let ringtone: Ringtone
+    let notes: String?
+    let uuid: String
     
     var fullName: String {
         if let lastName = self.lastName {
@@ -30,22 +30,24 @@ struct Contact {
                         phoneNumber: self.phoneNumber,
                         avatarImage: FileHandler.getSavedImage(with: avatarImagePath),
                         ringtone: self.ringtone,
-                        notes: self.notes)
+                        notes: self.notes,
+                        uuid: self.uuid)
     }
     
     init(name: String,
-         lastname: String? = nil,
+         lastName: String? = nil,
          phoneNumber: String,
          avatarImagePath: String? = nil,
          ringtone: Ringtone = .classic,
-         notes: String? = nil) {
+         notes: String? = nil,
+         uuid: String) {
         self.name = name
-        self.lastName = lastname
+        self.lastName = lastName
         self.phoneNumber = phoneNumber
         self.avatarImagePath = avatarImagePath
         self.ringtone = ringtone
         self.notes = notes
-        self.uuid = UUID().uuidString
+        self.uuid = uuid
     }
     
     init(from persistentContact: PersistentContact) {

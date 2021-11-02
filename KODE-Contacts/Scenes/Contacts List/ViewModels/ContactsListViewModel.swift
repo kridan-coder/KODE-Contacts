@@ -12,7 +12,7 @@ protocol ContactsListViewModelDelegate: AnyObject {
     func contactListViewModelDidRequestToCreateContact(_ contactsListViewModel: ContactsListViewModel)
 }
 
-class ContactsListViewModel: ViewModel {
+class ContactsListViewModel: ViewModelEditable {
     // MARK: - Types
     typealias Dependencies = HasCoreDataClientProvider
     
@@ -28,7 +28,6 @@ class ContactsListViewModel: ViewModel {
     var titles: [String] = []
     
     private let collation = UILocalizedIndexedCollation.current()
-    private let sortSelector = #selector(getter: CollationIndexable.collationString)
     private var contacts: [ContactCellViewModel] = []
     private var filteredContacts: [ContactCellViewModel] = []
     
@@ -52,10 +51,10 @@ class ContactsListViewModel: ViewModel {
         }
         filteredContacts = contacts.filter {
             guard let safeLastName = $0.contact.lastName else {
-                return $0.contact.name.withoutSpaces.contains(text)
+                return $0.contact.name.withoutSpacesAndNewLines.contains(text)
             }
-            return safeLastName.withoutSpaces.contains(text)
-                || $0.contact.name.withoutSpaces.contains(text)
+            return safeLastName.withoutSpacesAndNewLines.contains(text)
+            || $0.contact.name.withoutSpacesAndNewLines.contains(text)
         }
         setupData()
         didUpdateData?()
@@ -79,7 +78,6 @@ class ContactsListViewModel: ViewModel {
         contacts = contacts.filter { $0.contact.uuid != contact.contact.uuid }
         filteredContacts = contacts
         setupData()
-        
         if needsToRemoveSection {
             didRemoveSection?(indexPath)
         } else {
@@ -102,6 +100,7 @@ class ContactsListViewModel: ViewModel {
     // MARK: - Private Methods
     private func setupData() {
         var sectionsDictionary: [Int: [ContactCellViewModel]] = [:]
+        let sortSelector = #selector(ContactCellViewModel.sortSelector)
         sections = []
         titles = []
         filteredContacts = collation.sortedArray(from: filteredContacts,

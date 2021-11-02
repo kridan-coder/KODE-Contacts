@@ -7,7 +7,8 @@
 
 import Foundation
 
-class ContactCellViewModel: ViewModel {
+class ContactCellViewModel: ViewModelEditable {
+    // MARK: - Properties
     var didUpdateData: (() -> Void)?
     
     var contact: Contact {
@@ -16,8 +17,14 @@ class ContactCellViewModel: ViewModel {
         }
     }
     
+    // MARK: - Init
     init(contact: Contact) {
         self.contact = contact
+    }
+    
+    // MARK: - Public Methods
+    @objc func sortSelector() -> String {
+        contact.lastName ?? contact.name
     }
     
 }

@@ -19,7 +19,7 @@ final class ContactShowViewModel {
     
     var showViewModels: [ShowViewModel] = []
     
-    var headerViewModel: HeaderViewModel?
+    var headerViewModel: ContactHeaderViewModel?
     
     var contact: Contact
     

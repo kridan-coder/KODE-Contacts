@@ -68,7 +68,7 @@ final class ContactDetailsCoordinator: Coordinator {
         let contactCreateRedactViewController = ContactCreateRedactViewController(viewModel: contactCreateRedactViewModel)
         
         let contactCreateRedactNavigationController =
-            UINavigationController.createDefaultNavigationController(backgroundColor: .white)
+        UINavigationController.createDefaultNavigationController(backgroundColor: .white)
         contactCreateRedactNavigationController.setViewControllers([contactCreateRedactViewController], animated: false)
         contactCreateRedactNavigationController.presentationController?.delegate = contactCreateRedactViewController
         

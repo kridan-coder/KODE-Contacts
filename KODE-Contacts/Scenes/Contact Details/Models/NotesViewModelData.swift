@@ -8,7 +8,16 @@
 import Foundation
 
 struct NotesViewModelData {
-    var titleLabelText: String = R.string.localizable.notes()
-    var textFieldPlaceholder: String? = R.string.localizable.wakeUpNeo()
+    let titleLabelText: String
+    let textFieldPlaceholder: String?
     var textFieldText: String?
+    
+    init(titleLabelText: String = R.string.localizable.notes(),
+         textFieldPlaceholder: String? = R.string.localizable.wakeUpNeo(),
+         textFieldText: String?) {
+        self.titleLabelText = titleLabelText
+        self.textFieldPlaceholder = textFieldPlaceholder
+        self.textFieldText = textFieldText
+    }
+    
 }

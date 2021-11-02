@@ -179,9 +179,8 @@ extension ProfileView: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updatedText = UITextField.updatedText(currentText: textField.text,
-                                                  replacementString: string,
-                                                  replacementRange: range) ?? ""
+        let updatedText = textField.text?.updatedText(replacementString: string,
+                                                      replacementRange: range) ?? ""
         
         guard updatedText.count <= Constants.maxCharacterCount else { return false }
         

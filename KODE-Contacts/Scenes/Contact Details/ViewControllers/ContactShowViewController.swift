@@ -65,6 +65,8 @@ class ContactShowViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ContactShowPartTableViewCell.self,
                            forCellReuseIdentifier: String(describing: ContactShowPartTableViewCell.self))
+        tableView.register(ContactHeaderView.self,
+                           forHeaderFooterViewReuseIdentifier: String(describing: ContactHeaderView.self))
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -74,10 +76,12 @@ class ContactShowViewController: UIViewController {
 
 extension ContactShowViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let viewModel = viewModel.headerViewModel else { return nil }
-        let view = ContactHeaderView()
-        view.configure(with: viewModel)
-        return view
+        guard let headerView = tableView
+                .dequeueReusableHeaderFooterView(withIdentifier: String(describing: ContactHeaderView.self))
+                as? ContactHeaderView,
+              let viewModel = viewModel.headerViewModel else { return nil }
+        headerView.configure(with: viewModel)
+        return headerView
     }
     
 }
@@ -90,8 +94,8 @@ extension ContactShowViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactShowPartTableViewCell.self))
                 as? ContactShowPartTableViewCell else {
-            return UITableViewCell()
-        }
+                    return UITableViewCell()
+                }
         cell.selectionStyle = .none
         cell.configure(with: viewModel.showViewModels[indexPath.row])
         return cell

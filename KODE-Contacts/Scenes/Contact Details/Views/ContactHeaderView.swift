@@ -7,16 +7,16 @@
 
 import UIKit
 
-class ContactHeaderView: UIView {
+class ContactHeaderView: UITableViewHeaderFooterView {
     // MARK: - Properties
-    private var viewModel: HeaderViewModel?
+    private var viewModel: ContactHeaderViewModel?
     
     private let contactImageView = UIImageView()
     private let fullNameLabel = UILabel()
     
     // MARK: - Init
-    init() {
-        super.init(frame: CGRect.zero)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setup()
     }
     
@@ -31,12 +31,9 @@ class ContactHeaderView: UIView {
     }
     
     // MARK: - Public Methods
-    func configure(with viewModel: HeaderViewModel) {
+    func configure(with viewModel: ContactHeaderViewModel) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = {
-            self.setupData()
-        }
     }
     
     // MARK: - Private Methods
@@ -46,7 +43,7 @@ class ContactHeaderView: UIView {
         let layer = CALayer()
         layer.backgroundColor = UIColor.almostWhite.cgColor
         layer.frame = CGRect(x: 0, y: -Constants.layerSize, width: Constants.layerSize, height: Constants.layerSize)
-        self.layer.addSublayer(layer)
+        self.contentView.layer.addSublayer(layer)
     }
     
     private func setup() {
@@ -62,7 +59,7 @@ class ContactHeaderView: UIView {
     }
     
     private func initializeUI() {
-        backgroundColor = .almostWhite
+        contentView.backgroundColor = .almostWhite
         contactImageView.clipsToBounds = true
         fullNameLabel.font = .header
         fullNameLabel.textAlignment = .center
@@ -70,8 +67,8 @@ class ContactHeaderView: UIView {
     }
     
     private func createConstraints() {
-        addSubview(contactImageView)
-        addSubview(fullNameLabel)
+        contentView.addSubview(contactImageView)
+        contentView.addSubview(fullNameLabel)
         
         contactImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(Constants.defaultInset)

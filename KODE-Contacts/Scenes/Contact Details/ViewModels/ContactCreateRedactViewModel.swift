@@ -107,19 +107,24 @@ class ContactCreateRedactViewModel {
             throw ValidationError.incorrectPhoneNumber
         }
         guard let name = contactCreating.name,
-              !name.withoutSpaces.isEmpty else {
-            throw ValidationError.noFirstName
+              !name.withoutSpacesAndNewLines.isEmpty else {
+                  throw ValidationError.noFirstName
+              }
+        
+        let uuid = contactCreating.uuid ?? UUID().uuidString
+        let avatarImagePath: String?
+        if FileHandler.saveImageWithKey(contactCreating.avatarImage, key: uuid) {
+            avatarImagePath = FileHandler.getSavedImagePath(with: uuid)
+        } else {
+            avatarImagePath = nil
         }
-
-        var newContact = Contact(name: name, phoneNumber: phoneNumberString)
-        if let uuid = contact?.uuid {
-            newContact.uuid = uuid
-        }
-        newContact.lastName = contactCreating.lastName
-        newContact.ringtone = contactCreating.ringtone ?? .classic
-        newContact.avatarImagePath = FileHandler.saveImageAndReturnFilePath(contactCreating.avatarImage,
-                                                                            with: newContact.uuid)
-        newContact.notes = contactCreating.notes
+        let newContact = Contact(name: name,
+                                 lastName: contactCreating.lastName,
+                                 phoneNumber: phoneNumberString,
+                                 avatarImagePath: avatarImagePath,
+                                 ringtone: contactCreating.ringtone,
+                                 notes: contactCreating.notes,
+                                 uuid: uuid)
         return newContact
     }
     
@@ -141,7 +146,7 @@ class ContactCreateRedactViewModel {
                                         secondTextFieldText: contact?.lastName,
                                         thirdTextFieldText: contact?.phoneNumber,
                                         avatarImage: FileHandler.getSavedImage(with: contact?.avatarImagePath)
-                                            ?? R.image.placeholder())
+                                        ?? R.image.placeholder())
         let viewModel = ProfileViewModel(data: data)
         cellViewModels.append(viewModel)
         
@@ -177,7 +182,8 @@ class ContactCreateRedactViewModel {
         cellViewModels.append(viewModel)
         
         viewModel.didUpdateData = { [weak viewModel] in
-            self.contactCreating.ringtone = viewModel?.data.pickedRingtone
+            guard let ringtone = viewModel?.data.pickedRingtone else { return }
+            self.contactCreating.ringtone = ringtone
         }
     }
     

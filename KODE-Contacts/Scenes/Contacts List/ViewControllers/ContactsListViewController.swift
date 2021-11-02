@@ -25,6 +25,12 @@ class ContactsListViewController: UIViewController {
         }
     }
     
+    private var searchText: String = "" {
+        didSet {
+            viewModel.filterContacts(with: searchText)
+        }
+    }
+    
     // MARK: - Init
     init(viewModel: ContactsListViewModel) {
         self.viewModel = viewModel
@@ -113,6 +119,11 @@ class ContactsListViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 extension ContactsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        guard !isSearching else { return .none }
+        return .delete
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             viewModel.deleteContact(at: indexPath)
@@ -153,8 +164,8 @@ extension ContactsListViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactTableViewCell.self))
                 as? ContactTableViewCell else {
-            return UITableViewCell()
-        }
+                    return UITableViewCell()
+                }
         cell.configure(with: viewModel.sections[indexPath.section][indexPath.row])
         return cell
         
@@ -170,7 +181,7 @@ extension ContactsListViewController: UITableViewDataSource {
 extension ContactsListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isSearching = true
-        viewModel.filterContacts(with: searchText)
+        self.searchText = searchText
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

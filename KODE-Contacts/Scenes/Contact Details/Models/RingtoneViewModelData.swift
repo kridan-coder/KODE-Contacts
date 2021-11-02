@@ -9,6 +9,7 @@ import Foundation
 
 struct RingtoneViewModelData {
     var titleLabelText: String = R.string.localizable.ringtone()
-    var pickerViewDataSet: [Ringtone] = Ringtone.allCases
+    let pickerViewDataSet: [Ringtone] = Ringtone.allCases
     var pickedRingtone: Ringtone = .classic
+    
 }

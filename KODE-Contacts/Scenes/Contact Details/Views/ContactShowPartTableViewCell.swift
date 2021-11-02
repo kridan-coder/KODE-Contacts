@@ -28,9 +28,6 @@ class ContactShowPartTableViewCell: UITableViewCell {
     func configure(with viewModel: ContactShowPartViewModel) {
         self.viewModel = viewModel
         setupData()
-        self.viewModel?.didUpdateData = { [weak self] in
-            self?.setupData()
-        }
     }
     
     // MARK: - Actions
@@ -63,7 +60,8 @@ class ContactShowPartTableViewCell: UITableViewCell {
     private func createConstraints() {
         contentView.addSubview(view)
         view.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview().inset(Constants.inset)
             make.top.bottom.equalToSuperview().inset(Constants.inset)
         }
     }

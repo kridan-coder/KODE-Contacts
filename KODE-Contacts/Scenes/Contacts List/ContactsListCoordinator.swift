@@ -40,7 +40,7 @@ final class ContactsListCoordinator: Coordinator {
     }
     
     // MARK: - Private Methods
-    private func startDetails(with contact: Contact?) {
+    private func startDetails(with contact: Contact? = nil) {
         let contactDetailsCoordinator = ContactDetailsCoordinator(dependencies: dependencies,
                                                                   navigationController: rootNavigationController,
                                                                   contact: contact)
@@ -58,7 +58,7 @@ extension ContactsListCoordinator: ContactsListViewModelDelegate {
     }
     
     func contactListViewModelDidRequestToCreateContact(_ contactsListViewModel: ContactsListViewModel) {
-        startDetails(with: nil)
+        startDetails()
     }
     
 }
