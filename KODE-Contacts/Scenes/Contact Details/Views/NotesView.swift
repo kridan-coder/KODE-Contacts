@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-final class NotesView: EditingInfoView {
+final class NotesView: EditingInfoViewWithTextView {
     // MARK: - Properties
     private var viewModel: ContactNotesViewModel?
     
     // MARK: - Additional setup
     override func additionalSetup() {
-        additionallynitalizeDescriptionTextViewUI()
+        additionallInitalizeDescriptionTextViewUI()
     }
     
     // MARK: - Public Methods
@@ -26,37 +26,50 @@ final class NotesView: EditingInfoView {
     // MARK: - Private Methods
     private func setupData() {
         titleLabel.text = viewModel?.data.titleLabelText
-        descriptionTextField.placeholder = viewModel?.data.textFieldPlaceholder
-        descriptionTextField.text = viewModel?.data.textFieldText
+        guard let text = viewModel?.data.textFieldText else {
+            descriptionTextView.placeholder = viewModel?.data.textFieldPlaceholder
+            return
+        }
+        descriptionTextView.text = text
     }
     
-    private func additionallynitalizeDescriptionTextViewUI() {
-        descriptionTextField.isUserInteractionEnabled = true
-        descriptionTextField.delegate = self
-        descriptionTextField.returnKeyType = .done
+    private func setupCorrectDescriptionTextViewHeight() {
+        // TODO: - The following code does not work as expected. Need to make height correct when there is a text initially.
+        descriptionTextView.text = viewModel?.data.textFieldText
+        descriptionTextView.textContainer.maximumNumberOfLines = 5
+        descriptionTextView.setupScrollAppearance()
+        descriptionTextView.sizeToFit()
+        descriptionTextView.textContainer.maximumNumberOfLines = 0
+    }
+    
+    private func additionallInitalizeDescriptionTextViewUI() {
+        descriptionTextView.isUserInteractionEnabled = true
+        descriptionTextView.delegate = self
+        descriptionTextView.returnKeyType = .done
     }
     
 }
 
 // MARK: - UITextFieldDelegate
-extension NotesView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let updatedText = textField.text?.updatedText(replacementString: string,
-                                                      replacementRange: range) ?? ""
+extension NotesView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
+        descriptionTextView.setupScrollAppearance()
+        let updatedText = descriptionTextView.text?.updatedText(replacementString: text,
+                                                                replacementRange: range) ?? ""
         
         guard updatedText.count <= Constants.maxCharacterCount else { return false }
         
-        updateViewModelData(currentTextField: textField, updatedText: updatedText)
+        updateViewModelData(currentTextView: textView, updatedText: updatedText)
         return true
     }
     
     // Helpers
-    private func updateViewModelData(currentTextField: UITextField, updatedText: String) {
+    private func updateViewModelData(currentTextView: UITextView, updatedText: String) {
         viewModel?.data.textFieldText = updatedText
         viewModel?.didUpdateData?()
     }
@@ -65,6 +78,6 @@ extension NotesView: UITextFieldDelegate {
 
 // MARK: - Constants
 private extension Constants {
-    static let maxCharacterCount = 100
+    static let maxCharacterCount = 512
     
 }

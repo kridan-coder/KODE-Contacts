@@ -9,13 +9,13 @@ import UIKit
 
 final class TextFieldWithSeparatorView: UITextField {
     // MARK: - Properties
-    private let separatorView = UIView()
-    
     var separatorColor: UIColor = .darkGraySeparatorColor {
         didSet {
             separatorView.backgroundColor = separatorColor
         }
     }
+    
+    private let separatorView = UIView()
     
     // MARK: - Init
     override init(frame: CGRect) {

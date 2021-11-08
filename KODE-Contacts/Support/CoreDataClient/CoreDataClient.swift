@@ -108,12 +108,10 @@ class CoreDataClient {
     private func createSafeComparisonFetchRequest<Entity: NSManagedObject>(columnName: String,
                                                                            value: String,
                                                                            objectType: Entity.Type) -> NSFetchRequest<Entity> {
-        let safeColumnName = columnName.validatedForSQLQuery
-        let safeValue = value.validatedForSQLQuery
         let fetchRequest: NSFetchRequest<Entity> = NSFetchRequest(entityName: String(describing: objectType))
         // TODO: - Incorrect Key Path leads to fatal error. Handle it / change the function, keeping SQL Injection safety.
-        fetchRequest.predicate = NSComparisonPredicate(leftExpression: NSExpression(forKeyPath: safeColumnName),
-                                                       rightExpression: NSExpression(forConstantValue: safeValue),
+        fetchRequest.predicate = NSComparisonPredicate(leftExpression: NSExpression(forKeyPath: columnName),
+                                                       rightExpression: NSExpression(forConstantValue: value),
                                                        modifier: .direct,
                                                        type: .equalTo,
                                                        options: .caseInsensitive)

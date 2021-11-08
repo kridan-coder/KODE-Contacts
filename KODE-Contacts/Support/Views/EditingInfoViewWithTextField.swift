@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditingInfoView: UIView {
+class EditingInfoViewWithTextField: UIView {
     // MARK: - Properties
     let titleLabel = UILabel()
     let descriptionTextField = TextFieldWithSeparatorView()
@@ -37,14 +37,14 @@ class EditingInfoView: UIView {
     // UI
     private func initializeUI() {
         initalizeTitleLabelUI()
-        initalizeDescriptionTextViewUI()
+        initalizeDescriptionTextFieldUI()
     }
     
     private func initalizeTitleLabelUI() {
         titleLabel.font = .cellTitle
     }
     
-    private func initalizeDescriptionTextViewUI() {
+    private func initalizeDescriptionTextFieldUI() {
         descriptionTextField.font = .cellItem
         descriptionTextField.textColor = .secondaryTextColor
     }

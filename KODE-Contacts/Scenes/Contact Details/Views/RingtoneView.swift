@@ -8,7 +8,7 @@
 import UIKit
 import TPKeyboardAvoiding
 
-final class RingtoneView: EditingInfoView {
+final class RingtoneView: EditingInfoViewWithTextField {
     // MARK: - Properties
     let trailingImageView = UIImageView()
     let pickerView = UIPickerView()

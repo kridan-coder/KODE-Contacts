@@ -17,6 +17,9 @@ protocol ContactCreateRedactViewModelDelegate: AnyObject {
     func contactCreateRedactViewModelDidCancelCreating(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
     
     func contactCreateRedactViewModelDidCancelEditing(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
+    
+    func contactCreateRedactViewModelDidAskToShowImagePicker(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
+    
 }
 
 class ContactCreateRedactViewModel {
@@ -38,7 +41,7 @@ class ContactCreateRedactViewModel {
     
     private var contact: Contact?
     private var contactCreating: ContactCreating
-    private var isCreatingContact: Bool
+    private var state: CreateRedactState
     
     private let dependencies: Dependencies
     
@@ -47,7 +50,7 @@ class ContactCreateRedactViewModel {
         self.dependencies = dependencies
         self.contact = contact
         
-        isCreatingContact = contact == nil
+        state = (contact == nil) ? .create : .edit
         contactCreating = contact?.asContactCreating ?? ContactCreating()
     }
     
@@ -62,46 +65,38 @@ class ContactCreateRedactViewModel {
     }
     
     func saveContact() {
-        let newContact: Contact
         do {
-            try newContact = formNewContact()
-            contact = newContact
-        } catch let error {
+            try createOrEditContact()
+        } catch {
             didReceiveError?(error)
-            return
-        }
-        
-        if isCreatingContact {
-            
-            do {
-                try dependencies.coreDataClient.createContact(newContact)
-                delegate?.contactCreateRedactViewModel(self, didFinishCreating: newContact)
-            } catch let error {
-                didReceiveError?(error)
-                return
-            }
-            
-        } else {
-            
-            do {
-                try dependencies.coreDataClient.updateContact(newContact)
-                delegate?.contactCreateRedactViewModel(self, didFinishEditing: newContact)
-            } catch let error {
-                didReceiveError?(error)
-                return
-            }
         }
     }
     
     func cancel() {
-        if isCreatingContact {
+        if state == .create {
             delegate?.contactCreateRedactViewModelDidCancelCreating(self)
         } else {
             delegate?.contactCreateRedactViewModelDidCancelEditing(self)
         }
     }
     
+    func showImagePicker() {
+        delegate?.contactCreateRedactViewModelDidAskToShowImagePicker(self)
+    }
+    
     // MARK: - Private Methods
+    private func createOrEditContact() throws {
+        let contact = try formNewContact()
+        if state == .create {
+            try dependencies.coreDataClient.createContact(contact)
+            delegate?.contactCreateRedactViewModel(self, didFinishCreating: contact)
+        } else {
+            self.contact = contact
+            try dependencies.coreDataClient.updateContact(contact)
+            delegate?.contactCreateRedactViewModel(self, didFinishEditing: contact)
+        }
+    }
+    
     private func formNewContact() throws -> Contact {
         guard let phoneNumberString = contactCreating.phoneNumber else {
             throw ValidationError.incorrectPhoneNumber
@@ -133,11 +128,13 @@ class ContactCreateRedactViewModel {
         setupProfileViewModel()
         setupRingtoneViewModel()
         setupNotesViewModel()
-        for index in 0..<cellViewModels.count {
-            cellViewModels[index].didAskToFocusNextTextField = { [weak self] in
+        
+        for var viewModel in cellViewModels {
+            viewModel.didAskToFocusNextTextField = { [weak self] in
                 self?.didAskToFocusNextTextField?()
             }
         }
+        
         didFinishUpdating?()
     }
     
@@ -165,7 +162,7 @@ class ContactCreateRedactViewModel {
             self.contactCreating.phoneNumber = viewModel?.phoneNumberString
         }
         
-        guard isCreatingContact else {
+        guard state == .create else {
             didDoneAvailable?(true)
             return
         }

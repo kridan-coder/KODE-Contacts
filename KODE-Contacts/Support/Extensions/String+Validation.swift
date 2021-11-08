@@ -8,13 +8,6 @@
 import Foundation
 
 extension String {
-    // TODO: - Think about better validation if it's possible
-    var validatedForSQLQuery: String {
-        var safeText = self
-        safeText = safeText.replacingOccurrences(of: "\"", with: "")
-        return safeText
-    }
-    
     var withoutSpacesAndNewLines: String {
         self.trimmingCharacters(in: .whitespacesAndNewlines)
     }

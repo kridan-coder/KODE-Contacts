@@ -7,18 +7,13 @@
 
 import UIKit
 import TPKeyboardAvoiding
-import AVFoundation
-import Photos
 
 class ContactCreateRedactViewController: UIViewController {
     // MARK: - Properties
-    private var stackViewSubviews: [UIView] = []
-    
     private let viewModel: ContactCreateRedactViewModel
     
     private let scrollView = TPKeyboardAvoidingScrollView()
     private let stackView = UIStackView()
-    private let imagePicker = UIImagePickerController()
     
     private var neededTextFields: [UITextField] = []
     
@@ -75,62 +70,12 @@ class ContactCreateRedactViewController: UIViewController {
     
     private func setup() {
         setupNavigationController()
-        setupImagePicker()
         setupScrollView()
         setupStackView()
     }
     
     private func showImagePicker() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        if UIImagePickerController.isCameraDeviceAvailable(.rear) {
-            alert.addAction(UIAlertAction(title: R.string.localizable.takePhoto(), style: .default) { _ in
-                self.showCamera()
-            })
-        }
-        
-        alert.addAction(UIAlertAction(title: R.string.localizable.choosePhoto(), style: .default) { _ in
-            self.showPhotoLibrary()
-        })
-        
-        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    private func showCamera() {
-        self.imagePicker.sourceType = .camera
-        AVCaptureDevice.requestAccess(for: .video) { success in
-            DispatchQueue.main.async {
-                if success {
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                } else {
-                    self.showAlertWithError(PermissionError.noAccessToCamera)
-                    
-                }
-            }
-        }
-    }
-    
-    private func showPhotoLibrary() {
-        self.imagePicker.sourceType = .photoLibrary
-        let status = PHPhotoLibrary.authorizationStatus()
-        guard status != .authorized else {
-            self.present(self.imagePicker, animated: true, completion: nil)
-            return
-        }
-        PHPhotoLibrary.requestAuthorization { status in
-            DispatchQueue.main.async {
-                switch status {
-                case .authorized:
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                    
-                default:
-                    self.showAlertWithError(PermissionError.noAccessToPhotos)
-                    
-                }
-            }
-        }
+        viewModel.showImagePicker()
     }
     
     private func setupStackViewSubviews() {
@@ -144,7 +89,7 @@ class ContactCreateRedactViewController: UIViewController {
                 stackView.addArrangedSubview(view1)
                 
             case let viewModel2 as ContactRingtoneViewModel:
-                let view2 = RingtoneView()
+                let view2 = RingtoneView(frame: CGRect.zero)
                 view2.configure(with: viewModel2)
                 stackView.addArrangedSubview(view2)
                 
@@ -158,11 +103,6 @@ class ContactCreateRedactViewController: UIViewController {
             }
         }
         
-    }
-    
-    private func setupImagePicker() {
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
     }
     
     private func setupNavigationController() {
@@ -188,23 +128,6 @@ class ContactCreateRedactViewController: UIViewController {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-        }
-    }
-    
-}
-
-// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
-extension ContactCreateRedactViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        dismiss(animated: true)
-        if let image = info[.editedImage] as? UIImage {
-            viewModel.setupImage(image)
-            return
-        }
-        
-        if let image = info[.originalImage] as? UIImage {
-            viewModel.setupImage(image)
         }
     }
     

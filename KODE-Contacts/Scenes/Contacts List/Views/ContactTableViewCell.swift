@@ -9,7 +9,7 @@ import UIKit
 
 class ContactTableViewCell: UITableViewCell {
     // MARK: - Properties
-    private var viewModel: ContactCellViewModel?
+    private var viewModel: CellViewModel?
     
     private let label = UILabel()
     
@@ -24,7 +24,7 @@ class ContactTableViewCell: UITableViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with viewModel: ContactCellViewModel) {
+    func configure(with viewModel: CellViewModel) {
         self.viewModel = viewModel
         setupData()
         viewModel.didUpdateData = { [weak self] in
@@ -35,28 +35,14 @@ class ContactTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     private func setupData() {
         guard let viewModel = viewModel else { return }
-        let fullName = viewModel.contact.fullName
-        
-        let boldTextRange = (fullName as NSString).range(of: viewModel.contact.lastName ?? viewModel.contact.name,
-                                                         options: [.backwards])
-        
-        let attributedString = NSMutableAttributedString(string: fullName,
-                                                         attributes: [NSAttributedString.Key.font: UIFont.contactName])
-        
-        attributedString.setAttributes([NSAttributedString.Key.font: UIFont.contactLastName], range: boldTextRange)
-        
-        label.attributedText = attributedString
+        label.attributedText = viewModel.attributedString
     }
     
     private func setupLabel() {
         addSubview(label)
-        
-        let horizontalInset = max(separatorInset.left, separatorInset.right)
-        let verticalInset = horizontalInset / Constants.StackView.quotient
-        
         label.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(horizontalInset)
-            make.top.bottom.equalToSuperview().inset(verticalInset)
+            make.leading.trailing.equalToSuperview().inset(Constants.horizontalInset)
+            make.top.bottom.equalToSuperview().inset(Constants.verticalInset)
         }
     }
     
@@ -64,6 +50,8 @@ class ContactTableViewCell: UITableViewCell {
 
 // MARK: - Constants
 private extension Constants {
+    static let horizontalInset = CGFloat(20)
+    static let verticalInset = CGFloat(11.25)
     struct StackView {
         static let spacing = CGFloat(8)
         static let quotient = CGFloat(4 / 3)
