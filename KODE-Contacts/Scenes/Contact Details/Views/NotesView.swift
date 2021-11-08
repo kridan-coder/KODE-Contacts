@@ -31,15 +31,7 @@ final class NotesView: EditingInfoViewWithTextView {
             return
         }
         descriptionTextView.text = text
-    }
-    
-    private func setupCorrectDescriptionTextViewHeight() {
-        // TODO: - The following code does not work as expected. Need to make height correct when there is a text initially.
-        descriptionTextView.text = viewModel?.data.textFieldText
-        descriptionTextView.textContainer.maximumNumberOfLines = 5
         descriptionTextView.setupScrollAppearance()
-        descriptionTextView.sizeToFit()
-        descriptionTextView.textContainer.maximumNumberOfLines = 0
     }
     
     private func additionallInitalizeDescriptionTextViewUI() {

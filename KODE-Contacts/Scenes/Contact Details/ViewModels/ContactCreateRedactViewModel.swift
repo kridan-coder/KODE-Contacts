@@ -170,7 +170,6 @@ class ContactCreateRedactViewModel {
         viewModel.didDoneAvailable = { [weak self] available in
             self?.didDoneAvailable?(available)
         }
-        
     }
     
     private func setupRingtoneViewModel() {
