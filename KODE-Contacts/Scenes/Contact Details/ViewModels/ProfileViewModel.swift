@@ -1,5 +1,5 @@
 //
-//  ContactCreateRedactPartViewModel1.swift
+//  ProfileViewModel.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 15.10.2021.
@@ -23,7 +23,8 @@ final class ProfileViewModel: ContactProfileViewModel {
     
     var didUpdateData: (() -> Void)?
     var didSetupImage: ((UIImage) -> Void)?
-    var didAskToFocusNextTextField: (() -> Void)?
+    var textFieldDidAskToFocusNext: ((UITextField) -> Void)?
+    var didBecomeActiveTextField: ((UITextField) -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didDoneAvailable: ((Bool) -> Void)?
     

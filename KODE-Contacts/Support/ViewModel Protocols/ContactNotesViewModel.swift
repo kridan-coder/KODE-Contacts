@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ContactNotesViewModel: ContactCreateRedactPartViewModel {
+protocol ContactNotesViewModel: ContactCreateEditPartViewModel {
     var data: NotesViewModelData { get set }
     
 }

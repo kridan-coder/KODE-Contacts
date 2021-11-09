@@ -1,5 +1,5 @@
 //
-//  ContactCreateRedactPartView3.swift
+//  NotesView.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 14.10.2021.
@@ -44,6 +44,18 @@ final class NotesView: EditingInfoViewWithTextView {
 
 // MARK: - UITextFieldDelegate
 extension NotesView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == R.string.localizable.wakeUpNeo() {
+            textView.text = nil
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = R.string.localizable.wakeUpNeo()
+        }
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()

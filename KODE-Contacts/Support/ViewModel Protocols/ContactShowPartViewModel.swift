@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ContactShowPartViewModel {
+protocol ContactShowPartViewModel: AnyObject {
     var title: String { get }
     var description: String { get }
     var descriptionHasLink: Bool { get }

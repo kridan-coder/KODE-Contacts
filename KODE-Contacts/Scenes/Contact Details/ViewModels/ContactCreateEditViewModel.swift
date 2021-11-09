@@ -1,5 +1,5 @@
 //
-//  ContactDetailsCreateRedactViewModel.swift
+//  ContactDetailsCreateEditViewModel.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 12.10.2021.
@@ -7,50 +7,66 @@
 
 import UIKit
 
-protocol ContactCreateRedactViewModelDelegate: AnyObject {
-    func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
-                                      didFinishCreating contact: Contact)
+enum CreateEditState {
+    case create
+    case edit(contact: Contact)
     
-    func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
-                                      didFinishEditing contact: Contact)
+    init(contact: Contact?) {
+        self = (contact != nil) ? .edit(contact: contact!) : .create
+    }
+}
+
+protocol ContactCreateEditViewModelDelegate: AnyObject {
+    func contactCreateEditViewModel(_ contactCreateEditViewModel: ContactCreateEditViewModel,
+                                    didFinishCreating contact: Contact)
     
-    func contactCreateRedactViewModelDidCancelCreating(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
+    func contactCreateEditViewModel(_ contactCreateEditViewModel: ContactCreateEditViewModel,
+                                    didFinishEditing contact: Contact)
     
-    func contactCreateRedactViewModelDidCancelEditing(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
+    func contactCreateEditViewModelDidCancelCreating(_ contactCreateEditViewModel: ContactCreateEditViewModel)
     
-    func contactCreateRedactViewModelDidAskToShowImagePicker(_ contactCreateRedactViewModel: ContactCreateRedactViewModel)
+    func contactCreateEditViewModelDidCancelEditing(_ contactCreateEditViewModel: ContactCreateEditViewModel)
+    
+    func contactCreateEditViewModelDidAskToShowImagePicker(_ contactCreateEditViewModel: ContactCreateEditViewModel)
     
 }
 
-class ContactCreateRedactViewModel {
+class ContactCreateEditViewModel {
     // MARK: - Types
     typealias Dependencies = HasCoreDataClientProvider
     
     // MARK: - Properties
-    weak var delegate: ContactCreateRedactViewModelDelegate?
+    weak var delegate: ContactCreateEditViewModelDelegate?
     
     var didStartUpdating: (() -> Void)?
     var didFinishUpdating: (() -> Void)?
     var didDoneAvailable: ((Bool) -> Void)?
-    var didAskToFocusNextTextField: (() -> Void)?
+    var didAskToFocusNextTextField: ((UITextField) -> Void)?
+    var didBecomeActiveTextField: ((UITextField) -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didReceiveError: ((Error) -> Void)?
     var didSetupImage: ((UIImage) -> Void)?
     
-    var cellViewModels: [ContactCreateRedactPartViewModel] = []
+    var cellViewModels: [ContactCreateEditPartViewModel] = []
     
     private var contact: Contact?
     private var contactCreating: ContactCreating
-    private var state: CreateRedactState
+    private var state: CreateEditState
     
     private let dependencies: Dependencies
     
     // MARK: - Init
-    init(dependencies: Dependencies, contact: Contact?) {
+    init(dependencies: Dependencies, state: CreateEditState) {
         self.dependencies = dependencies
-        self.contact = contact
+        self.state = state
         
-        state = (contact == nil) ? .create : .edit
+        switch state {
+        case .edit(let contact):
+            self.contact = contact
+        default:
+            break
+        }
+
         contactCreating = contact?.asContactCreating ?? ContactCreating()
     }
     
@@ -73,27 +89,29 @@ class ContactCreateRedactViewModel {
     }
     
     func cancel() {
-        if state == .create {
-            delegate?.contactCreateRedactViewModelDidCancelCreating(self)
-        } else {
-            delegate?.contactCreateRedactViewModelDidCancelEditing(self)
+        switch state {
+        case .create:
+            delegate?.contactCreateEditViewModelDidCancelCreating(self)
+        case .edit:
+            delegate?.contactCreateEditViewModelDidCancelEditing(self)
         }
     }
     
     func showImagePicker() {
-        delegate?.contactCreateRedactViewModelDidAskToShowImagePicker(self)
+        delegate?.contactCreateEditViewModelDidAskToShowImagePicker(self)
     }
     
     // MARK: - Private Methods
     private func createOrEditContact() throws {
         let contact = try formNewContact()
-        if state == .create {
+        switch state {
+        case .create:
             try dependencies.coreDataClient.createContact(contact)
-            delegate?.contactCreateRedactViewModel(self, didFinishCreating: contact)
-        } else {
+            delegate?.contactCreateEditViewModel(self, didFinishCreating: contact)
+        case .edit:
             self.contact = contact
             try dependencies.coreDataClient.updateContact(contact)
-            delegate?.contactCreateRedactViewModel(self, didFinishEditing: contact)
+            delegate?.contactCreateEditViewModel(self, didFinishEditing: contact)
         }
     }
     
@@ -129,10 +147,14 @@ class ContactCreateRedactViewModel {
         setupRingtoneViewModel()
         setupNotesViewModel()
         
-        for var viewModel in cellViewModels {
-            viewModel.didAskToFocusNextTextField = { [weak self] in
-                self?.didAskToFocusNextTextField?()
+        for viewModel in cellViewModels {
+            viewModel.textFieldDidAskToFocusNext = { [weak self] textField in
+                self?.didAskToFocusNextTextField?(textField)
             }
+            viewModel.didBecomeActiveTextField = { [weak self] textField in
+                self?.didBecomeActiveTextField?(textField)
+            }
+            
         }
         
         didFinishUpdating?()
@@ -162,13 +184,13 @@ class ContactCreateRedactViewModel {
             self.contactCreating.phoneNumber = viewModel?.phoneNumberString
         }
         
-        guard state == .create else {
+        switch state {
+        case .create:
             didDoneAvailable?(true)
-            return
-        }
-        
-        viewModel.didDoneAvailable = { [weak self] available in
-            self?.didDoneAvailable?(available)
+        case .edit:
+            viewModel.didDoneAvailable = { [weak self] available in
+                self?.didDoneAvailable?(available)
+            }
         }
     }
     

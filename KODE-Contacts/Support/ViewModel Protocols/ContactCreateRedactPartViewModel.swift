@@ -1,13 +1,14 @@
 //
-//  ContactCreateRedactPartViewModel.swift
+//  ContactCreateEditPartViewModel.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 08.11.2021.
 //
 
-import Foundation
+import UIKit
 
-protocol ContactCreateRedactPartViewModel: ViewModelEditable {
-    var didAskToFocusNextTextField: (() -> Void)? { get set }
+protocol ContactCreateEditPartViewModel: ViewModelEditable {
+    var textFieldDidAskToFocusNext: ((UITextField) -> Void)? { get set }
+    var didBecomeActiveTextField: ((UITextField) -> Void)? { get set }
     
 }

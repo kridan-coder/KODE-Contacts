@@ -51,14 +51,13 @@
 		44791E10271572E200E6FC6C /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E0F271572E200E6FC6C /* Contact.swift */; };
 		44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */; };
 		44791E1B27158CC500E6FC6C /* ContactShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E1A27158CC500E6FC6C /* ContactShowViewController.swift */; };
-		44791E1F27158D3100E6FC6C /* ContactCreateRedactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E1E27158D3100E6FC6C /* ContactCreateRedactViewController.swift */; };
-		44791E2127158E3900E6FC6C /* ContactCreateRedactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E2027158E3900E6FC6C /* ContactCreateRedactViewModel.swift */; };
+		44791E1F27158D3100E6FC6C /* ContactCreateEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E1E27158D3100E6FC6C /* ContactCreateEditViewController.swift */; };
+		44791E2127158E3900E6FC6C /* ContactCreateEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E2027158E3900E6FC6C /* ContactCreateEditViewModel.swift */; };
 		44791E282715B37100E6FC6C /* UINavigationController+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E272715B37100E6FC6C /* UINavigationController+Appearance.swift */; };
 		44791E2A2715B92400E6FC6C /* ContactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E292715B92400E6FC6C /* ContactHeaderView.swift */; };
 		44791E2C2715BAFF00E6FC6C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E2B2715BAFF00E6FC6C /* ProfileView.swift */; };
 		44791E322715BCD200E6FC6C /* UITextField+BuildTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44791E312715BCD200E6FC6C /* UITextField+BuildTextField.swift */; };
 		44B7C6BD27390B17001408DA /* Array+RangeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7C6BC27390B17001408DA /* Array+RangeValidation.swift */; };
-		44B7C6BF2739126B001408DA /* CreateRedactState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7C6BE2739126B001408DA /* CreateRedactState.swift */; };
 		44B7C6C2273913D2001408DA /* ViewModelEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7C6C1273913D2001408DA /* ViewModelEditable.swift */; };
 		44B7C6C4273913E8001408DA /* ContactHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7C6C3273913E8001408DA /* ContactHeaderViewModel.swift */; };
 		44B7C6C627391402001408DA /* ContactShowPartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7C6C527391402001408DA /* ContactShowPartViewModel.swift */; };
@@ -151,14 +150,13 @@
 		44791E0F271572E200E6FC6C /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		44791E142715766B00E6FC6C /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
 		44791E1A27158CC500E6FC6C /* ContactShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactShowViewController.swift; sourceTree = "<group>"; };
-		44791E1E27158D3100E6FC6C /* ContactCreateRedactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactViewController.swift; sourceTree = "<group>"; };
-		44791E2027158E3900E6FC6C /* ContactCreateRedactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateRedactViewModel.swift; sourceTree = "<group>"; };
+		44791E1E27158D3100E6FC6C /* ContactCreateEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateEditViewController.swift; sourceTree = "<group>"; };
+		44791E2027158E3900E6FC6C /* ContactCreateEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreateEditViewModel.swift; sourceTree = "<group>"; };
 		44791E272715B37100E6FC6C /* UINavigationController+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Appearance.swift"; sourceTree = "<group>"; };
 		44791E292715B92400E6FC6C /* ContactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHeaderView.swift; sourceTree = "<group>"; };
 		44791E2B2715BAFF00E6FC6C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		44791E312715BCD200E6FC6C /* UITextField+BuildTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+BuildTextField.swift"; sourceTree = "<group>"; };
 		44B7C6BC27390B17001408DA /* Array+RangeValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RangeValidation.swift"; sourceTree = "<group>"; };
-		44B7C6BE2739126B001408DA /* CreateRedactState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRedactState.swift; sourceTree = "<group>"; };
 		44B7C6C1273913D2001408DA /* ViewModelEditable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelEditable.swift; sourceTree = "<group>"; };
 		44B7C6C3273913E8001408DA /* ContactHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHeaderViewModel.swift; sourceTree = "<group>"; };
 		44B7C6C527391402001408DA /* ContactShowPartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactShowPartViewModel.swift; sourceTree = "<group>"; };
@@ -414,7 +412,6 @@
 				441D2A36271D44B200288666 /* RingtoneViewModelData.swift */,
 				441D2A3A271D5BB900288666 /* NotesViewModelData.swift */,
 				44BAE61B272C225B00DE27A0 /* ContactCreating.swift */,
-				44B7C6BE2739126B001408DA /* CreateRedactState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,7 +419,7 @@
 		44791E172715777C00E6FC6C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				44791E2027158E3900E6FC6C /* ContactCreateRedactViewModel.swift */,
+				44791E2027158E3900E6FC6C /* ContactCreateEditViewModel.swift */,
 				443A697D2722EAFD0023C69A /* ContactShowViewModel.swift */,
 				443A69772722E4380023C69A /* HeaderViewModel.swift */,
 				443A69792722E7A00023C69A /* ShowViewModel.swift */,
@@ -437,7 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				44791E1A27158CC500E6FC6C /* ContactShowViewController.swift */,
-				44791E1E27158D3100E6FC6C /* ContactCreateRedactViewController.swift */,
+				44791E1E27158D3100E6FC6C /* ContactCreateEditViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -777,7 +774,7 @@
 				44791E2A2715B92400E6FC6C /* ContactHeaderView.swift in Sources */,
 				44791E10271572E200E6FC6C /* Contact.swift in Sources */,
 				444FED852719A383000C7329 /* UIStackView+Subviews.swift in Sources */,
-				44791E1F27158D3100E6FC6C /* ContactCreateRedactViewController.swift in Sources */,
+				44791E1F27158D3100E6FC6C /* ContactCreateEditViewController.swift in Sources */,
 				441D2A39271D4DA000288666 /* Ringtone.swift in Sources */,
 				443A69782722E4380023C69A /* HeaderViewModel.swift in Sources */,
 				44791E322715BCD200E6FC6C /* UITextField+BuildTextField.swift in Sources */,
@@ -817,12 +814,11 @@
 				44DEA5F327215D8C0067F1DA /* ContactTableViewCell.swift in Sources */,
 				44B7C6D22739227E001408DA /* FlexibleTextView.swift in Sources */,
 				440CAC8A2718451500E6E51F /* EditingInfoViewWithTextField.swift in Sources */,
-				44791E2127158E3900E6FC6C /* ContactCreateRedactViewModel.swift in Sources */,
+				44791E2127158E3900E6FC6C /* ContactCreateEditViewModel.swift in Sources */,
 				444A5E5F27144D7100893C26 /* Coordinator.swift in Sources */,
 				44DEA5F527215DFB0067F1DA /* CellViewModel.swift in Sources */,
 				44BAE615272BE95D00DE27A0 /* String+UpdatedText.swift in Sources */,
 				44B7C6C2273913D2001408DA /* ViewModelEditable.swift in Sources */,
-				44B7C6BF2739126B001408DA /* CreateRedactState.swift in Sources */,
 				444FED8327199BDC000C7329 /* ProfileViewModelData.swift in Sources */,
 				444A5E2E271436B100893C26 /* KODE_Contacts.xcdatamodeld in Sources */,
 				44791E282715B37100E6FC6C /* UINavigationController+Appearance.swift in Sources */,

@@ -17,14 +17,14 @@ class CellViewModel: ContactCellViewModel {
         }
     }
     
-    var attributedString: NSAttributedString {
+    lazy var attributedString: NSAttributedString = {
         let textRange = (contact.fullName as NSString).range(of: contact.lastName ?? contact.name, options: [.backwards])
         let attributedString = NSMutableAttributedString(string: contact.fullName,
                                                          attributes: [NSAttributedString.Key.font: UIFont.contactName])
         
         attributedString.setAttributes([NSAttributedString.Key.font: UIFont.contactLastName], range: textRange)
         return attributedString
-    }
+    }()
     
     // MARK: - Init
     init(contact: Contact) {

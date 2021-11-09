@@ -1,5 +1,5 @@
 //
-//  ContactCreateRedactPartView1.swift
+//  ProfileView.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 12.10.2021.
@@ -14,9 +14,9 @@ class ProfileView: UIView {
     
     private let contactImageView = UIImageView()
     
-    private let nameTextField = TextFieldWithSeparatorView()
-    private let lastNameTextField = TextFieldWithSeparatorView()
-    private let phoneNumberTextField = PhoneNumberTextFieldWithSeparatorView(frame: CGRect.zero)
+    let nameTextField = TextFieldWithSeparatorView()
+    let lastNameTextField = TextFieldWithSeparatorView()
+    let phoneNumberTextField = PhoneNumberTextFieldWithSeparatorView(frame: CGRect.zero)
     
     private let toolbar = CustomToolbar(frame: CGRect.zero)
     
@@ -173,8 +173,12 @@ class ProfileView: UIView {
 
 // MARK: - UITextFieldDelegate
 extension ProfileView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        viewModel?.didBecomeActiveTextField?(textField)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        viewModel?.didAskToFocusNextTextField?()
+        viewModel?.textFieldDidAskToFocusNext?(textField)
         return true
     }
     
@@ -213,7 +217,7 @@ extension ProfileView: UITextFieldDelegate {
 // MARK: - ToolbarPickerViewDelegate
 extension ProfileView: CustomToolbarDelegate {
     func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
-        viewModel?.didAskToFocusNextTextField?()
+        viewModel?.textFieldDidAskToFocusNext?(phoneNumberTextField)
     }
     
     func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {

@@ -9,7 +9,6 @@ target 'KODE-Contacts' do
   pod 'SnapKit'
   pod 'SwiftLint'
   pod 'R.swift'
-  pod 'TPKeyboardAvoiding'
   pod 'PhoneNumberKit'
 
   target 'KODE-ContactsTests' do

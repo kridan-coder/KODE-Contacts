@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ViewModelEditable {
+protocol ViewModelEditable: AnyObject {
     var didUpdateData: (() -> Void)? { get set }
     
 }

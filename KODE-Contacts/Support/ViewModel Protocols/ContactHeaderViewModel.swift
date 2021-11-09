@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ContactHeaderViewModel {
+protocol ContactHeaderViewModel: AnyObject {
     var image: UIImage? { get }
     var fullName: String { get }
     

@@ -1,12 +1,11 @@
 //
-//  ContactCreateRedactPartView2.swift
+//  RingtoneView.swift
 //  KODE-Contacts
 //
 //  Created by Developer on 14.10.2021.
 //
 
 import UIKit
-import TPKeyboardAvoiding
 
 final class RingtoneView: EditingInfoViewWithTextField {
     // MARK: - Properties
@@ -102,7 +101,7 @@ final class RingtoneView: EditingInfoViewWithTextField {
 // MARK: - ToolbarPickerViewDelegate
 extension RingtoneView: CustomToolbarDelegate {
     func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
-        viewModel?.didAskToFocusNextTextField?()
+        viewModel?.textFieldDidAskToFocusNext?(descriptionTextField)
     }
     
     func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {
@@ -137,6 +136,10 @@ extension RingtoneView: UIPickerViewDataSource {
 
 // MARK: - UITextFieldDelegate
 extension RingtoneView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        viewModel?.didBecomeActiveTextField?(textField)
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         false
     }

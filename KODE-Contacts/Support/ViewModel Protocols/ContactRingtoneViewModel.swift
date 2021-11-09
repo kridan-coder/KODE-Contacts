@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ContactRingtoneViewModel: ContactCreateRedactPartViewModel {
+protocol ContactRingtoneViewModel: ContactCreateEditPartViewModel {
     var data: RingtoneViewModelData { get set }
     
 }

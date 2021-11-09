@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ContactProfileViewModel: ContactCreateRedactPartViewModel {
+protocol ContactProfileViewModel: ContactCreateEditPartViewModel {
     var data: ProfileViewModelData { get set }
     var didSetupImage: ((UIImage) -> Void)? { get set }
     func showImagePicker()

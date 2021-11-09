@@ -23,7 +23,7 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
     var didGetImage: ((UIImage) -> Void)?
     
     var rootNavigationController: UINavigationController
-    let contactCreateRedactNavigationController =
+    let contactCreateEditNavigationController =
     UINavigationController.createDefaultNavigationController(backgroundColor: .white)
     
     private let dependencies: AppDependencies
@@ -46,7 +46,7 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
         if let contact = contact {
             startShow(contact: contact)
         } else {
-            startCreateRedact()
+            startCreateEdit()
         }
     }
     
@@ -66,19 +66,20 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
         rootNavigationController.pushViewController(contactShowViewController, animated: true)
     }
     
-    private func startCreateRedact(contact: Contact? = nil) {
-        let contactCreateRedactViewModel = ContactCreateRedactViewModel(dependencies: dependencies, contact: contact)
-        contactCreateRedactViewModel.delegate = self
-        didGetImage = { [weak contactCreateRedactViewModel] image in
-            contactCreateRedactViewModel?.setupImage(image)
+    private func startCreateEdit(contact: Contact? = nil) {
+        let contactCreateEditViewModel = ContactCreateEditViewModel(dependencies: dependencies,
+                                                                    state: CreateEditState(contact: contact))
+        contactCreateEditViewModel.delegate = self
+        didGetImage = { [weak contactCreateEditViewModel] image in
+            contactCreateEditViewModel?.setupImage(image)
         }
         
-        let contactCreateRedactViewController = ContactCreateRedactViewController(viewModel: contactCreateRedactViewModel)
+        let contactCreateEditViewController = ContactCreateEditViewController(viewModel: contactCreateEditViewModel)
         
-        contactCreateRedactNavigationController.setViewControllers([contactCreateRedactViewController], animated: false)
-        contactCreateRedactNavigationController.presentationController?.delegate = contactCreateRedactViewController
+        contactCreateEditNavigationController.setViewControllers([contactCreateEditViewController], animated: false)
+        contactCreateEditNavigationController.presentationController?.delegate = contactCreateEditViewController
         
-        rootNavigationController.present(contactCreateRedactNavigationController, animated: true)
+        rootNavigationController.present(contactCreateEditNavigationController, animated: true)
     }
     
     private func showImagePicker() {
@@ -99,7 +100,7 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
         
         alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
         
-        contactCreateRedactNavigationController.present(alert, animated: true, completion: nil)
+        contactCreateEditNavigationController.present(alert, animated: true, completion: nil)
     }
     
     private func showCamera(with imagePicker: UIImagePickerController) {
@@ -107,9 +108,9 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
         AVCaptureDevice.requestAccess(for: .video) { success in
             DispatchQueue.main.async {
                 if success {
-                    self.contactCreateRedactNavigationController.present(imagePicker, animated: true, completion: nil)
+                    self.contactCreateEditNavigationController.present(imagePicker, animated: true, completion: nil)
                 } else {
-                    self.contactCreateRedactNavigationController.showAlertWithError(PermissionError.noAccessToCamera)
+                    self.contactCreateEditNavigationController.showAlertWithError(PermissionError.noAccessToCamera)
                     
                 }
             }
@@ -120,17 +121,17 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
         imagePicker.sourceType = .photoLibrary
         let status = PHPhotoLibrary.authorizationStatus()
         guard status != .authorized else {
-            contactCreateRedactNavigationController.present(imagePicker, animated: true, completion: nil)
+            contactCreateEditNavigationController.present(imagePicker, animated: true, completion: nil)
             return
         }
         PHPhotoLibrary.requestAuthorization { status in
             DispatchQueue.main.async {
                 switch status {
                 case .authorized:
-                    self.contactCreateRedactNavigationController.present(imagePicker, animated: true, completion: nil)
+                    self.contactCreateEditNavigationController.present(imagePicker, animated: true, completion: nil)
                     
                 default:
-                    self.contactCreateRedactNavigationController.showAlertWithError(PermissionError.noAccessToPhotos)
+                    self.contactCreateEditNavigationController.showAlertWithError(PermissionError.noAccessToPhotos)
                     
                 }
             }
@@ -139,29 +140,29 @@ final class ContactDetailsCoordinator: NSObject, Coordinator {
     
 }
 
-// MARK: - ContactCreateRedactViewModelDelegate
-extension ContactDetailsCoordinator: ContactCreateRedactViewModelDelegate {
-    func contactCreateRedactViewModelDidAskToShowImagePicker(_ contactCreateRedactViewModel: ContactCreateRedactViewModel) {
+// MARK: - ContactCreateEditViewModelDelegate
+extension ContactDetailsCoordinator: ContactCreateEditViewModelDelegate {
+    func contactCreateEditViewModelDidAskToShowImagePicker(_ contactCreateEditViewModel: ContactCreateEditViewModel) {
         showImagePicker()
     }
     
-    func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
-                                      didFinishCreating contact: Contact) {
+    func contactCreateEditViewModel(_ contactCreateEditViewModel: ContactCreateEditViewModel,
+                                    didFinishCreating contact: Contact) {
         delegate?.contactDetailsCoordinatorDidFinish(self)
     }
     
-    func contactCreateRedactViewModel(_ contactCreateRedactViewModel: ContactCreateRedactViewModel,
-                                      didFinishEditing contact: Contact) {
+    func contactCreateEditViewModel(_ contactCreateEditViewModel: ContactCreateEditViewModel,
+                                    didFinishEditing contact: Contact) {
         self.contact = contact
         didUpdateContact?(contact)
         rootNavigationController.dismiss(animated: true)
     }
     
-    func contactCreateRedactViewModelDidCancelCreating(_ contactCreateRedactViewModel: ContactCreateRedactViewModel) {
+    func contactCreateEditViewModelDidCancelCreating(_ contactCreateEditViewModel: ContactCreateEditViewModel) {
         delegate?.contactDetailsCoordinatorDidFinish(self)
     }
     
-    func contactCreateRedactViewModelDidCancelEditing(_ contactCreateRedactViewModel: ContactCreateRedactViewModel) {
+    func contactCreateEditViewModelDidCancelEditing(_ contactCreateEditViewModel: ContactCreateEditViewModel) {
         rootNavigationController.dismiss(animated: true)
     }
     
@@ -179,7 +180,7 @@ extension ContactDetailsCoordinator: ContactShowViewModelDelegate {
     }
     
     func contactShowViewModel(_ contactShowViewModel: ContactShowViewModel, didAskToEdit contact: Contact) {
-        startCreateRedact(contact: contact)
+        startCreateEdit(contact: contact)
     }
     
 }
@@ -188,7 +189,7 @@ extension ContactDetailsCoordinator: ContactShowViewModelDelegate {
 extension ContactDetailsCoordinator: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        contactCreateRedactNavigationController.dismiss(animated: true)
+        contactCreateEditNavigationController.dismiss(animated: true)
         if let image = info[.editedImage] as? UIImage {
             didGetImage?(image)
             return
