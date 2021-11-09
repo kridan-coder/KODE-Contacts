@@ -38,17 +38,6 @@ final class FlexibleTextView: UITextView {
               fontLineHeight != 0 else { return nil }
         return Int(contentSize.height / fontLineHeight)
     }
-    
-    // MARK: - Init
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
 
     // MARK: - Overrides
     override func layoutSubviews() {
@@ -61,30 +50,8 @@ final class FlexibleTextView: UITextView {
         guard let lines = numberOfLines else { return }
         isScrollEnabled = lines > Constants.criticalLinesAmountForEnablingScroll
     }
-    
-    // MARK: - Actions
-    @objc private func adjustForKeyboard(notification: Notification) {
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            contentInset = .zero
-        } else if isScrollEnabled {
-            contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
-            scrollIndicatorInsets = contentInset
-        }
-    }
-    
+
     // MARK: - Private Methods
-    private func setup() {
-        let notificationCenter = NotificationCenter.default
-        //notificationCenter.addObserver(self,
-                                      // selector: #selector(adjustForKeyboard),
-                                       //name: UIResponder.keyboardWillHideNotification,
-                                       //object: nil)
-        //notificationCenter.addObserver(self,
-                                       //selector: #selector(adjustForKeyboard),
-                                      // name: UIResponder.keyboardWillChangeFrameNotification,
-                                       //object: nil)
-    }
-    
     private func setupMaxHeight() {
         guard let fontLineHeight = font?.lineHeight else { return }
         let height = fontLineHeight * Constants.linesAmountForMaxHeight

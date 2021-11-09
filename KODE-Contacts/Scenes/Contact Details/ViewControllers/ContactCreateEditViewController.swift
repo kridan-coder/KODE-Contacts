@@ -7,22 +7,6 @@
 
 import UIKit
 
-protocol TextInputField: UIView, UITextInput {
-    var returnKeyType: UIReturnKeyType { get set }
-    func becomeFirstResponder() -> Bool
-    func resignFirstResponder() -> Bool
-}
-
-//extension TextInputField: Equatable {
-//    static func == (lhs: Self, rhs: Self) -> Bool {
-//        return lhs.frame == rhs.frame
-//    }
-//}
-
-extension UITextField: TextInputField {}
-
-extension UITextView: TextInputField {}
-
 class ContactCreateEditViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: ContactCreateEditViewModel
@@ -69,7 +53,6 @@ class ContactCreateEditViewController: UIViewController {
     @objc private func adjustForKeyboard(notification: Notification) {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
-        
         let keyboardScreenEndFrame = keyboardValue.cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
         
@@ -81,38 +64,7 @@ class ContactCreateEditViewController: UIViewController {
                                                    bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
                                                    right: 0)
         }
-        //print(view.safeAreaInsets.bottom)
-        //guard let selectedRange = textView?.selectedRange else { return }
-        //textView?.scrollRangeToVisible(selectedRange)
-        //print(selectedRange)
-
         scrollView.scrollIndicatorInsets = scrollView.contentInset
-        //adjustScrollView()
-        
-        
-        
-        //print(scrollView.frame)
-        //view.layoutIfNeeded()
-        //guard let currentTextFieldFrameInCellView = activeTextInput?.frame else { return }
-        //let currentTextFieldFrameInStackView = stackView.convert(currentTextFieldFrameInCellView, to: activeTextInput?.superview)
-        //let currentTextFieldFrameInStackView = stackView.convert(currentTextFieldFrameInCellView, from: activeTextInput?.superview)
-        //let currentTextFieldFrameInScrollView = scrollView.convert(currentTextFieldFrameInStackView, from: stackView)
-        //scrollView.scrollRectToVisible(currentTextFieldFrameInScrollView, animated: true)
-        // Get the Y position of your child view
-        // let childStartPoint = currentTextFieldFrameInScrollView.convertPoint(view.frame.origin, toView: self)
-        // Scroll to a rectangle starting at the Y of your subview, with a height of the scrollview
-        //scrollView.scrollRectToVisible(CGRect(x: 0, y: currentTextFieldFrameInScrollView.origin.y, width: 1, height: scrollView.frame.height),
-                //                       animated: true)
-        
-        //guard let currentTextFieldFrameInStackView = activeTextField?.frame else { return }
-        //let currentTextFieldFrameInScrollView = scrollView.convert(currentTextFieldFrameInStackView,
-        //                                                           from: stackView)
-        //scrollView.setContentOffset(CGPoint(x: 0, y: currentTextFieldFrameInScrollView.maxY), animated: true)
-        
-        //scrollView.scrollRectToVisible(currentTextFieldFrameInScrollView, animated: true)
-        //scrollView.scrollRectToVisible(CGRect(x: 0, y: currentTextFieldFrameInScrollView.origin.y, width: 1, height: currentTextFieldFrameInScrollView.height), animated: true)
-        //guard let selectedRange = textView?.selectedRange else { return }
-        //textView?.scrollRangeToVisible(selectedRange)
     }
     
     // MARK: - Private Methods
@@ -120,8 +72,8 @@ class ContactCreateEditViewController: UIViewController {
         viewModel.didFinishUpdating = { [weak self] in
             self?.setupStackViewSubviews()
         }
-        viewModel.didAskToFocusNextTextInput = { [weak self] textField in
-            self?.focusNextTextField(textField)
+        viewModel.didAskToFocusNextTextInput = { [weak self] textInput in
+            self?.focusNextTextInput(textInput)
         }
         viewModel.didAskToShowImagePicker = { [weak self] in
             self?.showImagePicker()
@@ -159,8 +111,7 @@ class ContactCreateEditViewController: UIViewController {
                                        name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    private func focusNextTextField(_ currentTextInput: TextInputField) {
-        
+    private func focusNextTextInput(_ currentTextInput: TextInputField) {
         var currentIndex = -1
         for index in 0..<textInputs.count where textInputs[index].frame == currentTextInput.frame {
             currentIndex = index
@@ -210,7 +161,6 @@ class ContactCreateEditViewController: UIViewController {
             case let viewModel3 as ContactNotesViewModel:
                 let view3 = NotesView()
                 view3.configure(with: viewModel3)
-                //textView = view3.descriptionTextView
                 textInputs.append(view3.descriptionTextView)
                 stackView.addArrangedSubview(view3)
                 
