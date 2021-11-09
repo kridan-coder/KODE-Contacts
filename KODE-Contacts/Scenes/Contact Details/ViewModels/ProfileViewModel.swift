@@ -23,8 +23,9 @@ final class ProfileViewModel: ContactProfileViewModel {
     
     var didUpdateData: (() -> Void)?
     var didSetupImage: ((UIImage) -> Void)?
-    var textFieldDidAskToFocusNext: ((UITextField) -> Void)?
-    var didBecomeActiveTextField: ((UITextField) -> Void)?
+    var textInputFieldDidAskToFocusNext: ((TextInputField) -> Void)?
+    
+    var didBecomeActiveTextInputField: ((TextInputField) -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didDoneAvailable: ((Bool) -> Void)?
     

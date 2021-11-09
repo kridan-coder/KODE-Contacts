@@ -12,11 +12,18 @@ final class NotesViewModel: ContactNotesViewModel {
     
     var didUpdateData: (() -> Void)?
     
-    var textFieldDidAskToFocusNext: ((UITextField) -> Void)?
-    var didBecomeActiveTextField: ((UITextField) -> Void)?
+    var textInputFieldDidAskToFocusNext: ((TextInputField) -> Void)?
+    
+    var didBecomeActiveTextInputField: ((TextInputField) -> Void)?
+    
+    var textViewDidAskToAdjustView: (() -> Void)?
     
     init(data: NotesViewModelData) {
         self.data = data
+    }
+    
+    func adjustViewToTextViewWithEnabledScroll() {
+        textViewDidAskToAdjustView?()
     }
     
 }

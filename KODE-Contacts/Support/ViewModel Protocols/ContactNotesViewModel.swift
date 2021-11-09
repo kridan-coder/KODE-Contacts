@@ -9,5 +9,5 @@ import Foundation
 
 protocol ContactNotesViewModel: ContactCreateEditPartViewModel {
     var data: NotesViewModelData { get set }
-    
+    func adjustViewToTextViewWithEnabledScroll()
 }

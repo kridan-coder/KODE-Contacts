@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ContactCreateEditPartViewModel: ViewModelEditable {
-    var textFieldDidAskToFocusNext: ((UITextField) -> Void)? { get set }
-    var didBecomeActiveTextField: ((UITextField) -> Void)? { get set }
+    var textInputFieldDidAskToFocusNext: ((TextInputField) -> Void)? { get set }
+    var didBecomeActiveTextInputField: ((TextInputField) -> Void)? { get set }
     
 }

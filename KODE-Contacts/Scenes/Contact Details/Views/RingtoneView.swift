@@ -101,7 +101,7 @@ final class RingtoneView: EditingInfoViewWithTextField {
 // MARK: - ToolbarPickerViewDelegate
 extension RingtoneView: CustomToolbarDelegate {
     func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
-        viewModel?.textFieldDidAskToFocusNext?(descriptionTextField)
+        viewModel?.textInputFieldDidAskToFocusNext?(descriptionTextField)
     }
     
     func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {
@@ -137,7 +137,7 @@ extension RingtoneView: UIPickerViewDataSource {
 // MARK: - UITextFieldDelegate
 extension RingtoneView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        viewModel?.didBecomeActiveTextField?(textField)
+        viewModel?.didBecomeActiveTextInputField?(textField)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

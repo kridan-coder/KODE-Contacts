@@ -37,7 +37,18 @@ final class NotesView: EditingInfoViewWithTextView {
     private func additionallInitalizeDescriptionTextViewUI() {
         descriptionTextView.isUserInteractionEnabled = true
         descriptionTextView.delegate = self
+        descriptionTextView.flexibleDelegate = self
         descriptionTextView.returnKeyType = .done
+    }
+    
+}
+
+// MARK: - FlexibleTextViewDelegate
+extension NotesView: FlexibleTextViewDelegate {
+    func flexibleTextView(_ flexibleTextView: FlexibleTextView, setScrollEnabled: Bool) {
+        if setScrollEnabled {
+            viewModel?.adjustViewToTextViewWithEnabledScroll()
+        }
     }
     
 }
@@ -48,6 +59,8 @@ extension NotesView: UITextViewDelegate {
         if textView.text == R.string.localizable.wakeUpNeo() {
             textView.text = nil
         }
+        viewModel?.didBecomeActiveTextInputField?(textView)
+        viewModel?.adjustViewToTextViewWithEnabledScroll()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -58,7 +71,7 @@ extension NotesView: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            textView.resignFirstResponder()
+            viewModel?.textInputFieldDidAskToFocusNext?(textView)
             return false
         }
         

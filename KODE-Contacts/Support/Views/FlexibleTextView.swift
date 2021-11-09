@@ -7,11 +7,29 @@
 
 import UIKit
 
+protocol FlexibleTextViewDelegate: AnyObject {
+    func flexibleTextView(_ flexibleTextView: FlexibleTextView, setScrollEnabled: Bool)
+}
+
 final class FlexibleTextView: UITextView {
     // MARK: - Properties
+    weak var flexibleDelegate: FlexibleTextViewDelegate?
+    
     override var font: UIFont? {
         didSet {
             setupMaxHeight()
+        }
+    }
+    
+    override var isScrollEnabled: Bool {
+        didSet {
+            flexibleDelegate?.flexibleTextView(self, setScrollEnabled: isScrollEnabled)
+        }
+    }
+    
+    var placeholder: String? {
+        didSet {
+            text = placeholder
         }
     }
     
@@ -19,12 +37,6 @@ final class FlexibleTextView: UITextView {
         guard let fontLineHeight = font?.lineHeight,
               fontLineHeight != 0 else { return nil }
         return Int(contentSize.height / fontLineHeight)
-    }
-    
-    var placeholder: String? {
-        didSet {
-            text = placeholder
-        }
     }
     
     // MARK: - Init
@@ -63,14 +75,14 @@ final class FlexibleTextView: UITextView {
     // MARK: - Private Methods
     private func setup() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(adjustForKeyboard),
-                                       name: UIResponder.keyboardWillHideNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(adjustForKeyboard),
-                                       name: UIResponder.keyboardWillChangeFrameNotification,
-                                       object: nil)
+        //notificationCenter.addObserver(self,
+                                      // selector: #selector(adjustForKeyboard),
+                                       //name: UIResponder.keyboardWillHideNotification,
+                                       //object: nil)
+        //notificationCenter.addObserver(self,
+                                       //selector: #selector(adjustForKeyboard),
+                                      // name: UIResponder.keyboardWillChangeFrameNotification,
+                                       //object: nil)
     }
     
     private func setupMaxHeight() {

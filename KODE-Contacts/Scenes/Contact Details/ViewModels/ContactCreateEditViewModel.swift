@@ -41,11 +41,12 @@ class ContactCreateEditViewModel {
     var didStartUpdating: (() -> Void)?
     var didFinishUpdating: (() -> Void)?
     var didDoneAvailable: ((Bool) -> Void)?
-    var didAskToFocusNextTextField: ((UITextField) -> Void)?
-    var didBecomeActiveTextField: ((UITextField) -> Void)?
+    var didAskToFocusNextTextInput: ((TextInputField) -> Void)?
+    var didBecomeActiveTextInput: ((TextInputField) -> Void)?
     var didAskToShowImagePicker: (() -> Void)?
     var didReceiveError: ((Error) -> Void)?
     var didSetupImage: ((UIImage) -> Void)?
+    var didAskToAdjustView: (() -> Void)?
     
     var cellViewModels: [ContactCreateEditPartViewModel] = []
     
@@ -148,13 +149,12 @@ class ContactCreateEditViewModel {
         setupNotesViewModel()
         
         for viewModel in cellViewModels {
-            viewModel.textFieldDidAskToFocusNext = { [weak self] textField in
-                self?.didAskToFocusNextTextField?(textField)
+            viewModel.didBecomeActiveTextInputField = { [weak self] textInput in
+                self?.didBecomeActiveTextInput?(textInput)
             }
-            viewModel.didBecomeActiveTextField = { [weak self] textField in
-                self?.didBecomeActiveTextField?(textField)
+            viewModel.textInputFieldDidAskToFocusNext = { [weak self] textInput in
+                self?.didAskToFocusNextTextInput?(textInput)
             }
-            
         }
         
         didFinishUpdating?()
@@ -212,6 +212,10 @@ class ContactCreateEditViewModel {
         
         viewModel.didUpdateData = { [weak viewModel] in
             self.contactCreating.notes = viewModel?.data.textFieldText
+        }
+        
+        viewModel.textViewDidAskToAdjustView = {
+            self.didAskToAdjustView?()
         }
     }
     

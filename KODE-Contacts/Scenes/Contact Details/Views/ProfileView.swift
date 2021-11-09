@@ -174,11 +174,11 @@ class ProfileView: UIView {
 // MARK: - UITextFieldDelegate
 extension ProfileView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        viewModel?.didBecomeActiveTextField?(textField)
+        viewModel?.didBecomeActiveTextInputField?(textField)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        viewModel?.textFieldDidAskToFocusNext?(textField)
+        viewModel?.textInputFieldDidAskToFocusNext?(textField)
         return true
     }
     
@@ -217,7 +217,7 @@ extension ProfileView: UITextFieldDelegate {
 // MARK: - ToolbarPickerViewDelegate
 extension ProfileView: CustomToolbarDelegate {
     func customToolbarDidChooseFirstOption(_ customToolbar: CustomToolbar) {
-        viewModel?.textFieldDidAskToFocusNext?(phoneNumberTextField)
+        viewModel?.textInputFieldDidAskToFocusNext?(phoneNumberTextField)
     }
     
     func customToolbarDidChooseSecondOption(_ customToolbar: CustomToolbar) {

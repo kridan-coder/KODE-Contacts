@@ -7,6 +7,22 @@
 
 import UIKit
 
+protocol TextInputField: UIView, UITextInput {
+    var returnKeyType: UIReturnKeyType { get set }
+    func becomeFirstResponder() -> Bool
+    func resignFirstResponder() -> Bool
+}
+
+//extension TextInputField: Equatable {
+//    static func == (lhs: Self, rhs: Self) -> Bool {
+//        return lhs.frame == rhs.frame
+//    }
+//}
+
+extension UITextField: TextInputField {}
+
+extension UITextView: TextInputField {}
+
 class ContactCreateEditViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: ContactCreateEditViewModel
@@ -14,9 +30,8 @@ class ContactCreateEditViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
-    private var textFields: [UITextField] = []
-    private var textView: UITextView?
-    private var activeTextField: UITextField?
+    private var textInputs: [TextInputField] = []
+    private var activeTextInput: TextInputField?
     
     private var doneBarButton: UIBarButtonItem?
     private var cancelBarButton: UIBarButtonItem?
@@ -35,6 +50,7 @@ class ContactCreateEditViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         view.backgroundColor = .white
         setup()
         bindToViewModel()
@@ -65,13 +81,23 @@ class ContactCreateEditViewController: UIViewController {
                                                    bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
                                                    right: 0)
         }
-        
+        //print(view.safeAreaInsets.bottom)
+        //guard let selectedRange = textView?.selectedRange else { return }
+        //textView?.scrollRangeToVisible(selectedRange)
+        //print(selectedRange)
+
         scrollView.scrollIndicatorInsets = scrollView.contentInset
-        print(scrollView.frame)
-        view.layoutIfNeeded()
-        guard let currentTextFieldFrameInStackView = textView?.frame else { return }
-        let currentTextFieldFrameInScrollView = scrollView.convert(currentTextFieldFrameInStackView,from: stackView)
-        scrollView.scrollRectToVisible(currentTextFieldFrameInScrollView, animated: true)
+        //adjustScrollView()
+        
+        
+        
+        //print(scrollView.frame)
+        //view.layoutIfNeeded()
+        //guard let currentTextFieldFrameInCellView = activeTextInput?.frame else { return }
+        //let currentTextFieldFrameInStackView = stackView.convert(currentTextFieldFrameInCellView, to: activeTextInput?.superview)
+        //let currentTextFieldFrameInStackView = stackView.convert(currentTextFieldFrameInCellView, from: activeTextInput?.superview)
+        //let currentTextFieldFrameInScrollView = scrollView.convert(currentTextFieldFrameInStackView, from: stackView)
+        //scrollView.scrollRectToVisible(currentTextFieldFrameInScrollView, animated: true)
         // Get the Y position of your child view
         // let childStartPoint = currentTextFieldFrameInScrollView.convertPoint(view.frame.origin, toView: self)
         // Scroll to a rectangle starting at the Y of your subview, with a height of the scrollview
@@ -94,7 +120,7 @@ class ContactCreateEditViewController: UIViewController {
         viewModel.didFinishUpdating = { [weak self] in
             self?.setupStackViewSubviews()
         }
-        viewModel.didAskToFocusNextTextField = { [weak self] textField in
+        viewModel.didAskToFocusNextTextInput = { [weak self] textField in
             self?.focusNextTextField(textField)
         }
         viewModel.didAskToShowImagePicker = { [weak self] in
@@ -106,9 +132,23 @@ class ContactCreateEditViewController: UIViewController {
         viewModel.didDoneAvailable = { [weak self] available in
             self?.doneBarButton?.isEnabled = available
         }
-        viewModel.didBecomeActiveTextField = { [weak self] textField in
-            self?.activeTextField = textField
+        viewModel.didBecomeActiveTextInput = { [weak self] textInput in
+            self?.activeTextInput = textInput
         }
+        viewModel.didAskToAdjustView = { [weak self] in
+            self?.adjustScrollView()
+        }
+    }
+    
+    private func adjustScrollView() {
+        guard let textInput = activeTextInput else { return }
+        
+        let currentTextFieldFrameInCellView = textInput.frame
+        let currentTextFieldFrameInStackView = stackView.convert(currentTextFieldFrameInCellView,
+                                                                 from: activeTextInput?.superview)
+        let currentTextFieldFrameInScrollView = scrollView.convert(currentTextFieldFrameInStackView,
+                                                                   from: stackView)
+        scrollView.scrollRectToVisible(currentTextFieldFrameInScrollView, animated: true)
     }
     
     private func setupNotifications() {
@@ -119,18 +159,22 @@ class ContactCreateEditViewController: UIViewController {
                                        name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    private func focusNextTextField(_ currentTextField: UITextField) {
+    private func focusNextTextField(_ currentTextInput: TextInputField) {
         
-        print(scrollView.frame)
-        guard let currentIndex = textFields.firstIndex(of: currentTextField) else { return }
-        guard !textFields.indexOutOfRange(currentIndex + 1) else {
-            textView?.returnKeyType = .done
-            textView?.becomeFirstResponder()
+        var currentIndex = -1
+        for index in 0..<textInputs.count where textInputs[index].frame == currentTextInput.frame {
+            currentIndex = index
+        }
+        
+        guard currentIndex != -1 else { return }
+        let nextIndex = currentIndex + 1
+        guard !textInputs.indexOutOfRange(nextIndex) else {
+            currentTextInput.resignFirstResponder()
             return
         }
-        let nextTextField = textFields[currentIndex + 1]
-        nextTextField.returnKeyType = .next
-        nextTextField.becomeFirstResponder()
+        let nextTextInput = textInputs[nextIndex]
+        nextTextInput.returnKeyType = (nextIndex == textInputs.count - 1) ? .done : .next
+        nextTextInput.becomeFirstResponder()
     }
     
     private func setup() {
@@ -146,28 +190,28 @@ class ContactCreateEditViewController: UIViewController {
     
     private func setupStackViewSubviews() {
         stackView.removeAllArrangedSubviews()
-        textFields = []
+        textInputs = []
         for viewModel in viewModel.cellViewModels {
             switch viewModel {
             case let viewModel1 as ContactProfileViewModel:
                 let view1 = ProfileView()
                 view1.configure(with: viewModel1)
-                textFields.append(view1.nameTextField)
-                textFields.append(view1.lastNameTextField)
-                textFields.append(view1.phoneNumberTextField)
+                textInputs.append(view1.nameTextField)
+                textInputs.append(view1.lastNameTextField)
+                textInputs.append(view1.phoneNumberTextField)
                 stackView.addArrangedSubview(view1)
                 
             case let viewModel2 as ContactRingtoneViewModel:
                 let view2 = RingtoneView(frame: CGRect.zero)
                 view2.configure(with: viewModel2)
-                textFields.append(view2.descriptionTextField)
+                textInputs.append(view2.descriptionTextField)
                 stackView.addArrangedSubview(view2)
                 
             case let viewModel3 as ContactNotesViewModel:
                 let view3 = NotesView()
                 view3.configure(with: viewModel3)
-                textView = view3.descriptionTextView
-                //textFields.append(view3.descriptionTextView)
+                //textView = view3.descriptionTextView
+                textInputs.append(view3.descriptionTextView)
                 stackView.addArrangedSubview(view3)
                 
             default:

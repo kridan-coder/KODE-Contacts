@@ -8,12 +8,13 @@
 import UIKit
 
 final class RingtoneViewModel: ContactRingtoneViewModel {
+    var textInputFieldDidAskToFocusNext: ((TextInputField) -> Void)?
+    
+    var didBecomeActiveTextInputField: ((TextInputField) -> Void)?
+    
     var data: RingtoneViewModelData
     
     var didUpdateData: (() -> Void)?
-    
-    var textFieldDidAskToFocusNext: ((UITextField) -> Void)?
-    var didBecomeActiveTextField: ((UITextField) -> Void)?
     
     init(data: RingtoneViewModelData) {
         self.data = data

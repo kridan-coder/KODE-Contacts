@@ -77,6 +77,7 @@
 		44E4BE7F2727D33100B60726 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E4BE7E2727D33100B60726 /* InfoView.swift */; };
 		774B8B1A312399324A8F68DC /* Pods_KODE_Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30E049690EA00A0D7036787 /* Pods_KODE_Contacts.framework */; };
 		8B1B62A93F584131891FBEBC /* Pods_KODE_ContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B638084B75F7EF3A5E3C5CA8 /* Pods_KODE_ContactsTests.framework */; };
+		A5098D5A273B0ADD009E99A9 /* UIViewController+KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5098D59273B0ADD009E99A9 /* UIViewController+KeyboardDismiss.swift */; };
 		F4D6CBACFEE0CA77A7223C85 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB49A5CB61CE6BF62E624A8 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,7 @@
 		44E4BE7E2727D33100B60726 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		73260373B9C06759E7A3E8AD /* Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig"; path = "Target Support Files/Pods-KODE-Contacts-KODE-ContactsUITests/Pods-KODE-Contacts-KODE-ContactsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A30E049690EA00A0D7036787 /* Pods_KODE_Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KODE_Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5098D59273B0ADD009E99A9 /* UIViewController+KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+KeyboardDismiss.swift"; sourceTree = "<group>"; };
 		AFB49A5CB61CE6BF62E624A8 /* Pods_KODE_Contacts_KODE_ContactsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KODE_Contacts_KODE_ContactsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B638084B75F7EF3A5E3C5CA8 /* Pods_KODE_ContactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KODE_ContactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30078247CDCAC85096953A7 /* Pods-KODE-Contacts-KODE-ContactsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KODE-Contacts-KODE-ContactsUITests.debug.xcconfig"; path = "Target Support Files/Pods-KODE-Contacts-KODE-ContactsUITests/Pods-KODE-Contacts-KODE-ContactsUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				44B7C6BC27390B17001408DA /* Array+RangeValidation.swift */,
 				44791E272715B37100E6FC6C /* UINavigationController+Appearance.swift */,
 				44149B67271E9CF300F134DE /* UIViewController+Alert.swift */,
+				A5098D59273B0ADD009E99A9 /* UIViewController+KeyboardDismiss.swift */,
 				44149B69271E9D1F00F134DE /* UIAlertController+BuildAlert.swift */,
 				44791E312715BCD200E6FC6C /* UITextField+BuildTextField.swift */,
 				444FED842719A383000C7329 /* UIStackView+Subviews.swift */,
@@ -792,6 +795,7 @@
 				44791E152715766B00E6FC6C /* ContactDetailsCoordinator.swift in Sources */,
 				444A5E24271436B100893C26 /* AppDelegate.swift in Sources */,
 				44149B68271E9CF300F134DE /* UIViewController+Alert.swift in Sources */,
+				A5098D5A273B0ADD009E99A9 /* UIViewController+KeyboardDismiss.swift in Sources */,
 				444A5E6E2714531C00893C26 /* ContactsListViewController.swift in Sources */,
 				44791E0D271563B700E6FC6C /* UIColor+AppColors.swift in Sources */,
 				44B7C6C827391415001408DA /* ContactCellViewModel.swift in Sources */,

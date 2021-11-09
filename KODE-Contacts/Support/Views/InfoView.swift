@@ -67,7 +67,7 @@ class InfoView: UIView {
     private func createConstraintsForDescriptionLabel() {
         descriptionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(Constants.DescriptionLabel.insetBig)
-            make.trailing.equalToSuperview().inset(-Constants.DescriptionLabel.insetSmall)
+            make.trailing.equalToSuperview().inset(Constants.DescriptionLabel.insetSmall)
             make.top.equalTo(titleLabel.snp.bottom).inset(-Constants.DescriptionLabel.insetSmall)
             make.bottom.equalToSuperview()
         }
